@@ -2,6 +2,7 @@ import { Type, type StaticDecode, type TSchema, type TString } from '@sinclair/t
 import { Value } from '@sinclair/typebox/value'
 import { shallowRef, watch } from 'vue'
 import { isCommandName, type CommandName } from './editor/commands'
+import { defaultLocale } from './i18n/locale'
 import { localizations } from './i18n/localizations'
 import { storageGet, storageRemove, storageSet } from './storage'
 import { clamp } from './utils/math'
@@ -30,6 +31,7 @@ const settingsProperties = {
 
     locale: Type.Union(
         Object.keys(localizations).map((locale) => Type.Literal(locale)),
+        { default: defaultLocale },
     ) as never as TString,
 
     autoSave: Type.Boolean({ default: true }),
