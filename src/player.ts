@@ -86,7 +86,9 @@ export const startPlayer = (speed: number) => {
         nodes: new Set(),
     }
 
-    void context.resume()
+    if (context.state !== 'running') {
+        void context.resume()
+    }
 
     if (bgm.value.buffer)
         schedule(
@@ -103,8 +105,6 @@ export const startPlayer = (speed: number) => {
 
 export const stopPlayer = () => {
     if (!state) return
-
-    void context.suspend()
 
     for (const node of state.nodes) {
         node.disconnect()
