@@ -27,6 +27,8 @@ let state:
       }
     | undefined
 
+let preview: AudioNode | undefined
+
 watch(time, ({ now }) => {
     if (!state) return
 
@@ -86,9 +88,7 @@ export const startPlayer = (speed: number) => {
         nodes: new Set(),
     }
 
-    if (context.state !== 'running') {
-        void context.resume()
-    }
+    startContext()
 
     if (bgm.value.buffer)
         schedule(
@@ -111,6 +111,42 @@ export const stopPlayer = () => {
     }
 
     state = undefined
+}
+
+export const previewPlayer = () => {
+    startContext()
+
+    if (!bgm.value.buffer) return
+
+    const offset = view.cursorTime + bgm.value.offset
+    if (offset < 0) return
+
+    const source = new AudioBufferSourceNode(context, {
+        buffer: bgm.value.buffer,
+    })
+    const gain = new GainNode(context, {
+        gain: settings.playBgmVolume / 100,
+    })
+
+    gain.connect(context.destination)
+    preview = gain
+
+    source.connect(gain)
+
+    const time = context.currentTime
+    gain.gain.linearRampToValueAtTime(0, time + 0.5)
+    source.start(time, offset, 0.5)
+}
+
+const startContext = () => {
+    if (context.state !== 'running') {
+        void context.resume()
+    }
+
+    if (preview) {
+        preview.disconnect()
+        preview = undefined
+    }
 }
 
 const schedule = (

@@ -1,6 +1,6 @@
 import { watch } from 'vue'
 import { i18n } from '../i18n'
-import { startPlayer as _startPlayer, stopPlayer as _stopPlayer } from '../player'
+import { startPlayer as _startPlayer, stopPlayer as _stopPlayer, previewPlayer } from '../player'
 import { settings } from '../settings'
 import { time } from '../time'
 import { interpolate } from '../utils/interpolate'
@@ -30,6 +30,15 @@ watch(time, ({ now }) => {
         view.cursorTime + ((0.5 - settings.playFollowPosition / 100) * view.h) / settings.pps,
     )
 })
+
+watch(
+    () => view.cursorTime,
+    () => {
+        if (state) return
+
+        previewPlayer()
+    },
+)
 
 export const startOrStopPlayer = () => {
     if (state) {
