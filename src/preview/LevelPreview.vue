@@ -28,6 +28,7 @@ const transform = computed(() => `scale(1, -1) ${getTransform(zoom.value)}`)
         ref="container"
         class="size-full"
         :viewBox="`${-aspectRatio} -1 ${aspectRatio * 2} 2`"
+        font-size="0.15"
         stroke="none"
         stroke-width="0.01"
         fill="none"

@@ -4,13 +4,15 @@ import { bpms } from '../history/bpms'
 import { settings } from '../settings'
 import { timeToBeat } from '../state/integrals/bpms'
 import { formatBeat, formatTime } from '../utils/format'
-import { view } from './view'
+import { view, viewBox } from './view'
 
 const hover = computed(() => ({
     top: 0.5 * view.h - (view.hoverTime - view.time) * settings.pps,
     time: view.hoverTime,
     beat: timeToBeat(bpms.value, view.hoverTime),
 }))
+
+const width = computed(() => 8 / viewBox.value.w)
 </script>
 
 <template>
@@ -20,5 +22,14 @@ const hover = computed(() => ({
     >
         <span>{{ formatTime(hover.time) }}</span>
         <span>{{ formatBeat(hover.beat) }}</span>
+    </div>
+
+    <div
+        class="absolute flex w-full -translate-y-1/2 justify-center text-white/50"
+        :style="{ top: `${hover.top}px` }"
+    >
+        <div class="flex justify-around" :style="{ width: `${width * 100}%` }">
+            <span v-for="i in 8" :key="i">{{ 8 - i }}</span>
+        </div>
     </div>
 </template>

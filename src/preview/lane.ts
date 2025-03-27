@@ -14,5 +14,13 @@ export const getLane = (lane: number, scale: number, shift: number, rotate: numb
     ] as const
 }
 
+export const getLaneCenter = (lane: number, scale: number, shift: number, rotate: number) => {
+    const m = new Vec(0, -1)
+    const y = -shift * 0.2
+    const a = (-(lane + rotate) / 4) * Math.PI
+
+    return m.mul(scale).translate(0, y).rotate(a)
+}
+
 export const laneLayout = (l: Vec, r: Vec) =>
     toPoints(transform(l, 1), transform(l, 0), transform(r, 0), transform(r, 1))
