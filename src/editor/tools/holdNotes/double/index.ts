@@ -13,13 +13,12 @@ export const doubleHoldNote = createHoldNoteTool(
     () => i18n.value.tools.holdNotes.types.doubleHoldNote,
     (entity) => showModal(DoubleHoldNotePropertiesModal, { object: entity }),
 
-    (beat, lane) => ({
+    (beat, lane, joint) => ({
         beat,
-        color: 0,
+        color: joint?.color ?? 0,
         laneL: Math.min(lane, 6),
         laneR: Math.min(lane, 6) + 1,
     }),
-
     (entity, beat, laneOffset) => ({
         beat,
         color: entity.color,

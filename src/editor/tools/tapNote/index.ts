@@ -47,6 +47,7 @@ export const tapNote: Tool = {
                         beat,
                         color: 0,
                         lane,
+                        ...getPropertiesFromSelection(),
                     }),
                 ],
             }
@@ -77,6 +78,7 @@ export const tapNote: Tool = {
                 beat,
                 color: 0,
                 lane,
+                ...getPropertiesFromSelection(),
             })
             focusViewAtBeat(beat)
         }
@@ -133,6 +135,17 @@ export const tapNote: Tool = {
 
         active = undefined
     },
+}
+
+const getPropertiesFromSelection = () => {
+    if (selectedEntities.value.length !== 1) return
+
+    const [entity] = selectedEntities.value
+    if (entity?.type !== 'tapNote') return
+
+    return {
+        color: entity.color,
+    }
 }
 
 const find = (beat: number, lane: number) =>

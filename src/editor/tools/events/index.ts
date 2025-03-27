@@ -27,6 +27,17 @@ export const createEventTool = <T extends EventJointEntityType>(
     addEntity: AddMutation<EventObject>,
     removeEntity: RemoveMutation<EntityOfType<T>>,
 ): Tool => {
+    const getPropertiesFromSelection = () => {
+        if (selectedEntities.value.length !== 1) return
+
+        const [entity] = selectedEntities.value
+        if (entity?.type !== type) return
+
+        return {
+            ease: entity.ease,
+        }
+    }
+
     const find = (beat: number) =>
         getInStoreGrid(store.value.grid, type, beat)?.find((entity) => entity.beat === beat)
 
@@ -148,6 +159,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                             beat,
                             value,
                             ease: 'linear',
+                            ...getPropertiesFromSelection(),
                         }),
                     ],
                 }
@@ -176,6 +188,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                     beat,
                     value,
                     ease: 'linear',
+                    ...getPropertiesFromSelection(),
                 }
 
                 const overlap = find(object.beat)

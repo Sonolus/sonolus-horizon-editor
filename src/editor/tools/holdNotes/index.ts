@@ -29,7 +29,7 @@ export const createHoldNoteTool = <
     objectName: () => string,
     showPropertiesModal: (object: EntityOfType<U>) => Promise<T | undefined>,
 
-    getObject: (beat: number, lane: number) => T,
+    getObject: (beat: number, lane: number, joint: EntityOfType<U> | undefined) => T,
     shiftObject: (entity: EntityOfType<U>, beat: number, laneOffset: number) => T,
 
     jointType: U,
@@ -38,6 +38,15 @@ export const createHoldNoteTool = <
     addJointEntity: (transaction: Transaction, id: HoldNoteId, object: T) => Entity[],
     removeJointEntity: (transaction: Transaction, entity: EntityOfType<U>) => void,
 ): Tool => {
+    const getJointFromSelection = () => {
+        if (selectedEntities.value.length !== 1) return
+
+        const [entity] = selectedEntities.value
+        if (entity?.type !== jointType) return
+
+        return entity as EntityOfType<U>
+    }
+
     const find = (beat: number, lane: number) =>
         getInStoreGrid(store.value.grid, jointType, beat)?.find(
             (entity) => entity.beat === beat && isInFindLane(entity, lane),
@@ -173,7 +182,12 @@ export const createHoldNoteTool = <
             } else {
                 view.entities = {
                     hovered: [],
-                    creating: [toJointEntity(createHoldNoteId(), getObject(beat, lane))],
+                    creating: [
+                        toJointEntity(
+                            createHoldNoteId(),
+                            getObject(beat, lane, getJointFromSelection()),
+                        ),
+                    ],
                 }
             }
         },
@@ -198,7 +212,11 @@ export const createHoldNoteTool = <
             } else {
                 const id = getSelectedId()
                 if (id) {
-                    const object = getObject(yToValidBeat(y), xToValidLane(x))
+                    const object = getObject(
+                        yToValidBeat(y),
+                        xToValidLane(x),
+                        getJointFromSelection(),
+                    )
 
                     const overlap = findOverlap(id, object.beat)
                     if (overlap) {
@@ -207,7 +225,7 @@ export const createHoldNoteTool = <
                         addJoint(id, object)
                     }
                 } else {
-                    addJoint(createHoldNoteId(), getObject(beat, lane))
+                    addJoint(createHoldNoteId(), getObject(beat, lane, getJointFromSelection()))
                     focusViewAtBeat(beat)
                 }
             }

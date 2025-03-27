@@ -13,12 +13,12 @@ export const singleHoldNote = createHoldNoteTool(
     () => i18n.value.tools.holdNotes.types.singleHoldNote,
     (entity) => showModal(SingleHoldNotePropertiesModal, { object: entity }),
 
-    (beat, lane) => ({
+    (beat, lane, joint) => ({
         beat,
-        color: 0,
+        color: joint?.color ?? 0,
         lane,
-        scaleL: 0,
-        scaleR: 0,
+        scaleL: joint?.scaleL ?? 0,
+        scaleR: joint?.scaleR ?? 0,
     }),
     (entity, beat, laneOffset) => ({
         beat,
