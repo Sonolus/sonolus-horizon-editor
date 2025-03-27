@@ -57,8 +57,8 @@
       "switched": "회전 이벤트 도구로 변경됨"
     },
     "shiftEvent": {
-      "title": "기울기 이벤트 도구로 변경",
-      "switched": "기울기 이벤트 도구로 변경됨"
+      "title": "이동 이벤트 도구로 변경",
+      "switched": "이동 이벤트 도구로 변경됨"
     },
     "zoomEvent": {
       "title": "줌 이벤트 도구로 변경",
@@ -171,7 +171,7 @@
           "singleHoldNote": "단일 유지 노트",
           "doubleHoldNote": "동시 유지 노트",
           "rotateEvent": "회전 이벤트",
-          "shiftEvent": "기울기 이벤트",
+          "shiftEvent": "이동 이벤트",
           "zoomEvent": "줌 이벤트",
           "timeScale": "시간 배율",
           "bpm": "BPM"
@@ -271,10 +271,10 @@
         "move": "하나의 회전 이벤트 객체를 드래그하여 옮깁니다."
       },
       "shiftEventTool": {
-        "title": "기울기 이벤트 도구",
-        "edit": "하나의 기울기 이벤트 객체를 눌러 편집합니다.",
+        "title": "이동 이벤트 도구",
+        "edit": "하나의 이동 이벤트 객체를 눌러 편집합니다.",
         "add": "빈 곳을 눌러 추가합니다.",
-        "move": "하나의 기울기 이벤트 객체를 드래그하여 옮깁니다."
+        "move": "하나의 이동 이벤트 객체를 드래그하여 옮깁니다."
       },
       "zoomEventTool": {
         "title": "줌 이벤트 도구",
@@ -370,7 +370,7 @@
       "replaced": "{1} 객체 {0}개 재배치됨",
       "types": {
         "rotateEvent": "회전 이벤트",
-        "shiftEvent": "기울기 이벤트",
+        "shiftEvent": "이동 이벤트",
         "zoomEvent": "줌 이벤트"
       },
       "modals": {
@@ -381,7 +381,7 @@
           "beat": "비트"
         },
         "shiftEvent": {
-          "title": "기울기 이벤트 속성",
+          "title": "이동 이벤트 속성",
           "value": "값",
           "ease": "함수",
           "beat": "비트"
