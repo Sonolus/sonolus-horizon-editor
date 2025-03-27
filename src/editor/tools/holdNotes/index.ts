@@ -14,7 +14,7 @@ import { align } from '../../../utils/math'
 import { notify } from '../../notification'
 import {
     focusViewAtBeat,
-    setViewHoverTime,
+    setViewHover,
     view,
     xToLane,
     xToValidLane,
@@ -239,7 +239,7 @@ export const createHoldNoteTool = <
         dragUpdate(x, y) {
             if (!active) return
 
-            setViewHoverTime(y)
+            setViewHover(x, y)
 
             view.entities = {
                 hovered: [],

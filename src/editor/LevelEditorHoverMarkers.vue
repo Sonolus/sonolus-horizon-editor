@@ -25,11 +25,16 @@ const width = computed(() => 8 / viewBox.value.w)
     </div>
 
     <div
-        class="absolute flex w-full -translate-y-1/2 justify-center text-white/50"
+        class="absolute flex w-full -translate-y-1/2 justify-center"
         :style="{ top: `${hover.top}px` }"
     >
         <div class="flex justify-around" :style="{ width: `${width * 100}%` }">
-            <span v-for="i in 8" :key="i">{{ 8 - i }}</span>
+            <span
+                v-for="i in 8"
+                :key="i"
+                :class="8 - i === view.hoverLane ? 'text-white' : 'text-white/50'"
+                >{{ 8 - i }}</span
+            >
         </div>
     </div>
 </template>

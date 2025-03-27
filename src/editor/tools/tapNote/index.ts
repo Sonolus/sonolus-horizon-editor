@@ -15,7 +15,7 @@ import { align, mod } from '../../../utils/math'
 import { notify } from '../../notification'
 import {
     focusViewAtBeat,
-    setViewHoverTime,
+    setViewHover,
     view,
     xToLane,
     xToValidLane,
@@ -108,7 +108,7 @@ export const tapNote: Tool = {
     dragUpdate(x, y) {
         if (!active) return
 
-        setViewHoverTime(y)
+        setViewHover(x, y)
 
         view.entities = {
             hovered: [],

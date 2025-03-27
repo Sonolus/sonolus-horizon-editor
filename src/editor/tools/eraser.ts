@@ -15,7 +15,7 @@ import { removeTimeScale } from '../../state/mutations/values/timeScale'
 import { createTransaction } from '../../state/transaction'
 import { interpolate } from '../../utils/interpolate'
 import { notify } from '../notification'
-import { focusViewAtBeat, setViewHoverTime, view, xToLane, yToTime, yToValidBeat } from '../view'
+import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
 import { hitEntitiesAtPoint, hitEntitiesInSelection, toSelection } from './utils'
 
 let active:
@@ -80,7 +80,7 @@ export const eraser: Tool = {
     dragUpdate(x, y) {
         if (!active) return
 
-        setViewHoverTime(y)
+        setViewHover(x, y)
 
         const selection = toSelection(active.lane, active.time, x, y)
         const selectedEntities = hitEntitiesInSelection(selection).filter(canRemove)

@@ -25,7 +25,7 @@ import { createTransaction, type Transaction } from '../../state/transaction'
 import { interpolate } from '../../utils/interpolate'
 import type { Ease } from '../ease'
 import { notify } from '../notification'
-import { focusViewAtBeat, setViewHoverTime, view, xToLane, yToTime, yToValidBeat } from '../view'
+import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
 import { hitEntitiesAtPoint, hitEntitiesInSelection, toSelection } from './utils'
 
 export type BrushProperties = {
@@ -101,7 +101,7 @@ export const brush: Tool = {
     dragUpdate(x, y) {
         if (!active) return
 
-        setViewHoverTime(y)
+        setViewHover(x, y)
 
         const selection = toSelection(active.lane, active.time, x, y)
         const selectedEntities = hitEntitiesInSelection(selection)

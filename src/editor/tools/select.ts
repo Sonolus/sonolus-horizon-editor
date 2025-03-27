@@ -55,7 +55,7 @@ import { createTransaction, type Transaction } from '../../state/transaction'
 import { interpolate } from '../../utils/interpolate'
 import { align, clamp, mod } from '../../utils/math'
 import { notify } from '../notification'
-import { focusViewAtBeat, setViewHoverTime, view, xToLane, yToTime, yToValidBeat } from '../view'
+import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
 import { hitEntitiesAtPoint, hitEntitiesInSelection, toSelection } from './utils'
 
 let active:
@@ -187,7 +187,7 @@ export const select: Tool = {
     dragUpdate(x, y, isShift) {
         if (!active) return
 
-        setViewHoverTime(y)
+        setViewHover(x, y)
 
         if (active.type === 'select') {
             const selection = toSelection(active.lane, active.time, x, y)

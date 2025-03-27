@@ -1,7 +1,7 @@
 import { settings } from '../../settings'
 import { stopPlayer } from '../player'
 import { switchToolTo, tool, toolName, type ToolName } from '../tools'
-import { scrollViewBy, setViewHoverTime, updateViewPointer, view } from '../view'
+import { scrollViewBy, setViewHover, updateViewPointer, view } from '../view'
 import { gesture } from './gestures/gesture'
 import { drag } from './gestures/recognizers/drag'
 import { tap } from './gestures/recognizers/tap'
@@ -41,7 +41,7 @@ const mousemove = (event: MouseEvent) => {
     if (mouseGesture.pointerCount) {
         mouseGesture.move([p])
     } else {
-        setViewHoverTime(p.y)
+        setViewHover(p.x, p.y)
         void tool.value.hover?.(p.x, p.y, p.isShift)
     }
 

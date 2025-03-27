@@ -20,6 +20,8 @@ export const view = shallowReactive({
     hoverTime: 0,
     cursorTime: 0,
 
+    hoverLane: -1,
+
     x: 0,
     y: 0,
     w: 0,
@@ -160,7 +162,8 @@ export const scrollViewBy = (dy: number, smooth = false) => {
     }
 }
 
-export const setViewHoverTime = (y: number) => {
+export const setViewHover = (x: number, y: number) => {
+    view.hoverLane = align(xToLane(x))
     view.hoverTime = Math.max(0, yToTime(y))
 }
 

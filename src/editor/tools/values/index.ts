@@ -11,7 +11,7 @@ import { getInStoreGrid } from '../../../state/store/grid'
 import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
-import { focusViewAtBeat, setViewHoverTime, view, yToValidBeat } from '../../view'
+import { focusViewAtBeat, setViewHover, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
 
 export const createValueTool = <T extends ValueEntityType>(
@@ -213,7 +213,7 @@ export const createValueTool = <T extends ValueEntityType>(
         dragUpdate(x, y) {
             if (!active) return
 
-            setViewHoverTime(y)
+            setViewHover(x, y)
 
             view.entities = {
                 hovered: [],

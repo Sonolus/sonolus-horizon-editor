@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { view } from '../editor/view'
 import { rotate, shift } from './events'
 import { getLane, getLaneCenter, laneLayout } from './lane'
 import { transform } from './projection'
@@ -23,7 +24,7 @@ const lanes = computed(() =>
             :transform-origin="`${x} ${y}`"
             transform="scale(1, -1)"
             fill="#fff"
-            fill-opacity="0.5"
+            :fill-opacity="index === view.hoverLane ? 1 : 0.5"
         >
             {{ index }}
         </text>
