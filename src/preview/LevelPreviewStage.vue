@@ -18,12 +18,11 @@ const lanes = computed(() =>
         <polygon :points stroke="white" />
         <text
             :x
-            :y
+            :y="-y"
             text-anchor="middle"
             dominant-baseline="middle"
-            :transform-origin="`${x} ${y}`"
             transform="scale(1, -1)"
-            fill="#fff"
+            fill="white"
             :fill-opacity="index === view.hoverLane ? 1 : 0.5"
         >
             {{ index }}
