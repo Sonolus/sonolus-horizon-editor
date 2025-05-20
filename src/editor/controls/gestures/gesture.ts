@@ -10,7 +10,7 @@ export const gesture = (...recognizers: Recognizer[]) => {
     const flush = () => {
         if (activeRecognizer) {
             activeRecognizer.update?.(pointers)
-        } else {
+        } else if (pointers.size === count) {
             for (const recognizer of recognizers) {
                 if (count !== recognizer.count) continue
                 if (!recognizer.recognize(...(pointers.entries() as never as []))) continue
