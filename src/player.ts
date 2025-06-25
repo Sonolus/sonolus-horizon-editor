@@ -1,5 +1,7 @@
 import { watch } from 'vue'
-import sfxUrl from './assets/perfect.mp3?url'
+import doubleUrl from './assets/double.mp3?url'
+import perfectUrl from './assets/perfect.mp3?url'
+import singleUrl from './assets/single.mp3?url'
 import { view } from './editor/view'
 import { bgm } from './history/bgm'
 import { bpms } from './history/bpms'
@@ -8,12 +10,17 @@ import { settings } from './settings'
 import { beatToTime, timeToBeat } from './state/integrals/bpms'
 import { maxBeatToKey, minBeatToKey } from './state/store/grid'
 import { time } from './time'
+import { optional } from './utils/optional'
 
 const delay = 0.2
 
 const context = new AudioContext()
 
-let sfxBuffer: AudioBuffer | undefined
+const sfxBuffers = {
+    perfect: optional<AudioBuffer>(),
+    single: optional<AudioBuffer>(),
+    double: optional<AudioBuffer>(),
+}
 
 let state:
     | {
@@ -32,34 +39,43 @@ let preview: AudioNode | undefined
 watch(time, ({ now }) => {
     if (!state) return
 
-    if (sfxBuffer) {
-        const targets = new Set<number>()
+    const targets = {
+        perfect: new Set<number>(),
+        single: new Set<number>(),
+        double: new Set<number>(),
+    }
 
-        const beats = {
-            min: timeToBeat(
-                bpms.value,
-                (state.lastTime - state.time) * state.speed + state.cursorTime,
-            ),
-            max: timeToBeat(bpms.value, (now - state.time) * state.speed + state.cursorTime),
+    const beats = {
+        min: timeToBeat(bpms.value, (state.lastTime - state.time) * state.speed + state.cursorTime),
+        max: timeToBeat(bpms.value, (now - state.time) * state.speed + state.cursorTime),
+    }
+
+    for (const entity of cullAllEntities(minBeatToKey(beats.min), maxBeatToKey(beats.max))) {
+        if (entity.beat < beats.min || entity.beat >= beats.max) continue
+
+        // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
+        switch (entity.type) {
+            case 'tapNote':
+                targets.perfect.add(entity.beat)
+                break
+            case 'singleHoldNoteJoint':
+                targets.single.add(entity.beat)
+                break
+            case 'doubleHoldNoteJoint':
+                targets.double.add(entity.beat)
+                break
+            default:
+                break
         }
+    }
 
-        for (const entity of cullAllEntities(minBeatToKey(beats.min), maxBeatToKey(beats.max))) {
-            if (entity.beat < beats.min || entity.beat >= beats.max) continue
+    for (const type of ['perfect', 'single', 'double'] as const) {
+        if (!sfxBuffers[type]) continue
 
-            if (
-                entity.type !== 'tapNote' &&
-                entity.type !== 'singleHoldNoteJoint' &&
-                entity.type !== 'doubleHoldNoteJoint'
-            )
-                continue
-
-            targets.add(entity.beat)
-        }
-
-        for (const beat of targets) {
+        for (const beat of targets[type]) {
             schedule(
                 state.nodes,
-                sfxBuffer,
+                sfxBuffers[type],
                 settings.playSfxVolume,
                 (beatToTime(bpms.value, beat) - state.cursorTime) / state.speed +
                     state.contextTime +
@@ -181,10 +197,16 @@ const schedule = (
     }
 }
 
-const loadSfx = async () => {
-    const response = await fetch(sfxUrl)
-    const data = await response.arrayBuffer()
-    sfxBuffer = await context.decodeAudioData(data)
+const loadSfx = () => {
+    const load = async (type: keyof typeof sfxBuffers, url: string) => {
+        const response = await fetch(url)
+        const data = await response.arrayBuffer()
+        sfxBuffers[type] = await context.decodeAudioData(data)
+    }
+
+    void load('perfect', perfectUrl)
+    void load('single', singleUrl)
+    void load('double', doubleUrl)
 }
 
-void loadSfx()
+loadSfx()
