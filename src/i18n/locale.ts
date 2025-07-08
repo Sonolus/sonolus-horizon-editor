@@ -3,6 +3,7 @@ export const defaultLocale = (() => {
 
     // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (main) {
+        case 'ja':
         case 'ko':
             return main
         default:
