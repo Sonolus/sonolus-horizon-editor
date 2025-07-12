@@ -10,7 +10,6 @@ import type { HoldNoteJointEntityType } from '../../../state/entities/holdNotes/
 import { getInStoreGrid } from '../../../state/store/grid'
 import { type Transaction, createTransaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
-import { align } from '../../../utils/math'
 import { notify } from '../../notification'
 import {
     focusViewAtBeat,
@@ -30,7 +29,7 @@ export const createHoldNoteTool = <
     showPropertiesModal: (object: EntityOfType<U>) => Promise<T | undefined>,
 
     getObject: (beat: number, lane: number, joint: EntityOfType<U> | undefined) => T,
-    shiftObject: (entity: EntityOfType<U>, beat: number, laneOffset: number) => T,
+    shiftObject: (entity: EntityOfType<U>, beat: number, startLane: number, lane: number) => T,
 
     jointType: U,
     isInFindLane: (joint: EntityOfType<U>, lane: number) => boolean,
@@ -249,7 +248,7 @@ export const createHoldNoteTool = <
 
             active = {
                 entity,
-                lane: align(xToLane(x)),
+                lane: xToLane(x),
             }
             return true
         },
@@ -264,11 +263,7 @@ export const createHoldNoteTool = <
                 creating: [
                     toJointEntity(
                         createHoldNoteId(),
-                        shiftObject(
-                            active.entity,
-                            yToValidBeat(y),
-                            align(xToLane(x)) - active.lane,
-                        ),
+                        shiftObject(active.entity, yToValidBeat(y), active.lane, xToLane(x)),
                     ),
                 ],
             }
@@ -279,7 +274,7 @@ export const createHoldNoteTool = <
 
             editMoveOrReplaceJoint(
                 active.entity,
-                shiftObject(active.entity, yToValidBeat(y), align(xToLane(x)) - active.lane),
+                shiftObject(active.entity, yToValidBeat(y), active.lane, xToLane(x)),
             )
 
             active = undefined

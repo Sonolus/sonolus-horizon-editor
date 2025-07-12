@@ -6,7 +6,7 @@ import {
     addSingleHoldNoteJoint,
     removeSingleHoldNoteJoint,
 } from '../../../../state/mutations/holdNotes/single'
-import { mod } from '../../../../utils/math'
+import { align, mod } from '../../../../utils/math'
 import SingleHoldNotePropertiesModal from './SingleHoldNotePropertiesModal.vue'
 
 export const singleHoldNote = createHoldNoteTool(
@@ -20,10 +20,10 @@ export const singleHoldNote = createHoldNoteTool(
         scaleL: joint?.scaleL ?? 0,
         scaleR: joint?.scaleR ?? 0,
     }),
-    (entity, beat, laneOffset) => ({
+    (entity, beat, startLane, lane) => ({
         beat,
         color: entity.color,
-        lane: mod(entity.lane + laneOffset, 8),
+        lane: mod(entity.lane + align(lane) - align(startLane), 8),
         scaleL: entity.scaleL,
         scaleR: entity.scaleR,
     }),

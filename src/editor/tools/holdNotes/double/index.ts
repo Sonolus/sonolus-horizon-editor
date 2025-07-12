@@ -6,7 +6,7 @@ import {
     addDoubleHoldNoteJoint,
     removeDoubleHoldNoteJoint,
 } from '../../../../state/mutations/holdNotes/double'
-import { mod } from '../../../../utils/math'
+import { align, mod } from '../../../../utils/math'
 import DoubleHoldNotePropertiesModal from './DoubleHoldNotePropertiesModal.vue'
 
 export const doubleHoldNote = createHoldNoteTool(
@@ -19,12 +19,37 @@ export const doubleHoldNote = createHoldNoteTool(
         laneL: mod(lane, 8),
         laneR: mod(lane + (joint ? Math.abs(joint.laneL - joint.laneR) : 1), 8),
     }),
-    (entity, beat, laneOffset) => ({
-        beat,
-        color: entity.color,
-        laneL: mod(entity.laneL + laneOffset, 8),
-        laneR: mod(entity.laneR + laneOffset, 8),
-    }),
+    (entity, beat, startLane, lane) => {
+        const [laneL, laneR] =
+            entity.laneL > entity.laneR
+                ? [entity.laneR, entity.laneL]
+                : [entity.laneL, entity.laneR]
+
+        if ((startLane + 0.5) % 1 < 0.5) {
+            if (align(startLane) === laneL)
+                return {
+                    beat: entity.beat,
+                    color: entity.color,
+                    laneL: mod(laneL + align(lane) - align(startLane), 8),
+                    laneR,
+                }
+        } else {
+            if (align(startLane) === laneR)
+                return {
+                    beat: entity.beat,
+                    color: entity.color,
+                    laneL,
+                    laneR: mod(laneR + align(lane) - align(startLane), 8),
+                }
+        }
+
+        return {
+            beat,
+            color: entity.color,
+            laneL: mod(entity.laneL + align(lane) - align(startLane), 8),
+            laneR: mod(entity.laneR + align(lane) - align(startLane), 8),
+        }
+    },
 
     'doubleHoldNoteJoint',
     (joint, lane) => lane >= joint.laneL && lane <= joint.laneR,
