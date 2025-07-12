@@ -1,4 +1,4 @@
-import type { Tool } from '.'
+import { type Tool } from '.'
 import type {
     DoubleHoldNoteJointObject,
     EventObject,
@@ -69,7 +69,7 @@ let active:
     | {
           type: 'move'
           lane: number
-          beat: number
+          focus: Entity
           entities: Entity[]
       }
     | undefined
@@ -143,7 +143,7 @@ export const select: Tool = {
             active = {
                 type: 'move',
                 lane,
-                beat: focus.beat,
+                focus,
                 entities: selectedEntities.value,
             }
 
@@ -164,7 +164,7 @@ export const select: Tool = {
                 active = {
                     type: 'move',
                     lane,
-                    beat: entity.beat,
+                    focus: entity,
                     entities: [entity],
                 }
 
@@ -213,7 +213,7 @@ export const select: Tool = {
             )
         } else {
             const lane = xToLane(x)
-            const beatOffset = yToValidBeat(y) - active.beat
+            const beatOffset = yToValidBeat(y) - active.focus.beat
 
             const creating: Entity[] = []
             for (const entity of active.entities) {
@@ -226,6 +226,7 @@ export const select: Tool = {
                     active.lane,
                     lane,
                     beat,
+                    active.focus,
                 )
                 if (!result) continue
 
@@ -265,7 +266,7 @@ export const select: Tool = {
             const transaction = createTransaction(state.value)
 
             const lane = xToLane(x)
-            const beatOffset = yToValidBeat(y) - active.beat
+            const beatOffset = yToValidBeat(y) - active.focus.beat
 
             const entities = active.entities.sort(
                 beatOffset > 0 ? (a, b) => b.beat - a.beat : (a, b) => a.beat - b.beat,
@@ -282,6 +283,7 @@ export const select: Tool = {
                     active.lane,
                     lane,
                     beat,
+                    active.focus,
                 )
                 if (!result) continue
 
@@ -379,37 +381,42 @@ const toMovedDoubleHoldNoteJointObject = (
     startLane: number,
     lane: number,
     beat: number,
+    focus: Entity,
 ): DoubleHoldNoteJointObject => {
-    if (entities.length === 1) {
-        const [laneL, laneR] =
-            entity.laneL > entity.laneR
-                ? [entity.laneR, entity.laneL]
-                : [entity.laneL, entity.laneR]
-
-        if ((startLane + 0.5) % 1 < 0.5) {
-            if (align(startLane) === laneL)
-                return {
-                    beat: entity.beat,
-                    color: entity.color,
-                    laneL: mod(laneL + align(lane) - align(startLane), 8),
-                    laneR,
-                }
-        } else {
-            if (align(startLane) === laneR)
-                return {
-                    beat: entity.beat,
-                    color: entity.color,
-                    laneL,
-                    laneR: mod(laneR + align(lane) - align(startLane), 8),
-                }
-        }
+    let focusL = Number.NEGATIVE_INFINITY
+    let focusR = Number.POSITIVE_INFINITY
+    if (
+        focus.type === 'doubleHoldNoteJoint' &&
+        entities.every((entity) => entity.type === 'doubleHoldNoteJoint')
+    ) {
+        focusL = Math.min(focus.laneL, focus.laneR)
+        focusR = Math.max(focus.laneL, focus.laneR)
     }
+
+    const laneL = Math.min(entity.laneL, entity.laneR)
+    const laneR = Math.max(entity.laneL, entity.laneR)
+
+    if (startLane < focusL)
+        return {
+            beat: entity.beat,
+            color: entity.color,
+            laneL: mod(laneL + align(lane) - align(startLane), 8),
+            laneR,
+        }
+
+    if (startLane > focusR)
+        return {
+            beat: entity.beat,
+            color: entity.color,
+            laneL,
+            laneR: mod(laneR + align(lane) - align(startLane), 8),
+        }
 
     return {
         beat,
         color: entity.color,
-        laneL: mod(entity.laneL + align(lane) - align(startLane), 8),
-        laneR: mod(entity.laneR + align(lane) - align(startLane), 8),
+        laneL: mod(laneL + align(lane) - align(startLane), 8),
+        laneR: mod(laneR + align(lane) - align(startLane), 8),
     }
 }
 
@@ -419,6 +426,7 @@ type Create<T extends Entity> = (
     startLane: number,
     lane: number,
     beat: number,
+    focus: Entity,
 ) => Entity | undefined
 
 const createValueEntity =
@@ -462,10 +470,10 @@ const creates: {
             entity.id,
             toMovedSingleHoldNoteJointObject(entity, startLane, lane, beat),
         ),
-    doubleHoldNoteJoint: (entities, entity, startLane, lane, beat) =>
+    doubleHoldNoteJoint: (entities, entity, startLane, lane, beat, focus) =>
         toDoubleHoldNoteJointEntity(
             entity.id,
-            toMovedDoubleHoldNoteJointObject(entities, entity, startLane, lane, beat),
+            toMovedDoubleHoldNoteJointObject(entities, entity, startLane, lane, beat, focus),
         ),
 }
 
@@ -476,6 +484,7 @@ type Move<T extends Entity> = (
     startLane: number,
     lane: number,
     beat: number,
+    focus: Entity,
 ) => Entity[] | undefined
 
 const moveValueEntity =
@@ -585,8 +594,15 @@ const moves: {
 
         return addSingleHoldNoteJoint(transaction, entity.id, object)
     },
-    doubleHoldNoteJoint: (transaction, entities, entity, startLane, lane, beat) => {
-        const object = toMovedDoubleHoldNoteJointObject(entities, entity, startLane, lane, beat)
+    doubleHoldNoteJoint: (transaction, entities, entity, startLane, lane, beat, focus) => {
+        const object = toMovedDoubleHoldNoteJointObject(
+            entities,
+            entity,
+            startLane,
+            lane,
+            beat,
+            focus,
+        )
 
         removeDoubleHoldNoteJoint(transaction, entity)
 

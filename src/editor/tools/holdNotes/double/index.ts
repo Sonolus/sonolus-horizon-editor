@@ -20,34 +20,30 @@ export const doubleHoldNote = createHoldNoteTool(
         laneR: mod(lane + (joint ? Math.abs(joint.laneL - joint.laneR) : 1), 8),
     }),
     (entity, beat, startLane, lane) => {
-        const [laneL, laneR] =
-            entity.laneL > entity.laneR
-                ? [entity.laneR, entity.laneL]
-                : [entity.laneL, entity.laneR]
+        const laneL = Math.min(entity.laneL, entity.laneR)
+        const laneR = Math.max(entity.laneL, entity.laneR)
 
-        if ((startLane + 0.5) % 1 < 0.5) {
-            if (align(startLane) === laneL)
-                return {
-                    beat: entity.beat,
-                    color: entity.color,
-                    laneL: mod(laneL + align(lane) - align(startLane), 8),
-                    laneR,
-                }
-        } else {
-            if (align(startLane) === laneR)
-                return {
-                    beat: entity.beat,
-                    color: entity.color,
-                    laneL,
-                    laneR: mod(laneR + align(lane) - align(startLane), 8),
-                }
-        }
+        if (startLane < laneL)
+            return {
+                beat: entity.beat,
+                color: entity.color,
+                laneL: mod(laneL + align(lane) - align(startLane), 8),
+                laneR,
+            }
+
+        if (startLane > laneR)
+            return {
+                beat: entity.beat,
+                color: entity.color,
+                laneL,
+                laneR: mod(laneR + align(lane) - align(startLane), 8),
+            }
 
         return {
             beat,
             color: entity.color,
-            laneL: mod(entity.laneL + align(lane) - align(startLane), 8),
-            laneR: mod(entity.laneR + align(lane) - align(startLane), 8),
+            laneL: mod(laneL + align(lane) - align(startLane), 8),
+            laneR: mod(laneR + align(lane) - align(startLane), 8),
         }
     },
 
