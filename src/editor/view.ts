@@ -214,4 +214,4 @@ export const yToBeatOffset = (y: number, beat: number) =>
         ? align(yToBeat(y), view.division) - beat
         : align(yToBeat(y) - beat, view.division)
 
-export const snapYToBeat = (y: number, beat: number) => beat + yToBeatOffset(y, beat)
+export const snapYToBeat = (y: number, beat: number) => Math.max(0, beat + yToBeatOffset(y, beat))

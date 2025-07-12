@@ -283,6 +283,7 @@ export const select: Tool = {
             const selectedEntities: Entity[] = []
             for (const entity of entities) {
                 const beat = entity.beat + beatOffset
+                if (beat < 0) continue
 
                 const result = moves[entity.type]?.(
                     transaction,

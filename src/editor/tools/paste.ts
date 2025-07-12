@@ -106,6 +106,7 @@ export const paste: Tool = {
         const selectedEntities: Entity[] = []
         for (const entity of data.entities) {
             const beat = entity.beat + beatOffset
+            if (beat < 0) continue
 
             const result = pastes[entity.type]?.(
                 transaction,
