@@ -374,16 +374,44 @@ const toMovedSingleHoldNoteJointObject = (
 })
 
 const toMovedDoubleHoldNoteJointObject = (
+    entities: Entity[],
     entity: DoubleHoldNoteJointEntity,
     startLane: number,
     lane: number,
     beat: number,
-): DoubleHoldNoteJointObject => ({
-    beat,
-    color: entity.color,
-    laneL: mod(entity.laneL + align(lane) - align(startLane), 8),
-    laneR: mod(entity.laneR + align(lane) - align(startLane), 8),
-})
+): DoubleHoldNoteJointObject => {
+    if (entities.length === 1) {
+        const [laneL, laneR] =
+            entity.laneL > entity.laneR
+                ? [entity.laneR, entity.laneL]
+                : [entity.laneL, entity.laneR]
+
+        if ((startLane + 0.5) % 1 < 0.5) {
+            if (align(startLane) === laneL)
+                return {
+                    beat: entity.beat,
+                    color: entity.color,
+                    laneL: mod(laneL + align(lane) - align(startLane), 8),
+                    laneR,
+                }
+        } else {
+            if (align(startLane) === laneR)
+                return {
+                    beat: entity.beat,
+                    color: entity.color,
+                    laneL,
+                    laneR: mod(laneR + align(lane) - align(startLane), 8),
+                }
+        }
+    }
+
+    return {
+        beat,
+        color: entity.color,
+        laneL: mod(entity.laneL + align(lane) - align(startLane), 8),
+        laneR: mod(entity.laneR + align(lane) - align(startLane), 8),
+    }
+}
 
 type Create<T extends Entity> = (
     entities: Entity[],
@@ -437,7 +465,7 @@ const creates: {
     doubleHoldNoteJoint: (entities, entity, startLane, lane, beat) =>
         toDoubleHoldNoteJointEntity(
             entity.id,
-            toMovedDoubleHoldNoteJointObject(entity, startLane, lane, beat),
+            toMovedDoubleHoldNoteJointObject(entities, entity, startLane, lane, beat),
         ),
 }
 
@@ -558,7 +586,7 @@ const moves: {
         return addSingleHoldNoteJoint(transaction, entity.id, object)
     },
     doubleHoldNoteJoint: (transaction, entities, entity, startLane, lane, beat) => {
-        const object = toMovedDoubleHoldNoteJointObject(entity, startLane, lane, beat)
+        const object = toMovedDoubleHoldNoteJointObject(entities, entity, startLane, lane, beat)
 
         removeDoubleHoldNoteJoint(transaction, entity)
 
