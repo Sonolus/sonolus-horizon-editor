@@ -11,7 +11,7 @@ import { toSingleHoldNoteConnectionEntity } from '../../../state/entities/holdNo
 import type { HoldNoteJointEntityType } from '../../../state/entities/holdNotes/joints'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
-import { view, xToLane, yToBeat } from '../../view'
+import { view, xToLane, yToValidBeat } from '../../view'
 import CopyIcon from './CopyIcon.vue'
 
 export const copy: Command = {
@@ -30,7 +30,7 @@ export const copy: Command = {
 
         const data: ClipboardData = {
             lane: xToLane(view.pointer.x),
-            beat: yToBeat(view.pointer.y),
+            beat: yToValidBeat(view.pointer.y),
             entities: serializeLevelDataEntities(
                 getEntities(entities, 'bpm'),
                 getEntities(entities, 'timeScale'),
