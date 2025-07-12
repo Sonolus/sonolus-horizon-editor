@@ -100,9 +100,9 @@
       "title": "再生"
     },
     "redo": {
-      "title": "取り消す",
-      "noState": "取り消すものがありません",
-      "redid": "\"{0}\"を取り消しました"
+      "title": "やり直す",
+      "noState": "やり直すものがありません",
+      "redid": "\"{0}\"をやり直しました"
     },
     "reset": {
       "title": "リセット",
@@ -131,6 +131,11 @@
     },
     "settings": {
       "title": "設定"
+    },
+    "snapping": {
+      "title": "分割線スナップ",
+      "absolute": "絶対スナップに切り替え",
+      "relative": "相対スナップに切り替え"
     },
     "speedDown": {
       "title": "再生速度ダウン"
