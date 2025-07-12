@@ -3,7 +3,7 @@ import { times } from '.'
 import { bpms } from '../history/bpms'
 import { settings } from '../settings'
 import type { Entity } from '../state/entities'
-import { beatToTime } from '../state/integrals/bpms'
+import { beatToTime, timeToBeat } from '../state/integrals/bpms'
 import { time } from '../time'
 import { align, clamp, lerp, unlerp } from '../utils/math'
 import { optional } from '../utils/optional'
@@ -205,7 +205,7 @@ export const xToValidLane = (x: number) => clamp(align(xToLane(x)), 0, 7)
 
 export const yToTime = (y: number) => (0.5 * view.h - y + view.y) / settings.pps + view.time
 
-export const yToBeat = (y: number) => Math.max(0, yToTime(y))
+const yToBeat = (y: number) => timeToBeat(bpms.value, Math.max(0, yToTime(y)))
 
 export const yToValidBeat = (y: number) => align(yToBeat(y), view.division)
 
