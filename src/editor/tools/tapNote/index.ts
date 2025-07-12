@@ -16,6 +16,7 @@ import { notify } from '../../notification'
 import {
     focusViewAtBeat,
     setViewHover,
+    snapYToBeat,
     view,
     xToLane,
     xToValidLane,
@@ -116,7 +117,7 @@ export const tapNote: Tool = {
             hovered: [],
             creating: [
                 toTapNoteEntity({
-                    beat: yToValidBeat(y),
+                    beat: snapYToBeat(y, active.entity.beat),
                     color: active.entity.color,
                     lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
                 }),
@@ -128,7 +129,7 @@ export const tapNote: Tool = {
         if (!active) return
 
         editMoveOrReplace(active.entity, {
-            beat: yToValidBeat(y),
+            beat: snapYToBeat(y, active.entity.beat),
             color: active.entity.color,
             lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
         })

@@ -132,6 +132,11 @@
         "settings": {
             "title": "Settings"
         },
+        "snapping": {
+            "title": "Snapping",
+            "absolute": "Switch to absolute snapping",
+            "relative": "Switch to relative snapping"
+        },
         "speedDown": {
             "title": "Speed Down"
         },

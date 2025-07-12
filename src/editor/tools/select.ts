@@ -55,7 +55,15 @@ import { createTransaction, type Transaction } from '../../state/transaction'
 import { interpolate } from '../../utils/interpolate'
 import { align, clamp, mod } from '../../utils/math'
 import { notify } from '../notification'
-import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
+import {
+    focusViewAtBeat,
+    setViewHover,
+    view,
+    xToLane,
+    yToBeatOffset,
+    yToTime,
+    yToValidBeat,
+} from '../view'
 import { hitEntitiesAtPoint, hitEntitiesInSelection, toSelection } from './utils'
 
 let active:
@@ -213,7 +221,7 @@ export const select: Tool = {
             )
         } else {
             const lane = xToLane(x)
-            const beatOffset = yToValidBeat(y) - active.focus.beat
+            const beatOffset = yToBeatOffset(y, active.focus.beat)
 
             const creating: Entity[] = []
             for (const entity of active.entities) {
@@ -266,7 +274,7 @@ export const select: Tool = {
             const transaction = createTransaction(state.value)
 
             const lane = xToLane(x)
-            const beatOffset = yToValidBeat(y) - active.focus.beat
+            const beatOffset = yToBeatOffset(y, active.focus.beat)
 
             const entities = active.entities.sort(
                 beatOffset > 0 ? (a, b) => b.beat - a.beat : (a, b) => a.beat - b.beat,

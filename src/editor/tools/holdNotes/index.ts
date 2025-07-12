@@ -14,6 +14,7 @@ import { notify } from '../../notification'
 import {
     focusViewAtBeat,
     setViewHover,
+    snapYToBeat,
     view,
     xToLane,
     xToValidLane,
@@ -263,7 +264,12 @@ export const createHoldNoteTool = <
                 creating: [
                     toJointEntity(
                         createHoldNoteId(),
-                        shiftObject(active.entity, yToValidBeat(y), active.lane, xToLane(x)),
+                        shiftObject(
+                            active.entity,
+                            snapYToBeat(y, active.entity.beat),
+                            active.lane,
+                            xToLane(x),
+                        ),
                     ),
                 ],
             }
@@ -274,7 +280,12 @@ export const createHoldNoteTool = <
 
             editMoveOrReplaceJoint(
                 active.entity,
-                shiftObject(active.entity, yToValidBeat(y), active.lane, xToLane(x)),
+                shiftObject(
+                    active.entity,
+                    snapYToBeat(y, active.entity.beat),
+                    active.lane,
+                    xToLane(x),
+                ),
             )
 
             active = undefined

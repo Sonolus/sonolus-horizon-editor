@@ -28,6 +28,7 @@ import { scrollPageUp } from './scrollPageUp'
 import { scrollUp } from './scrollUp'
 import { select } from './select'
 import { settings } from './settings'
+import { snapping } from './snapping'
 import { speedDown } from './speedDown'
 import { speedUp } from './speedUp'
 import { stop } from './stop'
@@ -118,6 +119,7 @@ export const commands = {
     division12: division(12),
     division16: division(16),
     divisionCustom,
+    snapping,
 
     zoomXIn,
     zoomXOut,

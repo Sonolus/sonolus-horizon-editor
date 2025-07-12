@@ -52,7 +52,7 @@ import { interpolate } from '../../utils/interpolate'
 import { align, clamp, mod } from '../../utils/math'
 import { timeout } from '../../utils/promise'
 import { notify } from '../notification'
-import { view, xToLane, yToValidBeat } from '../view'
+import { view, xToLane, yToBeatOffset } from '../view'
 
 let text: string | undefined
 let data:
@@ -69,7 +69,7 @@ export const paste: Tool = {
         if (!data?.entities.length) return
 
         const lane = xToLane(x)
-        const beatOffset = yToValidBeat(y) - data.beat
+        const beatOffset = yToBeatOffset(y, data.beat)
 
         const creating: Entity[] = []
         for (const entity of data.entities) {
@@ -101,7 +101,7 @@ export const paste: Tool = {
         const transaction = createTransaction(state.value)
 
         const lane = xToLane(x)
-        const beatOffset = yToValidBeat(y) - data.beat
+        const beatOffset = yToBeatOffset(y, data.beat)
 
         const selectedEntities: Entity[] = []
         for (const entity of data.entities) {

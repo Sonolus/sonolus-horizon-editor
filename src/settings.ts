@@ -84,6 +84,7 @@ const settingsProperties = {
                         'cycleVisibilities',
                     ],
                     [
+                        'snapping',
                         'divisionCustom',
                         'division16',
                         'division12',
@@ -161,6 +162,7 @@ const settingsProperties = {
                 division12: '9',
                 division16: '0',
                 divisionCustom: '`',
+                snapping: 'i',
                 zoomXIn: '[',
                 zoomXOut: ']',
                 zoomYIn: '-',

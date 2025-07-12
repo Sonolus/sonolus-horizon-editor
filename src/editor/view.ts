@@ -3,7 +3,7 @@ import { times } from '.'
 import { bpms } from '../history/bpms'
 import { settings } from '../settings'
 import type { Entity } from '../state/entities'
-import { beatToTime, timeToBeat } from '../state/integrals/bpms'
+import { beatToTime } from '../state/integrals/bpms'
 import { time } from '../time'
 import { align, clamp, lerp, unlerp } from '../utils/math'
 import { optional } from '../utils/optional'
@@ -28,6 +28,7 @@ export const view = shallowReactive({
     h: 0,
 
     division: 4,
+    snapping: 'absolute' as 'absolute' | 'relative',
 
     visibilities: {
         bpm: true,
@@ -204,9 +205,13 @@ export const xToValidLane = (x: number) => clamp(align(xToLane(x)), 0, 7)
 
 export const yToTime = (y: number) => (0.5 * view.h - y + view.y) / settings.pps + view.time
 
-export const yToValidBeat = (y: number) => {
-    const time = yToTime(y)
-    if (time <= 0) return 0
+export const yToBeat = (y: number) => Math.max(0, yToTime(y))
 
-    return align(timeToBeat(bpms.value, time), view.division)
-}
+export const yToValidBeat = (y: number) => align(yToBeat(y), view.division)
+
+export const yToBeatOffset = (y: number, beat: number) =>
+    view.snapping === 'absolute'
+        ? align(yToBeat(y), view.division) - beat
+        : align(yToBeat(y) - beat, view.division)
+
+export const snapYToBeat = (y: number, beat: number) => beat + yToBeatOffset(y, beat)
