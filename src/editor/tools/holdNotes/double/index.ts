@@ -16,8 +16,8 @@ export const doubleHoldNote = createHoldNoteTool(
     (beat, lane, joint) => ({
         beat,
         color: joint?.color ?? 0,
-        laneL: Math.min(lane, 6),
-        laneR: Math.min(lane, 6) + 1,
+        laneL: mod(lane, 8),
+        laneR: mod(lane + (joint ? Math.abs(joint.laneL - joint.laneR) : 1), 8),
     }),
     (entity, beat, laneOffset) => ({
         beat,
