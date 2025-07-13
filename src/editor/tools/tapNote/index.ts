@@ -27,8 +27,12 @@ import TapNotePropertiesModal from './TapNotePropertiesModal.vue'
 
 let active:
     | {
+          type: 'move'
           entity: TapNoteEntity
           lane: number
+      }
+    | {
+          type: 'add'
       }
     | undefined
 
@@ -86,25 +90,35 @@ export const tapNote: Tool = {
     },
 
     dragStart(x, y) {
-        const [entity] = tryFind(x, y)
-        if (!entity) return false
+        const [entity, beat] = tryFind(x, y)
+        if (entity) {
+            replaceState({
+                ...state.value,
+                selectedEntities: [entity],
+            })
+            view.entities = {
+                hovered: [],
+                creating: [],
+            }
+            focusViewAtBeat(entity.beat)
 
-        replaceState({
-            ...state.value,
-            selectedEntities: [entity],
-        })
-        view.entities = {
-            hovered: [],
-            creating: [],
+            notify(interpolate(() => i18n.value.tools.tapNote.moving, '1'))
+
+            active = {
+                type: 'move',
+                entity,
+                lane: align(xToLane(x)),
+            }
+        } else {
+            focusViewAtBeat(beat)
+
+            notify(interpolate(() => i18n.value.tools.tapNote.adding, '1'))
+
+            active = {
+                type: 'add',
+            }
         }
-        focusViewAtBeat(entity.beat)
 
-        notify(interpolate(() => i18n.value.tools.tapNote.moving, '1'))
-
-        active = {
-            entity,
-            lane: align(xToLane(x)),
-        }
         return true
     },
 
@@ -113,26 +127,74 @@ export const tapNote: Tool = {
 
         setViewHover(x, y)
 
-        view.entities = {
-            hovered: [],
-            creating: [
-                toTapNoteEntity({
-                    beat: snapYToBeat(y, active.entity.beat),
-                    color: active.entity.color,
-                    lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
-                }),
-            ],
+        if (active.type === 'move') {
+            view.entities = {
+                hovered: [],
+                creating: [
+                    toTapNoteEntity({
+                        beat: snapYToBeat(y, active.entity.beat),
+                        color: active.entity.color,
+                        lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
+                    }),
+                ],
+            }
+        } else {
+            const beat = yToValidBeat(y)
+
+            focusViewAtBeat(beat)
+
+            view.entities = {
+                hovered: [],
+                creating: [
+                    toTapNoteEntity({
+                        beat,
+                        color: 0,
+                        lane: xToValidLane(x),
+                        ...getPropertiesFromSelection(),
+                    }),
+                ],
+            }
         }
     },
 
-    dragEnd(x, y) {
+    async dragEnd(x, y) {
         if (!active) return
 
-        editMoveOrReplace(active.entity, {
-            beat: snapYToBeat(y, active.entity.beat),
-            color: active.entity.color,
-            lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
-        })
+        if (active.type === 'move') {
+            editMoveOrReplace(active.entity, {
+                beat: snapYToBeat(y, active.entity.beat),
+                color: active.entity.color,
+                lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
+            })
+        } else {
+            const [entity, beat, lane] = tryFind(x, y)
+            if (entity) {
+                replaceState({
+                    ...state.value,
+                    selectedEntities: [entity],
+                })
+                view.entities = {
+                    hovered: [],
+                    creating: [],
+                }
+                focusViewAtBeat(entity.beat)
+
+                const object = await showModal(TapNotePropertiesModal, {
+                    object: entity,
+                })
+                if (!object) return
+
+                editMoveOrReplace(entity, object)
+            } else {
+                add({
+                    beat,
+                    color: 0,
+                    lane,
+                    ...getPropertiesFromSelection(),
+                })
+                focusViewAtBeat(beat)
+            }
+        }
 
         active = undefined
     },

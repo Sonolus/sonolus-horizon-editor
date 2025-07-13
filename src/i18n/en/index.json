@@ -440,6 +440,7 @@
         },
         "tapNote": {
             "moving": "Moving {0} Tap Note objects",
+            "adding": "Adding {0} Tap Note objects",
             "added": "Added {0} Tap Note objects",
             "edited": "Edited {0} Tap Note objects",
             "moved": "Moved {0} Tap Note objects",
