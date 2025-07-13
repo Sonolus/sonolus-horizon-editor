@@ -132,6 +132,11 @@
     "settings": {
       "title": "설정"
     },
+    "snapping": {
+      "title": "맞춤",
+      "absolute": "절대적 맞춤으로 변경",
+      "relative": "상대적 맞춤으로 변경"
+    },
     "speedDown": {
       "title": "속도 감소"
     },
