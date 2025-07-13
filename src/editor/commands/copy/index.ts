@@ -29,7 +29,9 @@ export const copy: Command = {
             return
         }
 
-        const [entity] = hitEntitiesAtPoint(view.pointer.x, view.pointer.y)
+        const [entity] = hitEntitiesAtPoint(view.pointer.x, view.pointer.y).filter((entity) =>
+            entities.includes(entity),
+        )
 
         const data: ClipboardData = {
             lane: xToLane(view.pointer.x),
