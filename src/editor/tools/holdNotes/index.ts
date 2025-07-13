@@ -31,6 +31,12 @@ export const createHoldNoteTool = <
 
     getObject: (beat: number, lane: number, joint: EntityOfType<U> | undefined) => T,
     shiftObject: (entity: EntityOfType<U>, beat: number, startLane: number, lane: number) => T,
+    addObject: (
+        beat: number,
+        startLane: number,
+        lane: number,
+        joint: EntityOfType<U> | undefined,
+    ) => T,
 
     jointType: U,
     isInFindLane: (joint: EntityOfType<U>, lane: number) => boolean,
@@ -57,23 +63,20 @@ export const createHoldNoteTool = <
             (entity) => entity.id === id && entity.beat === beat,
         )
 
-    const tryFind = (
-        x: number,
-        y: number,
-    ): [true, EntityOfType<U>] | [false, undefined, number, number] => {
+    const tryFind = (x: number, y: number): [EntityOfType<U>] | [undefined, number, number] => {
         const [hit] = hitEntitiesAtPoint(x, y)
             .filter((entity): entity is EntityOfType<U> => entity.type === jointType)
             .sort(
                 (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),
             )
-        if (hit) return [true, hit]
+        if (hit) return [hit]
 
         const lane = xToValidLane(x)
         const beat = yToValidBeat(y)
         const nearest = find(beat, lane)
-        if (nearest) return [true, nearest]
+        if (nearest) return [nearest]
 
-        return [false, undefined, beat, lane]
+        return [undefined, beat, lane]
     }
 
     const getSelectedId = () => {
@@ -166,15 +169,20 @@ export const createHoldNoteTool = <
 
     let active:
         | {
+              type: 'move'
               entity: EntityOfType<U>
+              lane: number
+          }
+        | {
+              type: 'add'
               lane: number
           }
         | undefined
 
     return {
         hover(x, y) {
-            const [result, entity, beat, lane] = tryFind(x, y)
-            if (result) {
+            const [entity, beat, lane] = tryFind(x, y)
+            if (entity) {
                 view.entities = {
                     hovered: [entity],
                     creating: [],
@@ -193,8 +201,8 @@ export const createHoldNoteTool = <
         },
 
         async tap(x, y) {
-            const [result, entity, beat, lane] = tryFind(x, y)
-            if (result) {
+            const [entity, beat, lane] = tryFind(x, y)
+            if (entity) {
                 replaceState({
                     ...state.value,
                     selectedEntities: [entity],
@@ -210,14 +218,10 @@ export const createHoldNoteTool = <
 
                 editMoveOrReplaceJoint(entity, object)
             } else {
+                const object = getObject(beat, lane, getJointFromSelection())
+
                 const id = getSelectedId()
                 if (id) {
-                    const object = getObject(
-                        yToValidBeat(y),
-                        xToValidLane(x),
-                        getJointFromSelection(),
-                    )
-
                     const overlap = findOverlap(id, object.beat)
                     if (overlap) {
                         editJoint(overlap, object)
@@ -225,32 +229,43 @@ export const createHoldNoteTool = <
                         addJoint(id, object)
                     }
                 } else {
-                    addJoint(createHoldNoteId(), getObject(beat, lane, getJointFromSelection()))
+                    addJoint(createHoldNoteId(), object)
                     focusViewAtBeat(beat)
                 }
             }
         },
 
         dragStart(x, y) {
-            const [, entity] = tryFind(x, y)
-            if (!entity) return false
+            const [entity, beat, lane] = tryFind(x, y)
+            if (entity) {
+                replaceState({
+                    ...state.value,
+                    selectedEntities: [entity],
+                })
+                view.entities = {
+                    hovered: [],
+                    creating: [],
+                }
+                focusViewAtBeat(entity.beat)
 
-            replaceState({
-                ...state.value,
-                selectedEntities: [entity],
-            })
-            view.entities = {
-                hovered: [],
-                creating: [],
+                notify(interpolate(() => i18n.value.tools.holdNotes.moving, '1', objectName))
+
+                active = {
+                    type: 'move',
+                    entity,
+                    lane: xToLane(x),
+                }
+            } else {
+                focusViewAtBeat(beat)
+
+                notify(interpolate(() => i18n.value.tools.holdNotes.adding, '1', objectName))
+
+                active = {
+                    type: 'add',
+                    lane,
+                }
             }
-            focusViewAtBeat(entity.beat)
 
-            notify(interpolate(() => i18n.value.tools.holdNotes.moving, '1', objectName))
-
-            active = {
-                entity,
-                lane: xToLane(x),
-            }
             return true
         },
 
@@ -259,34 +274,84 @@ export const createHoldNoteTool = <
 
             setViewHover(x, y)
 
-            view.entities = {
-                hovered: [],
-                creating: [
-                    toJointEntity(
-                        createHoldNoteId(),
-                        shiftObject(
-                            active.entity,
-                            snapYToBeat(y, active.entity.beat),
-                            active.lane,
-                            xToLane(x),
+            if (active.type === 'move') {
+                const beat = snapYToBeat(y, active.entity.beat)
+
+                focusViewAtBeat(beat)
+
+                view.entities = {
+                    hovered: [],
+                    creating: [
+                        toJointEntity(
+                            createHoldNoteId(),
+                            shiftObject(active.entity, beat, active.lane, xToLane(x)),
                         ),
-                    ),
-                ],
+                    ],
+                }
+            } else {
+                const beat = yToValidBeat(y)
+
+                focusViewAtBeat(beat)
+
+                view.entities = {
+                    hovered: [],
+                    creating: [
+                        toJointEntity(
+                            createHoldNoteId(),
+                            addObject(beat, active.lane, xToValidLane(x), getJointFromSelection()),
+                        ),
+                    ],
+                }
             }
         },
 
-        dragEnd(x, y) {
+        async dragEnd(x, y) {
             if (!active) return
 
-            editMoveOrReplaceJoint(
-                active.entity,
-                shiftObject(
+            if (active.type === 'move') {
+                editMoveOrReplaceJoint(
                     active.entity,
-                    snapYToBeat(y, active.entity.beat),
-                    active.lane,
-                    xToLane(x),
-                ),
-            )
+                    shiftObject(
+                        active.entity,
+                        snapYToBeat(y, active.entity.beat),
+                        active.lane,
+                        xToLane(x),
+                    ),
+                )
+            } else {
+                const [entity, beat, lane] = tryFind(x, y)
+                if (entity) {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [entity],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+
+                    const object = await showPropertiesModal(entity)
+                    if (!object) return
+
+                    editMoveOrReplaceJoint(entity, object)
+                } else {
+                    const object = addObject(beat, active.lane, lane, getJointFromSelection())
+
+                    const id = getSelectedId()
+                    if (id) {
+                        const overlap = findOverlap(id, object.beat)
+                        if (overlap) {
+                            editJoint(overlap, object)
+                        } else {
+                            addJoint(id, object)
+                        }
+                    } else {
+                        addJoint(createHoldNoteId(), object)
+                        focusViewAtBeat(beat)
+                    }
+                }
+            }
 
             active = undefined
         },

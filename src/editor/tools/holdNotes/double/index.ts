@@ -46,6 +46,12 @@ export const doubleHoldNote = createHoldNoteTool(
             laneR: mod(laneR + align(lane) - align(startLane), 8),
         }
     },
+    (beat, startLane, lane, joint) => ({
+        beat,
+        color: joint?.color ?? 0,
+        laneL: startLane,
+        laneR: lane,
+    }),
 
     'doubleHoldNoteJoint',
     (joint, lane) => lane >= joint.laneL && lane <= joint.laneR,

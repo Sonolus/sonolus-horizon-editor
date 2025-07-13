@@ -27,6 +27,13 @@ export const singleHoldNote = createHoldNoteTool(
         scaleL: entity.scaleL,
         scaleR: entity.scaleR,
     }),
+    (beat, startLane, lane, joint) => ({
+        beat,
+        color: joint?.color ?? 0,
+        lane,
+        scaleL: joint?.scaleL ?? 0,
+        scaleR: joint?.scaleR ?? 0,
+    }),
 
     'singleHoldNoteJoint',
     (joint, lane) => joint.lane === lane,
