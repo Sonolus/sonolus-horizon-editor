@@ -30,22 +30,19 @@ export const createValueTool = <T extends ValueEntityType>(
     const find = (beat: number) =>
         getInStoreGrid(store.value.grid, type, beat)?.find((entity) => entity.beat === beat)
 
-    const tryFind = (
-        x: number,
-        y: number,
-    ): [true, EntityOfType<T>] | [false, undefined, number] => {
+    const tryFind = (x: number, y: number): [EntityOfType<T>] | [undefined, number] => {
         const [hit] = hitEntitiesAtPoint(x, y)
             .filter((entity): entity is EntityOfType<T> => entity.type === type)
             .sort(
                 (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),
             )
-        if (hit) return [true, hit]
+        if (hit) return [hit]
 
         const beat = yToValidBeat(y)
         const nearest = find(beat)
-        if (nearest) return [true, nearest]
+        if (nearest) return [nearest]
 
-        return [false, undefined, beat]
+        return [undefined, beat]
     }
 
     const editMoveOrReplace = (entity: EntityOfType<T>, object: ValueObject) => {
@@ -120,12 +117,20 @@ export const createValueTool = <T extends ValueEntityType>(
         )
     }
 
-    let active: EntityOfType<T> | undefined
+    let active:
+        | {
+              type: 'move'
+              entity: EntityOfType<T>
+          }
+        | {
+              type: 'add'
+          }
+        | undefined
 
     return {
         hover(x, y) {
-            const [result, entity, beat] = tryFind(x, y)
-            if (result) {
+            const [entity, beat] = tryFind(x, y)
+            if (entity) {
                 view.entities = {
                     hovered: [entity],
                     creating: [],
@@ -144,8 +149,8 @@ export const createValueTool = <T extends ValueEntityType>(
         },
 
         async tap(x, y) {
-            const [result, entity, beat] = tryFind(x, y)
-            if (result) {
+            const [entity, beat] = tryFind(x, y)
+            if (entity) {
                 replaceState({
                     ...state.value,
                     selectedEntities: [entity],
@@ -193,20 +198,34 @@ export const createValueTool = <T extends ValueEntityType>(
         },
 
         dragStart(x, y) {
-            ;[, active] = tryFind(x, y)
-            if (!active) return false
+            const [entity, beat] = tryFind(x, y)
+            if (entity) {
+                replaceState({
+                    ...state.value,
+                    selectedEntities: [entity],
+                })
+                view.entities = {
+                    hovered: [],
+                    creating: [],
+                }
+                focusViewAtBeat(entity.beat)
 
-            replaceState({
-                ...state.value,
-                selectedEntities: [active],
-            })
-            view.entities = {
-                hovered: [],
-                creating: [],
+                notify(interpolate(() => i18n.value.tools.values.moving, '1', objectName))
+
+                active = {
+                    type: 'move',
+                    entity,
+                }
+            } else {
+                focusViewAtBeat(beat)
+
+                notify(interpolate(() => i18n.value.tools.values.adding, '1', objectName))
+
+                active = {
+                    type: 'add',
+                }
             }
-            focusViewAtBeat(active.beat)
 
-            notify(interpolate(() => i18n.value.tools.values.moving, '1', objectName))
             return true
         },
 
@@ -215,24 +234,93 @@ export const createValueTool = <T extends ValueEntityType>(
 
             setViewHover(x, y)
 
-            view.entities = {
-                hovered: [],
-                creating: [
-                    toEntity({
-                        beat: snapYToBeat(y, active.beat),
-                        value: active.value,
-                    }),
-                ],
+            if (active.type === 'move') {
+                const beat = snapYToBeat(y, active.entity.beat)
+
+                focusViewAtBeat(beat)
+
+                view.entities = {
+                    hovered: [],
+                    creating: [
+                        toEntity({
+                            beat,
+                            value: active.entity.value,
+                        }),
+                    ],
+                }
+            } else {
+                const beat = yToValidBeat(y)
+
+                focusViewAtBeat(beat)
+
+                view.entities = {
+                    hovered: [],
+                    creating: [
+                        toEntity({
+                            beat,
+                            value: defaultValue,
+                        }),
+                    ],
+                }
             }
         },
 
-        dragEnd(x, y) {
+        async dragEnd(x, y) {
             if (!active) return
 
-            editMoveOrReplace(active, {
-                beat: snapYToBeat(y, active.beat),
-                value: active.value,
-            })
+            if (active.type === 'move') {
+                editMoveOrReplace(active.entity, {
+                    beat: snapYToBeat(y, active.entity.beat),
+                    value: active.entity.value,
+                })
+            } else {
+                const [entity, beat] = tryFind(x, y)
+                if (entity) {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [entity],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+
+                    const object = await showPropertiesModal(entity)
+                    if (!object) return
+
+                    editMoveOrReplace(entity, object)
+                } else {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [
+                            toEntity({
+                                beat,
+                                value: defaultValue,
+                            }),
+                        ],
+                    }
+                    focusViewAtBeat(beat)
+
+                    const object = await showPropertiesModal({
+                        beat,
+                        value: defaultValue,
+                    })
+                    if (!object) return
+
+                    const overlap = find(object.beat)
+                    if (overlap) {
+                        edit(overlap, object)
+                    } else {
+                        add(object)
+                    }
+                    focusViewAtBeat(object.beat)
+                }
+            }
 
             active = undefined
         },
