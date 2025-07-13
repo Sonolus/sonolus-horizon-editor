@@ -82,14 +82,22 @@
       "title": "Nhảy về cuối bài"
     },
     "open": {
+      "title": "Mở",
+      "loading": "Đang tải tập tin...",
+      "importing": "Mức nhập khẩu...",
       "opened": "Đã mở cấp độ"
     },
     "paste": {
+      "title": "Chuyển sang công cụ Dán",
+      "switched": "Đã chuyển sang công cụ Dán"
     },
     "play": {
       "title": "Phát nhạc"
     },
     "redo": {
+      "title": "Làm lại",
+      "noState": "Không có gì để làm lại",
+      "redid": "Đã làm lại \"{0}\""
     },
     "reset": {
       "title": "Đặt lại",
@@ -97,19 +105,27 @@
     },
     "save": {
       "title": "Lưu",
-      "exporting": "Đang xuất cấp độ..."
+      "exporting": "Đang xuất cấp độ...",
+      "saved": "Cấp độ đã lưu"
     },
     "scrollDown": {
+      "title": "Cuộn xuống"
     },
     "scrollUp": {
+      "title": "Cuộn lên"
     },
     "scrollPageDown": {
+      "title": "Cuộn trang xuống"
     },
     "scrollPageUp": {
+      "title": "Cuộn trang lên"
     },
     "select": {
+      "title": "Chuyển sang công cụ Chọn",
+      "switched": "Đã chuyển sang công cụ Chọn"
     },
     "settings": {
+      "title": "Cài đặt"
     },
     "snapping": {
       "title": "Đổi cách căn đối tượng",
@@ -120,18 +136,27 @@
       "title": "Hạ tốc"
     },
     "speedUp": {
+      "title": "Tăng tốc"
     },
     "stop": {
+      "title": "Dừng lại"
     },
     "tapNote": {
       "title": "Chuyển sang công cụ Nốt Đơn",
       "switched": "Đã chuyển sang công cụ Nốt Đơn"
     },
     "undo": {
+      "title": "Hoàn tác",
+      "noState": "Không có gì để hoàn tác",
+      "undid": "Đã hoàn tác \"{0}\""
     },
     "bpm": {
+      "title": "Chuyển sang công cụ BPM",
+      "switched": "Đã chuyển sang công cụ BPM"
     },
     "timeScale": {
+      "title": "Chuyển sang công cụ Time Scale",
+      "switched": "Đã chuyển sang công cụ Time Scale"
     },
     "visibilities": {
       "cycle": {
@@ -145,6 +170,7 @@
           "doubleHoldNote": "Nốt Đôi dài",
           "rotateEvent": "Sự kiện Xoay",
           "zoomEvent": "Sự kiện Phóng",
+          "timeScale": "Thang thời gian",
           "bpm": "BPM"
         }
       }
@@ -170,80 +196,126 @@
     "modal": {
       "title": "Trợ giúp",
       "touchscreen": {
+        "title": "Màn hình cảm ứng",
         "tap": "Chạm bằng một ngón tay để chạm.",
         "drag": "Kéo bằng một ngón tay để kéo.",
+        "scroll": "Di chuyển hai ngón tay theo chiều dọc để cuộn.",
         "zoomY": "Chụm hai ngón tay theo chiều dọc để phóng to theo chiều dọc.",
         "zoomX": "Chụm hai ngón tay theo chiều ngang để phóng to theo chiều ngang."
       },
       "mouse": {
+        "title": "Chuột",
+        "tapPrimary": "Nhấp chuột trái để chạm vào công cụ chính.",
+        "dragPrimary": "Nhấp chuột trái và kéo để kéo bằng công cụ chính.",
         "tapSecondary": "Nhấp chuột phải để chạm vào công cụ phụ.",
+        "dragSecondary": "Nhấp chuột phải và kéo để kéo bằng công cụ phụ.",
         "scroll": "Cuộn chuột giữa để cuộn."
       },
       "keyboard": {
+        "title": "Bàn phím",
+        "single": "Nhấn một lần để thực hiện.",
+        "multiple": "Nhấn và giữ để thực hiện nhiều lần."
       },
       "selectTool": {
-        "toggle": "Nhấn vào các đối tượng bằng phím Shift để chọn/bỏ chọn các đối tượn"
+        "title": "Chọn công cụ",
+        "select": "Chạm vào các đối tượng để chọn 1 đối tượng, di chuyển giữa các đối tượng chồng lên nhau.",
+        "toggle": "Nhấn vào các đối tượng bằng phím Shift để chọn/bỏ chọn các đối tượn",
+        "deselect": "Chạm vào khoảng trống để bỏ chọn tất cả các đối tượng.",
+        "move": "Kéo các đối tượng để di chuyển nhiều đối tượng.",
+        "selectMultiple": "Kéo khoảng trống để chọn nhiều đối tượng.",
+        "selectAdd": "Kéo khoảng trống bằng phím Shift để thêm nhiều đối tượng vào vùng chọn."
       },
       "eraserTool": {
-        "title": "Công cụ Tẩy"
+        "title": "Công cụ Tẩy",
+        "erase": "Chạm vào các đối tượng để xóa.",
+        "deselect": "Chạm vào khoảng trống để bỏ chọn tất cả các đối tượng.",
+        "eraseMultiple": "Kéo để xóa nhiều đối tượng."
       },
       "brushTool": {
         "title": "Công cụ Cọ vẽ",
         "brush": "Chạm vào các đối tượng để chọn.",
+        "deselect": "Chạm vào khoảng trống để bỏ chọn tất cả các đối tượng.",
         "brushMultiple": "Kéo để chọn nhiều đối tượng."
       },
       "pasteTool": {
-        "title": "Công cụ Dán"
+        "title": "Công cụ Dán",
+        "paste": "Nhấn để dán."
       },
       "tapNoteTool": {
         "title": "Công cụ Tạo nốt Đơn",
         "edit": "Nhấn vào một nốt đơn để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
         "move": "Kéo một nốt đơn để di chuyển."
       },
       "singleHoldNoteTool": {
         "title": "Công cụ Tạo nốt Đơn dài",
         "edit": "Chạm vào 1 đối tượng Nốt đơn Dài để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
         "connect": "Chạm vào khoảng trống có 1 đối tượng Nốt Đơn dài được chọn để kết nối.",
         "move": "Kéo 1 đối tượng Nốt Đơn dài để di chuyển."
       },
       "doubleHoldNoteTool": {
         "title": "Công cụ tạo Nốt Đôi dài",
         "edit": "Nhấn vào 1 đối tượng Nốt Đôi dài để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
         "connect": "Chạm vào khoảng trống có 1 đối tượng Nốt Đôi dài được chọn để kết nối.",
         "move": "Kéo 1 đối tượng Nốt Đôi dài để di chuyển."
       },
       "rotateEventTool": {
         "title": "Công cụ tạo sự kiện Xoay",
         "edit": "Chạm vào 1 đối tượng Sự kiện Xoay để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
         "move": "Kéo 1 đối tượng Sự kiện xoay để di chuyển."
       },
       "shiftEventTool": {
-        "edit": "Nhấn vào 1 đối tượng sự kiện Shift để chỉnh sửa."
+        "edit": "Nhấn vào 1 đối tượng sự kiện Shift để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
+        "move": "Kéo 1 đối tượng Sự kiện Shift để di chuyển."
       },
       "zoomEventTool": {
         "title": "Công cụ sự kiện Phóng",
         "edit": "Nhấn vào 1 đối tượng Sự kiện Phóng để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
         "move": "Kéo 1 đối tượng Sự kiện Phóng để di chuyển."
       },
       "bpmTool": {
+        "title": "Công cụ BPM",
+        "edit": "Nhấn vào 1 đối tượng BPM để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
+        "move": "Kéo 1 đối tượng BPM để di chuyển."
       },
       "timeScaleTool": {
+        "title": "Công cụ thang thời gian",
+        "edit": "Chạm vào 1 đối tượng Thang thời gian để chỉnh sửa.",
+        "add": "Nhấn vào khoảng trống để thêm.",
+        "move": "Kéo 1 đối tượng Time Scale để di chuyển."
       }
     }
   },
   "settings": {
+    "title": "Cài đặt",
     "editor": {
       "title": "Trình chỉnh sửa",
+      "locale": "Ngôn ngữ",
+      "autoSave": "Tự động lưu",
       "autoSaveDelay": "Tự động lưu sau",
       "waveformVisualization": {
         "title": "Tạo biểu đồ sóng âm",
+        "off": "Tắt",
+        "fft": "FFT",
+        "volume": "Âm lượng",
         "changed": "Bạn đã thay đổi cách tạo biểu đồ sóng âm, hãy chọn lại tệp Nhạc nền để thay đổi này có hiệu lực."
       }
     },
     "keyboardShortcuts": {
+      "title": "Phím tắt"
     },
     "mouse": {
+      "title": "Chuột",
       "secondaryTool": {
+        "title": "Công cụ thứ cấp",
+        "eraser": "Cục tẩy",
+        "select": "Lựa chọn"
       },
       "smoothScrolling": "Cuộn mượt"
     },
@@ -255,27 +327,38 @@
       "followPosition": "Vị trí chạy theo"
     },
     "preview": {
+      "title": "Xem trước",
       "position": {
       }
     },
     "toolbar": {
+      "title": "Thanh công cụ",
       "modal": {
+        "title": "Chọn công cụ"
       }
     },
     "touch": {
+      "title": "Chạm",
+      "scrollInertia": "Quán tính cuộn"
     }
   },
   "tools": {
     "brush": {
+      "deselected": "Bỏ chọn tất cả các đối tượng",
       "brushing": "Đang chọn {0} đối tượng",
       "brushed": "Đã chọn {0} đối tượng"
     },
     "eraser": {
       "deselected": "Đã bỏ chọn tất cả các đối tượng",
-      "erasing": "Đang xóa {0} đối tượng"
+      "erasing": "Đang xóa {0} đối tượng",
+      "erased": "Đã xóa {0} đối tượng"
     },
     "events": {
       "moving": "Đang di chuyển {0} {1} đối tượng",
+      "added": "Đã thêm {0} {1} đối tượng",
+      "edited": "Đã chỉnh sửa {0} {1} đối tượng",
+      "moved": "Đã di chuyển {0} {1} đối tượng",
+      "replaced": "Đã thay thế {0} {1} đối tượng",
       "types": {
         "rotateEvent": "Sự kiện Xoay",
         "shiftEvent": "Sự kiện Shift",
@@ -288,16 +371,22 @@
         },
         "shiftEvent": {
           "title": "Thuộc tính sự kiện Shift",
+          "value": "Giá trị",
           "beat": "Nhịp"
         },
         "zoomEvent": {
           "title": "Thuộc tính sự kiện Phóng",
+          "value": "Giá trị",
           "beat": "Nhịp"
         }
       }
     },
     "holdNotes": {
       "moving": "Đang di chuyển {0} {1} đối tượng",
+      "added": "Đã thêm {0} {1} đối tượng",
+      "edited": "Đã chỉnh sửa {0} {1} đối tượng",
+      "moved": "Đã di chuyển {0} {1} đối tượng",
+      "replaced": "Đã thay thế {0} {1} đối tượng",
       "types": {
         "singleHoldNote": "Nốt Đơn dài",
         "doubleHoldNote": "Nốt Đôi dài"
@@ -305,6 +394,7 @@
       "modals": {
         "singleHoldNote": {
           "title": "Thuộc tính Nốt Đơn dài",
+          "color": "Màu sắc",
           "beat": "Nhịp"
         },
         "doubleHoldNote": {
@@ -315,10 +405,14 @@
       }
     },
     "paste": {
+      "pasted": "Đã dán {0} đối tượng"
     },
     "select": {
       "deselected": "Đã bỏ chọn tất cả các đối tượng",
-      "selecting": "Đang chọn {0} đối tượng"
+      "selecting": "Đang chọn {0} đối tượng",
+      "selected": "Đã chọn {0} đối tượng",
+      "moving": "Di chuyển {0} đối tượng",
+      "moved": "Đã di chuyển {0} đối tượng"
     },
     "tapNote": {
       "moving": "Đang di chuyển {0} đối tượng Nốt Đơn",
@@ -334,35 +428,58 @@
     },
     "values": {
       "moving": "Đang di chuyển {0} {1} đối tượng",
+      "added": "Đã thêm {0} {1} đối tượng",
+      "edited": "Đã chỉnh sửa {0} {1} đối tượng",
+      "moved": "Đã di chuyển {0} {1} đối tượng",
+      "replaced": "Đã thay thế {0} {1} đối tượng",
       "types": {
+        "timeScale": "Thang thời gian",
         "bpm": "BPM"
       },
       "modals": {
         "bpm": {
+          "title": "Thuộc tính BPM",
           "bpm": "BPM",
           "beat": "Nhịp"
         },
         "timeScale": {
+          "title": "Thuộc tính thang thời gian",
+          "timeScale": "Thang thời gian",
           "beat": "Nhịp"
         }
       }
     }
   },
   "notification": {
+    "title": "Trình soạn thảo Sonolus Horizon\nPhiên bản {0}"
   },
   "player": {
+    "started": "Bắt đầu chơi",
+    "stopped": "Đã dừng chơi",
+    "changed": "Đã thay đổi tốc độ thành {0}x"
   },
   "history": {
+    "initialize": "Khởi tạo",
     "autoSave": {
+      "title": "Tự động lưu",
       "importing": "Đang nhập cấp độ"
     },
     "changes": {
-      "title": "Sửa đổi"
+      "title": "Sửa đổi",
+      "message": "Những thay đổi trên biểu đồ có thể bị mất. Tiếp tục?"
     }
   },
   "modals": {
     "form": {
+      "confirm": "Xác nhận",
       "color": {
+        "neutral": "Trung lập",
+        "red": "Màu đỏ",
+        "green": "Màu xanh lá",
+        "blue": "Màu xanh da trời",
+        "yellow": "Màu vàng",
+        "purple": "Màu tím",
+        "cyan": "Màu lục lam"
       },
       "ease": {
       },
@@ -370,16 +487,22 @@
         "select": "Chọn tệp..."
       },
       "key": {
+        "press": "Nhấn một phím..."
       },
       "toggle": {
+        "enabled": "Đã bật",
+        "disabled": "Tàn tật"
       }
     },
     "confirm": {
+      "confirm": "Xác nhận",
+      "cancel": "Hủy bỏ"
     },
     "info": {
       "ok": "Ok"
     },
     "loading": {
+      "loading": "Đang tải ..."
     }
   }
 }
