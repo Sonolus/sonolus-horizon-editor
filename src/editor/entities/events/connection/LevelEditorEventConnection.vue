@@ -33,11 +33,10 @@ const segments = computed(() => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const { x, y, s } = timeScales.value[i]!
 
-        if (!max)
-            max = {
-                time: times.max,
-                s: scaledTimeToS(y + (times.max - x) * s),
-            }
+        max ??= {
+            time: times.max,
+            s: scaledTimeToS(y + (times.max - x) * s),
+        }
 
         const min: SegmentJoint =
             times.min > x
