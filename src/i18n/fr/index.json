@@ -1,0 +1,540 @@
+{
+  "title": "Français (French)",
+  "commands": {
+    "bgm": {
+      "title": "Musique",
+      "changed": "Musique Modifiée",
+      "modal": {
+        "file": "Fichier",
+        "offset": "Décalage (ms)",
+        "loading": "Chargement du fichier…",
+        "decoding": "Décodage audio…",
+        "generating": "Génération de forme d'onde…"
+      }
+    },
+    "brush": {
+      "title": "Passer à l'outil Pinceau",
+      "switched": "Outil Pinceau activé ",
+      "modal": {
+        "title": "Propriétés du Pinceau",
+        "color": "Couleur",
+        "scaleL": "Échelle Gauche",
+        "scaleR": "Échelle Droite",
+        "ease": "Accélération"
+      }
+    },
+    "copy": {
+      "title": "Copier",
+      "noSelected": "Aucun objet sélectionné à copier",
+      "copied": "{0} objets copiés"
+    },
+    "cut": {
+      "title": "Couper",
+      "noSelected": "Aucun objet sélectionné à couper",
+      "cut": "{0} objets coupés"
+    },
+    "deselect": {
+      "title": "Désélectionner",
+      "deselected": "Objets désélectionnés"
+    },
+    "divisions": {
+      "title": "Passer à la division en 1/{0}",
+      "switched": "Division en 1/{0} sélectionnée",
+      "custom": {
+        "title": "Passer à la division personnalisée",
+        "modal": {
+          "title": "Division Personnalisée",
+          "division": "Division"
+        }
+      }
+    },
+    "eraser": {
+      "title": "Passer à l'outil Gomme",
+      "switched": "Outil Gomme activé"
+    },
+    "rotateEvent": {
+      "title": "Passer à l'outil Événement Rotation",
+      "switched": "Outil Événement Rotation activé"
+    },
+    "shiftEvent": {
+      "title": "Passer à l'outil Événement Décalage",
+      "switched": "Outil Événement Décalage activé"
+    },
+    "zoomEvent": {
+      "title": "Passer à l'outil Événement Zoom",
+      "switched": "Outil Événement Zoom activé"
+    },
+    "flip": {
+      "title": "Retourner",
+      "noSelected": "Aucun objet sélectionné à retourner",
+      "flipped": "{0} objets retournés"
+    },
+    "help": {
+      "title": "Aide"
+    },
+    "doubleHoldNote": {
+      "title": "Passer à l'outil Note Maintenue Double",
+      "switched": "Outil Note Maintenue Double"
+    },
+    "singleHoldNote": {
+      "title": "Passer à l'outil Note Maintenue Simple activé",
+      "switched": "Outil Note Maintenue Simple activé"
+    },
+    "jumpDown": {
+      "title": "Aller en Bas"
+    },
+    "jumpUp": {
+      "title": "Aller en Haut"
+    },
+    "open": {
+      "title": "Ouvrir",
+      "loading": "Chargement du fichier…",
+      "importing": "Importation du niveau…",
+      "opened": "Niveau ouvert"
+    },
+    "paste": {
+      "title": "Passer à l'outil Coller",
+      "switched": "Outil Collé activé"
+    },
+    "play": {
+      "title": "Jouer"
+    },
+    "redo": {
+      "title": "Refaire",
+      "noState": "Rien à refaire",
+      "redid": "\"{0}\" refait"
+    },
+    "reset": {
+      "title": "Réinitialiser",
+      "reset": "Réinitialiser le Niveau"
+    },
+    "save": {
+      "title": "Sauvegarder",
+      "exporting": "Exportation du niveau…",
+      "saved": "Niveau enregistré"
+    },
+    "scrollDown": {
+      "title": "Défiler vers le bas"
+    },
+    "scrollUp": {
+      "title": "Défiler vers le haut"
+    },
+    "scrollPageDown": {
+      "title": "Défiler la page vers le bas"
+    },
+    "scrollPageUp": {
+      "title": "Défiler la page vers le haut"
+    },
+    "select": {
+      "title": "Passer à l'outil Sélection",
+      "switched": "Outil Sélection activé"
+    },
+    "settings": {
+      "title": "Paramètres"
+    },
+    "snapping": {
+      "title": "Alignement",
+      "absolute": "Passer à l'alignement absolu",
+      "relative": "Passer à l'alignement relatif"
+    },
+    "speedDown": {
+      "title": "Ralentir"
+    },
+    "speedUp": {
+      "title": "Accélérer"
+    },
+    "stop": {
+      "title": "Arrêter"
+    },
+    "tapNote": {
+      "title": "Passer à l'outil Note Tapée",
+      "switched": "Outil Note Tapée activé"
+    },
+    "undo": {
+      "title": "Défaire",
+      "noState": "Rien à défaire",
+      "undid": "\"{0}\" annulé"
+    },
+    "bpm": {
+      "title": "Passer à l'outil BPM",
+      "switched": "Outil BPM activé"
+    },
+    "timeScale": {
+      "title": "Passer à l'outil Échelle de Temps",
+      "switched": "Outil Échelle de Temps activé"
+    },
+    "visibilities": {
+      "cycle": {
+        "title": "Alterner la visibilité de {0}",
+        "cycled": "Visibilité de {0} alternée"
+      },
+      "toggle": {
+        "title": "Basculer la visibilité de {0}",
+        "toggled": "Visibilité de {0} basculée",
+        "types": {
+          "tapNote": "Note Tapée",
+          "singleHoldNote": "Note Maintenue Simple",
+          "doubleHoldNote": "Note Maintenue Double",
+          "rotateEvent": "Événement Rotation",
+          "shiftEvent": "Événement Décalage",
+          "zoomEvent": "Événement Zoom",
+          "timeScale": "Échelle de Temps",
+          "bpm": "BPM"
+        }
+      }
+    },
+    "zoomXIn": {
+      "title": "Zoom avant sur l'axe X",
+      "zoomed": "Zoom avant sur l'axe X de 10 %"
+    },
+    "zoomXOut": {
+      "title": "Zoom arrière sur l'axe X",
+      "zoomed": "Zoom arrière sur l'axe X de 10 %"
+    },
+    "zoomYIn": {
+      "title": "Zoom avant sur l'axe Y",
+      "zoomed": "Zoom avant sur l'axe Y de 10 %"
+    },
+    "zoomYOut": {
+      "title": "Zoom arrière sur l'axe Y",
+      "zoomed": "Zoom arrière sur l'axe Y de 10 %"
+    }
+  },
+  "help": {
+    "modal": {
+      "title": "Aide",
+      "touchscreen": {
+        "title": "Écran Tactile",
+        "tap": "Appuyez d'un seul doigt pour appuyer.",
+        "drag": "Glissez avec un doigt pour faire glisser.",
+        "scroll": "Faites défiler verticalement avec deux doigts pour faire défiler.",
+        "zoomY": "Pincez verticalement avec deux doigts pour zoomer l'axe Y.",
+        "zoomX": "Pincez horizontalement avec deux doigts pour zoomer l'axe X."
+      },
+      "mouse": {
+        "title": "Souris",
+        "tapPrimary": "Clic gauche pour appuyer avec l'outil principal.",
+        "dragPrimary": "Clic gauche et glisser pour faire glisser avec l'outil principal.",
+        "tapSecondary": "Clic droit pour appuyer avec l'outil secondaire.",
+        "dragSecondary": "Clic droit et glisser pour faire glisser avec l'outil secondaire.",
+        "scroll": "Utilisez la molette pour faire défiler."
+      },
+      "keyboard": {
+        "title": "Clavier",
+        "single": "Appuyez une fois pour exécuter.",
+        "multiple": "Appuyez longuement pour exécuter plusieurs fois."
+      },
+      "selectTool": {
+        "title": "Outil Sélection",
+        "select": "Appuyez sur un objet pour le sélectionner. Réappuyez pour sélectionner le suivant si les objets sont superposés.",
+        "toggle": "Appuyez sur les objets avec la touche Maj pour inverser la sélection.",
+        "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
+        "move": "Glissez les objets pour déplacer tous les objets sélectionnés.",
+        "selectMultiple": "Glissez sur une zone vide pour sélectionner plusieurs objets.",
+        "selectAdd": "Glissez une zone vide avec la touche Maj pour ajouter plusieurs objets à la sélection."
+      },
+      "eraserTool": {
+        "title": "Outil Gomme",
+        "erase": "Appuyez sur les objets pour les effacer.",
+        "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
+        "eraseMultiple": "Glissez pour effacer plusieurs objets."
+      },
+      "brushTool": {
+        "title": "Outil Pinceau",
+        "brush": "Appuyez sur les objets pour les peindre.",
+        "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
+        "brushMultiple": "Glissez pour peindre plusieurs objets."
+      },
+      "pasteTool": {
+        "title": "Outil Coller",
+        "paste": "Appuyez pour coller."
+      },
+      "tapNoteTool": {
+        "title": "Outil Note Tapée",
+        "edit": "Appuyez sur une Note Tapée pour la modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "move": "Glissez une Note Tapée pour la déplacée."
+      },
+      "singleHoldNoteTool": {
+        "title": "Outil Note Maintenue Simple ",
+        "edit": "Appuyez sur une Note Maintenue Simple pour la modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "connect": "Appuyez sur une zone vide avec une Note Maintenue Simple sélectionnée pour ajouter une connexion.",
+        "move": "Glissez une Note Maintenue Simple pour la déplacée."
+      },
+      "doubleHoldNoteTool": {
+        "title": "Outil Note Maintenue Double",
+        "edit": "Appuyez sur une Note Maintenue Double pour la modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "connect": "Appuyez sur une zone vide avec une Note Maintenue Double sélectionnée pour ajouter une connexion.",
+        "move": "Glissez une Note Maintenue Double pour la déplacée."
+      },
+      "rotateEventTool": {
+        "title": "Outil Événement Rotation",
+        "edit": "Appuyez sur un Évènement Rotation pour le modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "move": "Glissez un Événement Rotation pour le déplacer."
+      },
+      "shiftEventTool": {
+        "title": "Outil Événement Décalage",
+        "edit": "Appuyez sur un Évènement Décalage pour le modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "move": "Glissez un Événement Décalage pour le déplacer."
+      },
+      "zoomEventTool": {
+        "title": "Outil Événement Zoom",
+        "edit": "Appuyez sur un Événement Zoom pour le modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "move": "Glissez un Événement Zoom pour le déplacer."
+      },
+      "bpmTool": {
+        "title": "Outil BPM",
+        "edit": "Appuyez sur un objet BPM pour le modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "move": "Glissez un objet BPM pour le déplacer."
+      },
+      "timeScaleTool": {
+        "title": "Outil Échelle de Temps",
+        "edit": "Appuyez sur un objet Échelle de Temps pour le modifier.",
+        "add": "Appuyez sur une zone vide pour en ajouter.",
+        "move": "Glissez un objet Échelle de temps pour le déplacer."
+      }
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "editor": {
+      "title": "Éditeur",
+      "locale": "Langue",
+      "autoSave": "Sauvegarde Automatique",
+      "autoSaveDelay": "Délai de la Sauvegarde Automatique",
+      "waveformVisualization": {
+        "title": "Visualisation en forme d'onde",
+        "off": "Désactivée",
+        "fft": "FFT",
+        "volume": "Volume",
+        "changed": "Vous avez modifié la visualisation en forme d'onde, rechargez le fichier audio pour appliquer ce changement."
+      }
+    },
+    "keyboardShortcuts": {
+      "title": "Raccourcis Clavier"
+    },
+    "mouse": {
+      "title": "Souris",
+      "secondaryTool": {
+        "title": "Outil Secondaire",
+        "eraser": "Effacer",
+        "select": "Sélectionner"
+      },
+      "smoothScrolling": "Défilement Fluide"
+    },
+    "play": {
+      "title": "Jouer",
+      "bgmVolume": "Volume de la Musique",
+      "sfxVolume": "Volume des Effets Sonores",
+      "follow": "Suivre",
+      "followPosition": "Suivre la Position"
+    },
+    "preview": {
+      "title": "Aperçu",
+      "position": {
+        "title": "Position",
+        "top": "Haut",
+        "left": "Gauche"
+      },
+      "noteSpeed": "Vitesse des Notes",
+      "connectorAlpha": "Opacité des Connecteurs"
+    },
+    "toolbar": {
+      "title": "Barre d'outil",
+      "modal": {
+        "title": "Sélectionner l'Outil"
+      }
+    },
+    "touch": {
+      "title": "Touche",
+      "scrollInertia": "Inertie de défilement"
+    }
+  },
+  "tools": {
+    "brush": {
+      "deselected": "Objets Désélectionnés",
+      "brushing": "Peinture de {0} objets",
+      "brushed": "{0} objets peints"
+    },
+    "eraser": {
+      "deselected": "Objets Désélectionnés",
+      "erasing": "Effacement de {0} objets",
+      "erased": "{0} objets effacés"
+    },
+    "events": {
+      "moving": "Déplacement de {0} objets {1}",
+      "adding": "Ajout de {0} objets {1}",
+      "added": "{0} objets {1} ajoutés",
+      "edited": "{0} objets {1} modifiés",
+      "moved": "{0} objets {1} déplacés",
+      "replaced": "{0} objets {1} remplacés",
+      "types": {
+        "rotateEvent": "Événement Rotation",
+        "shiftEvent": "Événement Décalage",
+        "zoomEvent": "Événement Zoom"
+      },
+      "modals": {
+        "rotateEvent": {
+          "title": "Propriétés de l'Événement Rotation",
+          "lane": "Voie",
+          "ease": "Accélération",
+          "beat": "Temps"
+        },
+        "shiftEvent": {
+          "title": "Propriétés de l'Événement Décalage",
+          "value": "Valeur",
+          "ease": "Accélération",
+          "beat": "Temps"
+        },
+        "zoomEvent": {
+          "title": "Propriétés de l'Événement Zoom",
+          "value": "Valeur",
+          "ease": "Accélération",
+          "beat": "Temps"
+        }
+      }
+    },
+    "holdNotes": {
+      "moving": "Déplacement de {0} objets {1}",
+      "adding": "Ajout de {0} objets {1}",
+      "added": "{0} objets {1} ajoutés",
+      "edited": "{0} objets {1} modifiés",
+      "moved": "{0} objets {1} remplacés",
+      "replaced": "{0} objets {1} remplacés",
+      "types": {
+        "singleHoldNote": "Note Maintenue Simple",
+        "doubleHoldNote": "Note Maintenue Double"
+      },
+      "modals": {
+        "singleHoldNote": {
+          "title": "Propriétés de la Note Maintenue Simple",
+          "color": "Couleur",
+          "lane": "Voie",
+          "beat": "Temps",
+          "scaleL": "Échelle Gauche",
+          "scaleR": "Échelle Droite"
+        },
+        "doubleHoldNote": {
+          "title": "Propriétés de la Note Maintenue Double",
+          "color": "Couleur",
+          "laneL": "Voie G",
+          "laneR": "Voie D",
+          "beat": "Temps"
+        }
+      }
+    },
+    "paste": {
+      "pasted": "{0} objets collés"
+    },
+    "select": {
+      "deselected": "Objets Désélectionnés",
+      "selecting": "Sélection de {0} objets",
+      "selected": "{0} objets sélectionnés",
+      "moving": "Déplacement de {0} objets",
+      "moved": "{0} objets déplacés"
+    },
+    "tapNote": {
+      "moving": "Déplacement de {0} objets Note Tapée",
+      "adding": "Ajout de {0} objets Note Tapée",
+      "added": "{0} objets Note Tapée ajoutés",
+      "edited": " {0} objets Note Tapée modifiés",
+      "moved": "{0} objets Note Tapée déplacés ",
+      "replaced": "{0} objets Note Tapée remplacés",
+      "modal": {
+        "title": "Propriétés de la Note Tapée",
+        "color": "Couleur",
+        "lane": "voie",
+        "beat": "Temps"
+      }
+    },
+    "values": {
+      "moving": "Déplacement de {0} objets {1}",
+      "adding": "Ajout de {0} objets {1}",
+      "added": "{0} objets {1} ajoutés",
+      "edited": "{0} objets {1} modifiés",
+      "moved": "{0} objets {1} déplacés",
+      "replaced": "{0} objets {1} remplacés",
+      "types": {
+        "timeScale": "Échelle de Temps",
+        "bpm": "BPM"
+      },
+      "modals": {
+        "bpm": {
+          "title": "Propriétés du BPM",
+          "bpm": "BPM",
+          "beat": "Temps"
+        },
+        "timeScale": {
+          "title": "Propriétés de l'Échelle de Temps",
+          "timeScale": "Échelle de Temps",
+          "beat": "Temps"
+        }
+      }
+    }
+  },
+  "notification": {
+    "title": "Éditeur Sonolus Horizon\nVersion {0}"
+  },
+  "player": {
+    "started": "Lecture démarrée",
+    "stopped": "Lecture arrêtée",
+    "changed": "Vitesse modifiée à {0}x"
+  },
+  "history": {
+    "initialize": "Initialiser",
+    "autoSave": {
+      "title": "Sauvegarde Automatique",
+      "importing": "Importation du niveau…"
+    },
+    "changes": {
+      "title": "Modifications",
+      "message": "Les modifications apportées au niveau peuvent être perdues. Continuer?"
+    }
+  },
+  "modals": {
+    "form": {
+      "confirm": "Confirmer",
+      "color": {
+        "neutral": "Neutre",
+        "red": "Rouge",
+        "green": "Vert",
+        "blue": "Bleu",
+        "yellow": "Jaune",
+        "purple": "Violet",
+        "cyan": "Cyan"
+      },
+      "ease": {
+        "out": "Out",
+        "linear": "Linéaire",
+        "in": "In"
+      },
+      "file": {
+        "select": "Sélectionner un Fichier…"
+      },
+      "key": {
+        "input": "Touche de Saisie",
+        "press": "Appuyez sur une touche…"
+      },
+      "toggle": {
+        "enabled": "Activé",
+        "disabled": "Désactivé"
+      }
+    },
+    "confirm": {
+      "confirm": "Confirmer",
+      "cancel": "Annuler"
+    },
+    "info": {
+      "ok": "OK"
+    },
+    "loading": {
+      "loading": "Chargement…"
+    }
+  }
+}
