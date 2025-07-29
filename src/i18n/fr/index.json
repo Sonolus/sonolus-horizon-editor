@@ -165,12 +165,12 @@
     },
     "visibilities": {
       "cycle": {
-        "title": "Alterner la visibilité de {0}",
-        "cycled": "Visibilité de {0} alternée"
+        "title": "Alterner la Visibilité des Objets",
+        "cycled": "Visibilité des objets alternée"
       },
       "toggle": {
-        "title": "Basculer la visibilité de {0}",
-        "toggled": "Visibilité de {0} basculée",
+        "title": "Basculer la visibilité des Objets {0}",
+        "toggled": "Visibilité des objets {0} basculée",
         "types": {
           "tapNote": "Note Tapée",
           "singleHoldNote": "Note Maintenue Simple",
@@ -206,8 +206,8 @@
       "touchscreen": {
         "title": "Écran Tactile",
         "tap": "Appuyez d'un seul doigt pour appuyer.",
-        "drag": "Glissez avec un doigt pour faire glisser.",
-        "scroll": "Faites défiler verticalement avec deux doigts pour faire défiler.",
+        "drag": "Glissez d'un seul doigt pour faire glisser.",
+        "scroll": "Glissez deux doigts verticalement pour faire défiler.",
         "zoomY": "Pincez verticalement avec deux doigts pour zoomer l'axe Y.",
         "zoomX": "Pincez horizontalement avec deux doigts pour zoomer l'axe X."
       },
@@ -222,7 +222,7 @@
       "keyboard": {
         "title": "Clavier",
         "single": "Appuyez une fois pour exécuter.",
-        "multiple": "Appuyez longuement pour exécuter plusieurs fois."
+        "multiple": "Restez appuyé pour exécuter plusieurs fois."
       },
       "selectTool": {
         "title": "Outil Sélection",
@@ -231,7 +231,7 @@
         "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
         "move": "Glissez les objets pour déplacer tous les objets sélectionnés.",
         "selectMultiple": "Glissez sur une zone vide pour sélectionner plusieurs objets.",
-        "selectAdd": "Glissez une zone vide avec la touche Maj pour ajouter plusieurs objets à la sélection."
+        "selectAdd": "Glissez sur une zone vide avec la touche Maj pour ajouter plusieurs objets à la sélection."
       },
       "eraserTool": {
         "title": "Outil Gomme",
@@ -253,21 +253,21 @@
         "title": "Outil Note Tapée",
         "edit": "Appuyez sur une Note Tapée pour la modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez une Note Tapée pour la déplacée."
+        "move": "Glissez une Note Tapée pour la déplacer."
       },
       "singleHoldNoteTool": {
         "title": "Outil Note Maintenue Simple ",
         "edit": "Appuyez sur une Note Maintenue Simple pour la modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
         "connect": "Appuyez sur une zone vide avec une Note Maintenue Simple sélectionnée pour ajouter une connexion.",
-        "move": "Glissez une Note Maintenue Simple pour la déplacée."
+        "move": "Glissez une Note Maintenue Simple pour la déplacér."
       },
       "doubleHoldNoteTool": {
         "title": "Outil Note Maintenue Double",
         "edit": "Appuyez sur une Note Maintenue Double pour la modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
         "connect": "Appuyez sur une zone vide avec une Note Maintenue Double sélectionnée pour ajouter une connexion.",
-        "move": "Glissez une Note Maintenue Double pour la déplacée."
+        "move": "Glissez une Note Maintenue Double pour la déplacer."
       },
       "rotateEventTool": {
         "title": "Outil Événement Rotation",
