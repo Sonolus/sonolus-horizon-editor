@@ -13,7 +13,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    close: [brush?: BrushProperties]
+    close: [properties?: BrushProperties]
 }>()
 
 const model = reactive({

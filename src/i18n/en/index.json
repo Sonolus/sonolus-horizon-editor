@@ -148,7 +148,11 @@
         },
         "tapNote": {
             "title": "Switch to Tap Note tool",
-            "switched": "Switched to Tap Note tool"
+            "switched": "Switched to Tap Note tool",
+            "modal": {
+                "title": "Tap Note Properties",
+                "color": "Color"
+            }
         },
         "undo": {
             "title": "Undo",

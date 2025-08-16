@@ -25,6 +25,16 @@ import {
 import { hitEntitiesAtPoint } from '../utils'
 import TapNotePropertiesModal from './TapNotePropertiesModal.vue'
 
+export type TapNoteProperties = {
+    color?: number
+}
+
+export let tapNoteProperties: TapNoteProperties = {}
+
+export const setTapNoteProperties = (properties: TapNoteProperties) => {
+    tapNoteProperties = properties
+}
+
 let active:
     | {
           type: 'move'
@@ -50,7 +60,6 @@ export const tapNote: Tool = {
                 creating: [
                     toTapNoteEntity({
                         beat,
-                        color: 0,
                         lane,
                         ...getPropertiesFromSelection(),
                     }),
@@ -81,7 +90,6 @@ export const tapNote: Tool = {
         } else {
             add({
                 beat,
-                color: 0,
                 lane,
                 ...getPropertiesFromSelection(),
             })
@@ -148,7 +156,6 @@ export const tapNote: Tool = {
                 creating: [
                     toTapNoteEntity({
                         beat,
-                        color: 0,
                         lane: xToValidLane(x),
                         ...getPropertiesFromSelection(),
                     }),
@@ -188,7 +195,6 @@ export const tapNote: Tool = {
             } else {
                 add({
                     beat,
-                    color: 0,
                     lane,
                     ...getPropertiesFromSelection(),
                 })
@@ -200,14 +206,20 @@ export const tapNote: Tool = {
     },
 }
 
-const getPropertiesFromSelection = () => {
+const getTapNoteFromSelection = () => {
     if (selectedEntities.value.length !== 1) return
 
     const [entity] = selectedEntities.value
     if (entity?.type !== 'tapNote') return
 
+    return entity
+}
+
+const getPropertiesFromSelection = () => {
+    const tapNote = getTapNoteFromSelection()
+
     return {
-        color: entity.color,
+        color: tapNoteProperties.color ?? tapNote?.color ?? 0,
     }
 }
 
