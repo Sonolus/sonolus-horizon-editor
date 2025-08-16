@@ -9,8 +9,19 @@ import {
 } from '../../../../state/mutations/events/rotate'
 import { getInStoreGrid } from '../../../../state/store/grid'
 import { align, clamp } from '../../../../utils/math'
+import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import RotateEventPropertiesModal from './RotateEventPropertiesModal.vue'
+
+export type RotateEventProperties = {
+    ease?: Ease
+}
+
+export let rotateEventProperties: RotateEventProperties = {}
+
+export const setRotateEventProperties = (properties: RotateEventProperties) => {
+    rotateEventProperties = properties
+}
 
 const toValue = (x: number) => -clamp(align(xToLane(x), 2), -0.5, 7.5)
 
@@ -38,6 +49,7 @@ export const rotateEvent = createEventTool(
         return value - Math.floor((0.5 - prev.value) / 8) * 8
     },
     (value, sx, x) => value - align(xToLane(x), 2) + align(xToLane(sx), 2),
+    () => rotateEventProperties.ease,
 
     'rotateEventJoint',
     toRotateEventJointEntity,

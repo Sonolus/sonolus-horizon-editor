@@ -54,15 +54,27 @@
         },
         "rotateEvent": {
             "title": "Switch to Rotate Event tool",
-            "switched": "Switched to Rotate Event tool"
+            "switched": "Switched to Rotate Event tool",
+            "modal": {
+                "title": "Rotate Event Properties",
+                "ease": "Ease"
+            }
         },
         "shiftEvent": {
             "title": "Switch to Shift Event tool",
-            "switched": "Switched to Shift Event tool"
+            "switched": "Switched to Shift Event tool",
+            "modal": {
+                "title": "Shift Event Properties",
+                "ease": "Ease"
+            }
         },
         "zoomEvent": {
             "title": "Switch to Zoom Event tool",
-            "switched": "Switched to Zoom Event tool"
+            "switched": "Switched to Zoom Event tool",
+            "modal": {
+                "title": "Zoom Event Properties",
+                "ease": "Ease"
+            }
         },
         "flip": {
             "title": "Flip",

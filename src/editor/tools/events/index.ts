@@ -10,6 +10,7 @@ import type { AddMutation, RemoveMutation } from '../../../state/mutations'
 import { getInStoreGrid } from '../../../state/store/grid'
 import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
+import type { Ease } from '../../ease'
 import { notify } from '../../notification'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
@@ -21,20 +22,27 @@ export const createEventTool = <T extends EventJointEntityType>(
     isMatch: (value: number, x: number) => boolean,
     getValue: (beat: number, x: number) => number,
     shiftValue: (value: number, sx: number, x: number) => number,
+    getEase: () => Ease | undefined,
 
     type: T,
     toEntity: (object: EventObject) => EntityOfType<T>,
     addEntity: AddMutation<EventObject>,
     removeEntity: RemoveMutation<EntityOfType<T>>,
 ): Tool => {
-    const getPropertiesFromSelection = () => {
+    const getEntityFromSelection = () => {
         if (selectedEntities.value.length !== 1) return
 
         const [entity] = selectedEntities.value
         if (entity?.type !== type) return
 
+        return entity
+    }
+
+    const getPropertiesFromSelection = () => {
+        const entity = getEntityFromSelection()
+
         return {
-            ease: entity.ease,
+            ease: getEase() ?? entity?.ease ?? 'linear',
         }
     }
 
@@ -159,7 +167,6 @@ export const createEventTool = <T extends EventJointEntityType>(
                         toEntity({
                             beat,
                             value,
-                            ease: 'linear',
                             ...getPropertiesFromSelection(),
                         }),
                     ],
@@ -188,7 +195,6 @@ export const createEventTool = <T extends EventJointEntityType>(
                 const object: EventObject = {
                     beat,
                     value,
-                    ease: 'linear',
                     ...getPropertiesFromSelection(),
                 }
 
@@ -266,7 +272,6 @@ export const createEventTool = <T extends EventJointEntityType>(
                         toEntity({
                             beat,
                             value: getValue(beat, x),
-                            ease: 'linear',
                             ...getPropertiesFromSelection(),
                         }),
                     ],
@@ -304,7 +309,6 @@ export const createEventTool = <T extends EventJointEntityType>(
                     const object: EventObject = {
                         beat,
                         value,
-                        ease: 'linear',
                         ...getPropertiesFromSelection(),
                     }
 
