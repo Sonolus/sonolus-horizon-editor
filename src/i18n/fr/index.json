@@ -54,15 +54,27 @@
     },
     "rotateEvent": {
       "title": "Passer à l'outil Événement Rotation",
-      "switched": "Outil Événement Rotation activé"
+      "switched": "Outil Événement Rotation activé",
+      "modal": {
+        "title": "Propriétés de l'Événement Rotation",
+        "ease": "Accélération"
+      }
     },
     "shiftEvent": {
       "title": "Passer à l'outil Événement Décalage",
-      "switched": "Outil Événement Décalage activé"
+      "switched": "Outil Événement Décalage activé",
+      "modal": {
+        "title": "Propriétés de l'Événement Décalage",
+        "ease": "Accélération"
+      }
     },
     "zoomEvent": {
       "title": "Passer à l'outil Événement Zoom",
-      "switched": "Outil Événement Zoom activé"
+      "switched": "Outil Événement Zoom activé",
+      "modal": {
+        "title": "Propriétés de l'Événement Zoom",
+        "ease": "Accélération"
+      }
     },
     "flip": {
       "title": "Retourner",
@@ -74,11 +86,26 @@
     },
     "doubleHoldNote": {
       "title": "Passer à l'outil Note Maintenue Double",
-      "switched": "Outil Note Maintenue Double"
+      "switched": "Outil Note Maintenue Double",
+      "modal": {
+        "title": "Propriétés de la Note Maintenue Double",
+        "color": "Couleur",
+        "laneL": "Voie G",
+        "laneR": "Voie D",
+        "beat": "Temps"
+      }
     },
     "singleHoldNote": {
       "title": "Passer à l'outil Note Maintenue Simple activé",
-      "switched": "Outil Note Maintenue Simple activé"
+      "switched": "Outil Note Maintenue Simple activé",
+      "modal": {
+        "title": "Propriétés de la Note Maintenue Simple",
+        "color": "Couleur",
+        "lane": "Voie",
+        "beat": "Temps",
+        "scaleL": "Échelle Gauche",
+        "scaleR": "Échelle Droite"
+      }
     },
     "jumpDown": {
       "title": "Aller en Bas"
@@ -148,7 +175,11 @@
     },
     "tapNote": {
       "title": "Passer à l'outil Note Tapée",
-      "switched": "Outil Note Tapée activé"
+      "switched": "Outil Note Tapée activé",
+      "modal": {
+        "title": "Propriétés de la Note Tapée",
+        "color": "Couleur"
+      }
     },
     "undo": {
       "title": "Défaire",

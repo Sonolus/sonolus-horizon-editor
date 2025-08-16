@@ -54,15 +54,27 @@
     },
     "rotateEvent": {
       "title": "회전 이벤트 도구로 변경",
-      "switched": "회전 이벤트 도구로 변경됨"
+      "switched": "회전 이벤트 도구로 변경됨",
+      "modal": {
+        "title": "회전 이벤트 속성",
+        "ease": "함수"
+      }
     },
     "shiftEvent": {
       "title": "이동 이벤트 도구로 변경",
-      "switched": "이동 이벤트 도구로 변경됨"
+      "switched": "이동 이벤트 도구로 변경됨",
+      "modal": {
+        "title": "이동 이벤트 속성",
+        "ease": "함수"
+      }
     },
     "zoomEvent": {
       "title": "줌 이벤트 도구로 변경",
-      "switched": "줌 이벤트 도구로 변경됨"
+      "switched": "줌 이벤트 도구로 변경됨",
+      "modal": {
+        "title": "줌 이벤트 속성",
+        "ease": "함수"
+      }
     },
     "flip": {
       "title": "뒤집기",
@@ -74,11 +86,26 @@
     },
     "doubleHoldNote": {
       "title": "다중 유지 노트 도구로 변경",
-      "switched": "다중 유지 노트 도구로 변경됨"
+      "switched": "다중 유지 노트 도구로 변경됨",
+      "modal": {
+        "title": "다중 유지 노트 속성",
+        "color": "색상",
+        "laneL": "좌 레인",
+        "laneR": "우 레인",
+        "beat": "비트"
+      }
     },
     "singleHoldNote": {
       "title": "단일 유지 노트 도구로 변경",
-      "switched": "단일 유지 노트 도구로 변경됨"
+      "switched": "단일 유지 노트 도구로 변경됨",
+      "modal": {
+        "title": "단일 유지 노트 속성",
+        "color": "색상",
+        "lane": "레인",
+        "beat": "비트",
+        "scaleL": "좌 배율",
+        "scaleR": "우 배율"
+      }
     },
     "jumpDown": {
       "title": "아래로 점프"
@@ -148,7 +175,11 @@
     },
     "tapNote": {
       "title": "탭 노트 도구로 변경",
-      "switched": "탭 노트 도구로 변경됨"
+      "switched": "탭 노트 도구로 변경됨",
+      "modal": {
+        "title": "탭 노트 속성",
+        "color": "색상"
+      }
     },
     "undo": {
       "title": "되돌리기",
