@@ -74,11 +74,22 @@
         },
         "doubleHoldNote": {
             "title": "Switch to Double Hold Note tool",
-            "switched": "Switched to Double Hold Note tool"
+            "switched": "Switched to Double Hold Note tool",
+            "modal": {
+                "title": "Double Hold Note Properties",
+                "color": "Color",
+                "size": "Size"
+            }
         },
         "singleHoldNote": {
             "title": "Switch to Single Hold Note tool",
-            "switched": "Switched to Single Hold Note tool"
+            "switched": "Switched to Single Hold Note tool",
+            "modal": {
+                "title": "Single Hold Note Properties",
+                "color": "Color",
+                "scaleL": "Scale L",
+                "scaleR": "Scale R"
+            }
         },
         "jumpDown": {
             "title": "Jump Down"

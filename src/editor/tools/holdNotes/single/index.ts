@@ -9,16 +9,28 @@ import {
 import { align, mod } from '../../../../utils/math'
 import SingleHoldNotePropertiesModal from './SingleHoldNotePropertiesModal.vue'
 
+export type SingleHoldNoteProperties = {
+    color?: number
+    scaleL?: number
+    scaleR?: number
+}
+
+export let singleHoldNoteProperties: SingleHoldNoteProperties = {}
+
+export const setSingleHoldNoteProperties = (properties: SingleHoldNoteProperties) => {
+    singleHoldNoteProperties = properties
+}
+
 export const singleHoldNote = createHoldNoteTool(
     () => i18n.value.tools.holdNotes.types.singleHoldNote,
     (entity) => showModal(SingleHoldNotePropertiesModal, { object: entity }),
 
     (beat, lane, joint) => ({
         beat,
-        color: joint?.color ?? 0,
+        color: singleHoldNoteProperties.color ?? joint?.color ?? 0,
         lane,
-        scaleL: joint?.scaleL ?? 0,
-        scaleR: joint?.scaleR ?? 0,
+        scaleL: singleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
+        scaleR: singleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
     }),
     (entity, beat, startLane, lane) => ({
         beat,
@@ -29,10 +41,10 @@ export const singleHoldNote = createHoldNoteTool(
     }),
     (beat, startLane, lane, joint) => ({
         beat,
-        color: joint?.color ?? 0,
+        color: singleHoldNoteProperties.color ?? joint?.color ?? 0,
         lane,
-        scaleL: joint?.scaleL ?? 0,
-        scaleR: joint?.scaleR ?? 0,
+        scaleL: singleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
+        scaleR: singleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
     }),
 
     'singleHoldNoteJoint',
