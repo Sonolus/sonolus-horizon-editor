@@ -56,6 +56,7 @@ import HelpSection from './HelpSection.vue'
             <li>{{ i18n.help.modal.tapNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.add }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.move }}</li>
+            <li>{{ i18n.help.modal.tapNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.singleHoldNoteTool.title">
@@ -63,6 +64,7 @@ import HelpSection from './HelpSection.vue'
             <li>{{ i18n.help.modal.singleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.move }}</li>
+            <li>{{ i18n.help.modal.singleHoldNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.doubleHoldNoteTool.title">
@@ -70,24 +72,28 @@ import HelpSection from './HelpSection.vue'
             <li>{{ i18n.help.modal.doubleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.move }}</li>
+            <li>{{ i18n.help.modal.doubleHoldNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.rotateEventTool.title">
             <li>{{ i18n.help.modal.rotateEventTool.edit }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.add }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.move }}</li>
+            <li>{{ i18n.help.modal.rotateEventTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.shiftEventTool.title">
             <li>{{ i18n.help.modal.shiftEventTool.edit }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.add }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.move }}</li>
+            <li>{{ i18n.help.modal.shiftEventTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.zoomEventTool.title">
             <li>{{ i18n.help.modal.zoomEventTool.edit }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.add }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.move }}</li>
+            <li>{{ i18n.help.modal.zoomEventTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.bpmTool.title">
