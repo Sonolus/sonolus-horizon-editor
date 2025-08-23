@@ -11,14 +11,14 @@ import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import ShiftEventPropertiesModal from './ShiftEventPropertiesModal.vue'
 
-export type ShiftEventProperties = {
+export type DefaultShiftEventProperties = {
     ease?: Ease
 }
 
-export let shiftEventProperties: ShiftEventProperties = {}
+export let defaultShiftEventProperties: DefaultShiftEventProperties = {}
 
-export const setShiftEventProperties = (properties: ShiftEventProperties) => {
-    shiftEventProperties = properties
+export const setDefaultShiftEventProperties = (properties: DefaultShiftEventProperties) => {
+    defaultShiftEventProperties = properties
 }
 
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
@@ -30,7 +30,7 @@ export const shiftEvent = createEventTool(
     (value, x) => value === toValue(x),
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
-    () => shiftEventProperties.ease,
+    () => defaultShiftEventProperties.ease,
 
     'shiftEventJoint',
     toShiftEventJointEntity,

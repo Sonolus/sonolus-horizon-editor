@@ -11,14 +11,14 @@ import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import ZoomEventPropertiesModal from './ZoomEventPropertiesModal.vue'
 
-export type ZoomEventProperties = {
+export type DefaultZoomEventProperties = {
     ease?: Ease
 }
 
-export let zoomEventProperties: ZoomEventProperties = {}
+export let defaultZoomEventProperties: DefaultZoomEventProperties = {}
 
-export const setZoomEventProperties = (properties: ZoomEventProperties) => {
-    zoomEventProperties = properties
+export const setDefaultZoomEventProperties = (properties: DefaultZoomEventProperties) => {
+    defaultZoomEventProperties = properties
 }
 
 const toValue = (x: number) => clamp(align(laneToZoomEventValue(xToLane(x)), 10))
@@ -30,7 +30,7 @@ export const zoomEvent = createEventTool(
     (value, x) => value === toValue(x),
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
-    () => zoomEventProperties.ease,
+    () => defaultZoomEventProperties.ease,
 
     'zoomEventJoint',
     toZoomEventJointEntity,

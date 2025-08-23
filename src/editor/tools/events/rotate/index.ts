@@ -13,14 +13,14 @@ import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import RotateEventPropertiesModal from './RotateEventPropertiesModal.vue'
 
-export type RotateEventProperties = {
+export type DefaultRotateEventProperties = {
     ease?: Ease
 }
 
-export let rotateEventProperties: RotateEventProperties = {}
+export let defaultRotateEventProperties: DefaultRotateEventProperties = {}
 
-export const setRotateEventProperties = (properties: RotateEventProperties) => {
-    rotateEventProperties = properties
+export const setDefaultRotateEventProperties = (properties: DefaultRotateEventProperties) => {
+    defaultRotateEventProperties = properties
 }
 
 const toValue = (x: number) => -clamp(align(xToLane(x), 2), -0.5, 7.5)
@@ -49,7 +49,7 @@ export const rotateEvent = createEventTool(
         return value - Math.floor((0.5 - prev.value) / 8) * 8
     },
     (value, sx, x) => value - align(xToLane(x), 2) + align(xToLane(sx), 2),
-    () => rotateEventProperties.ease,
+    () => defaultRotateEventProperties.ease,
 
     'rotateEventJoint',
     toRotateEventJointEntity,

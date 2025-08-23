@@ -5,28 +5,28 @@ import ColorField from '../../../../modals/form/ColorField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
 import NumberField from '../../../../modals/form/NumberField.vue'
 import ToggleField from '../../../../modals/form/ToggleField.vue'
-import type { SingleHoldNoteProperties } from '../../../tools/holdNotes/single'
+import type { DefaultSingleHoldNoteProperties } from '../../../tools/holdNotes/single'
 
 const props = defineProps<{
-    singleHoldNoteProperties: SingleHoldNoteProperties
+    properties: DefaultSingleHoldNoteProperties
 }>()
 
 const emit = defineEmits<{
-    close: [properties?: SingleHoldNoteProperties]
+    close: [properties?: DefaultSingleHoldNoteProperties]
 }>()
 
 const model = reactive({
     color: {
-        isEnabled: props.singleHoldNoteProperties.color !== undefined,
-        value: props.singleHoldNoteProperties.color ?? 0,
+        isEnabled: props.properties.color !== undefined,
+        value: props.properties.color ?? 0,
     },
     scaleL: {
-        isEnabled: props.singleHoldNoteProperties.scaleL !== undefined,
-        value: props.singleHoldNoteProperties.scaleL ?? 0,
+        isEnabled: props.properties.scaleL !== undefined,
+        value: props.properties.scaleL ?? 0,
     },
     scaleR: {
-        isEnabled: props.singleHoldNoteProperties.scaleR !== undefined,
-        value: props.singleHoldNoteProperties.scaleR ?? 0,
+        isEnabled: props.properties.scaleR !== undefined,
+        value: props.properties.scaleR ?? 0,
     },
 })
 

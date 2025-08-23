@@ -4,20 +4,20 @@ import { i18n } from '../../../i18n'
 import ColorField from '../../../modals/form/ColorField.vue'
 import FormModal from '../../../modals/form/FormModal.vue'
 import ToggleField from '../../../modals/form/ToggleField.vue'
-import type { TapNoteProperties } from '../../tools/tapNote'
+import type { DefaultTapNoteProperties } from '../../tools/tapNote'
 
 const props = defineProps<{
-    tapNoteProperties: TapNoteProperties
+    properties: DefaultTapNoteProperties
 }>()
 
 const emit = defineEmits<{
-    close: [properties?: TapNoteProperties]
+    close: [properties?: DefaultTapNoteProperties]
 }>()
 
 const model = reactive({
     color: {
-        isEnabled: props.tapNoteProperties.color !== undefined,
-        value: props.tapNoteProperties.color ?? 0,
+        isEnabled: props.properties.color !== undefined,
+        value: props.properties.color ?? 0,
     },
 })
 

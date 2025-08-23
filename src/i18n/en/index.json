@@ -56,7 +56,7 @@
             "title": "Switch to Rotate Event tool",
             "switched": "Switched to Rotate Event tool",
             "modal": {
-                "title": "Rotate Event Properties",
+                "title": "Default Rotate Event Properties",
                 "ease": "Ease"
             }
         },
@@ -64,7 +64,7 @@
             "title": "Switch to Shift Event tool",
             "switched": "Switched to Shift Event tool",
             "modal": {
-                "title": "Shift Event Properties",
+                "title": "Default Shift Event Properties",
                 "ease": "Ease"
             }
         },
@@ -72,7 +72,7 @@
             "title": "Switch to Zoom Event tool",
             "switched": "Switched to Zoom Event tool",
             "modal": {
-                "title": "Zoom Event Properties",
+                "title": "Default Zoom Event Properties",
                 "ease": "Ease"
             }
         },
@@ -88,7 +88,7 @@
             "title": "Switch to Double Hold Note tool",
             "switched": "Switched to Double Hold Note tool",
             "modal": {
-                "title": "Double Hold Note Properties",
+                "title": "Default Double Hold Note Properties",
                 "color": "Color",
                 "size": "Size"
             }
@@ -97,7 +97,7 @@
             "title": "Switch to Single Hold Note tool",
             "switched": "Switched to Single Hold Note tool",
             "modal": {
-                "title": "Single Hold Note Properties",
+                "title": "Default Single Hold Note Properties",
                 "color": "Color",
                 "scaleL": "Scale L",
                 "scaleR": "Scale R"
@@ -173,7 +173,7 @@
             "title": "Switch to Tap Note tool",
             "switched": "Switched to Tap Note tool",
             "modal": {
-                "title": "Tap Note Properties",
+                "title": "Default Tap Note Properties",
                 "color": "Color"
             }
         },
@@ -281,7 +281,7 @@
                 "edit": "Tap 1 Tap Note object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Tap Note object to move.",
-                "properties": "Switch to Tap Note Tool again to change properties."
+                "properties": "Switch to Tap Note Tool again to change default properties."
             },
             "singleHoldNoteTool": {
                 "title": "Single Hold Note Tool",
@@ -289,7 +289,7 @@
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Single Hold Note object selected to connect.",
                 "move": "Drag 1 Single Hold Note object to move.",
-                "properties": "Switch to Single Hold Note Tool again to change properties."
+                "properties": "Switch to Single Hold Note Tool again to change default properties."
             },
             "doubleHoldNoteTool": {
                 "title": "Double Hold Note Tool",
@@ -297,28 +297,28 @@
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Double Hold Note object selected to connect.",
                 "move": "Drag 1 Double Hold Note object to move.",
-                "properties": "Switch to Double Hold Note Tool again to change properties."
+                "properties": "Switch to Double Hold Note Tool again to change default properties."
             },
             "rotateEventTool": {
                 "title": "Rotate Event Tool",
                 "edit": "Tap 1 Rotate Event object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Rotate Event object to move.",
-                "properties": "Switch to Rotate Event Tool again to change properties."
+                "properties": "Switch to Rotate Event Tool again to change default properties."
             },
             "shiftEventTool": {
                 "title": "Shift Event Tool",
                 "edit": "Tap 1 Shift Event object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Shift Event object to move.",
-                "properties": "Switch to Shift Event Tool again to change properties."
+                "properties": "Switch to Shift Event Tool again to change default properties."
             },
             "zoomEventTool": {
                 "title": "Zoom Event Tool",
                 "edit": "Tap 1 Zoom Event object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Zoom Event object to move.",
-                "properties": "Switch to Zoom Event Tool again to change properties."
+                "properties": "Switch to Zoom Event Tool again to change default properties."
             },
             "bpmTool": {
                 "title": "BPM Tool",

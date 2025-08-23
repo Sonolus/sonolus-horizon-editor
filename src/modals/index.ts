@@ -11,7 +11,7 @@ export type Modal = {
 
 export const modals = shallowReactive<Modal[]>([])
 
-type ModalProps<T extends Component> = ComponentInstance<T>['$props']['$props']
+type ModalProps<T extends Component> = ComponentInstance<T>['$props']
 
 type ModalResult<T extends Component> = ComponentInstance<T>['$emit'] extends (
     event: 'close',

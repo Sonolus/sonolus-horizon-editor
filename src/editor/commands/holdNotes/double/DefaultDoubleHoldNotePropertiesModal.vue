@@ -5,24 +5,24 @@ import ColorField from '../../../../modals/form/ColorField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
 import NumberField from '../../../../modals/form/NumberField.vue'
 import ToggleField from '../../../../modals/form/ToggleField.vue'
-import type { DoubleHoldNoteProperties } from '../../../tools/holdNotes/double'
+import type { DefaultDoubleHoldNoteProperties } from '../../../tools/holdNotes/double'
 
 const props = defineProps<{
-    doubleHoldNoteProperties: DoubleHoldNoteProperties
+    properties: DefaultDoubleHoldNoteProperties
 }>()
 
 const emit = defineEmits<{
-    close: [properties?: DoubleHoldNoteProperties]
+    close: [properties?: DefaultDoubleHoldNoteProperties]
 }>()
 
 const model = reactive({
     color: {
-        isEnabled: props.doubleHoldNoteProperties.color !== undefined,
-        value: props.doubleHoldNoteProperties.color ?? 0,
+        isEnabled: props.properties.color !== undefined,
+        value: props.properties.color ?? 0,
     },
     size: {
-        isEnabled: props.doubleHoldNoteProperties.size !== undefined,
-        value: props.doubleHoldNoteProperties.size ?? 0,
+        isEnabled: props.properties.size !== undefined,
+        value: props.properties.size ?? 0,
     },
 })
 

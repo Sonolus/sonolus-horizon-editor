@@ -9,15 +9,15 @@ import {
 import { align, mod } from '../../../../utils/math'
 import DoubleHoldNotePropertiesModal from './DoubleHoldNotePropertiesModal.vue'
 
-export type DoubleHoldNoteProperties = {
+export type DefaultDoubleHoldNoteProperties = {
     color?: number
     size?: number
 }
 
-export let doubleHoldNoteProperties: DoubleHoldNoteProperties = {}
+export let defaultDoubleHoldNoteProperties: DefaultDoubleHoldNoteProperties = {}
 
-export const setDoubleHoldNoteProperties = (properties: DoubleHoldNoteProperties) => {
-    doubleHoldNoteProperties = properties
+export const setDefaultDoubleHoldNoteProperties = (properties: DefaultDoubleHoldNoteProperties) => {
+    defaultDoubleHoldNoteProperties = properties
 }
 
 export const doubleHoldNote = createHoldNoteTool(
@@ -26,10 +26,10 @@ export const doubleHoldNote = createHoldNoteTool(
 
     (beat, lane, joint) => ({
         beat,
-        color: doubleHoldNoteProperties.color ?? joint?.color ?? 0,
+        color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
         laneL: mod(
             lane -
-                (doubleHoldNoteProperties.size ??
+                (defaultDoubleHoldNoteProperties.size ??
                     (joint ? Math.abs(joint.laneL - joint.laneR) : 1)),
             8,
         ),
@@ -64,7 +64,7 @@ export const doubleHoldNote = createHoldNoteTool(
     },
     (beat, startLane, lane, joint) => ({
         beat,
-        color: doubleHoldNoteProperties.color ?? joint?.color ?? 0,
+        color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
         laneL: startLane,
         laneR: lane,
     }),

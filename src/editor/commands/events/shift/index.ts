@@ -3,9 +3,12 @@ import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { switchToolTo, toolName } from '../../../tools'
-import { setShiftEventProperties, shiftEventProperties } from '../../../tools/events/shift'
+import {
+    defaultShiftEventProperties,
+    setDefaultShiftEventProperties,
+} from '../../../tools/events/shift'
 import EventIcon from '../EventIcon.vue'
-import ShiftEventPropertiesModal from './ShiftEventPropertiesModal.vue'
+import DefaultShiftEventPropertiesModal from './DefaultShiftEventPropertiesModal.vue'
 
 export const shiftEvent: Command = {
     title: () => i18n.value.commands.shiftEvent.title,
@@ -18,12 +21,12 @@ export const shiftEvent: Command = {
 
     async execute() {
         if (toolName.value === 'shiftEvent') {
-            const properties = await showModal(ShiftEventPropertiesModal, {
-                shiftEventProperties,
+            const properties = await showModal(DefaultShiftEventPropertiesModal, {
+                properties: defaultShiftEventProperties,
             })
             if (!properties) return
 
-            setShiftEventProperties(properties)
+            setDefaultShiftEventProperties(properties)
         } else {
             switchToolTo('shiftEvent')
 

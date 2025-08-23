@@ -3,9 +3,12 @@ import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { switchToolTo, toolName } from '../../../tools'
-import { setZoomEventProperties, zoomEventProperties } from '../../../tools/events/zoom'
+import {
+    defaultZoomEventProperties,
+    setDefaultZoomEventProperties,
+} from '../../../tools/events/zoom'
 import EventIcon from '../EventIcon.vue'
-import ZoomEventPropertiesModal from './ZoomEventPropertiesModal.vue'
+import DefaultZoomEventPropertiesModal from './DefaultZoomEventPropertiesModal.vue'
 
 export const zoomEvent: Command = {
     title: () => i18n.value.commands.zoomEvent.title,
@@ -18,12 +21,12 @@ export const zoomEvent: Command = {
 
     async execute() {
         if (toolName.value === 'zoomEvent') {
-            const properties = await showModal(ZoomEventPropertiesModal, {
-                zoomEventProperties,
+            const properties = await showModal(DefaultZoomEventPropertiesModal, {
+                properties: defaultZoomEventProperties,
             })
             if (!properties) return
 
-            setZoomEventProperties(properties)
+            setDefaultZoomEventProperties(properties)
         } else {
             switchToolTo('zoomEvent')
 

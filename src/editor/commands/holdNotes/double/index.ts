@@ -4,10 +4,10 @@ import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { switchToolTo, toolName } from '../../../tools'
 import {
-    doubleHoldNoteProperties,
-    setDoubleHoldNoteProperties,
+    defaultDoubleHoldNoteProperties,
+    setDefaultDoubleHoldNoteProperties,
 } from '../../../tools/holdNotes/double'
-import DoubleHoldNotePropertiesModal from '../double/DoubleHoldNotePropertiesModal.vue'
+import DefaultDoubleHoldNotePropertiesModal from './DefaultDoubleHoldNotePropertiesModal.vue'
 import DoubleHoldNoteIcon from './DoubleHoldNoteIcon.vue'
 
 export const doubleHoldNote: Command = {
@@ -18,12 +18,12 @@ export const doubleHoldNote: Command = {
 
     async execute() {
         if (toolName.value === 'doubleHoldNote') {
-            const properties = await showModal(DoubleHoldNotePropertiesModal, {
-                doubleHoldNoteProperties,
+            const properties = await showModal(DefaultDoubleHoldNotePropertiesModal, {
+                properties: defaultDoubleHoldNoteProperties,
             })
             if (!properties) return
 
-            setDoubleHoldNoteProperties(properties)
+            setDefaultDoubleHoldNoteProperties(properties)
         } else {
             switchToolTo('doubleHoldNote')
 

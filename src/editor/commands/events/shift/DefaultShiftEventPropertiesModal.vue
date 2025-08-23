@@ -4,20 +4,20 @@ import { i18n } from '../../../../i18n'
 import EaseField from '../../../../modals/form/EaseField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
 import ToggleField from '../../../../modals/form/ToggleField.vue'
-import type { ZoomEventProperties } from '../../../tools/events/zoom'
+import type { DefaultShiftEventProperties } from '../../../tools/events/shift'
 
 const props = defineProps<{
-    zoomEventProperties: ZoomEventProperties
+    properties: DefaultShiftEventProperties
 }>()
 
 const emit = defineEmits<{
-    close: [properties?: ZoomEventProperties]
+    close: [properties?: DefaultShiftEventProperties]
 }>()
 
 const model = reactive({
     ease: {
-        isEnabled: props.zoomEventProperties.ease !== undefined,
-        value: props.zoomEventProperties.ease ?? 'linear',
+        isEnabled: props.properties.ease !== undefined,
+        value: props.properties.ease ?? 'linear',
     },
 })
 
@@ -30,19 +30,19 @@ const onSubmit = () => {
 
 <template>
     <FormModal
-        :title="i18n.commands.zoomEvent.modal.title"
+        :title="i18n.commands.shiftEvent.modal.title"
         @close="$emit('close')"
         @submit="onSubmit"
     >
         <ToggleField
             v-model="model.ease.isEnabled"
-            :label="i18n.commands.zoomEvent.modal.ease"
+            :label="i18n.commands.shiftEvent.modal.ease"
             autofocus
         />
         <EaseField
             v-if="model.ease.isEnabled"
             v-model="model.ease.value"
-            :label="i18n.commands.zoomEvent.modal.ease"
+            :label="i18n.commands.shiftEvent.modal.ease"
         />
     </FormModal>
 </template>

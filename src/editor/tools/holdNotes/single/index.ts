@@ -9,16 +9,16 @@ import {
 import { align, mod } from '../../../../utils/math'
 import SingleHoldNotePropertiesModal from './SingleHoldNotePropertiesModal.vue'
 
-export type SingleHoldNoteProperties = {
+export type DefaultSingleHoldNoteProperties = {
     color?: number
     scaleL?: number
     scaleR?: number
 }
 
-export let singleHoldNoteProperties: SingleHoldNoteProperties = {}
+export let defaultSingleHoldNoteProperties: DefaultSingleHoldNoteProperties = {}
 
-export const setSingleHoldNoteProperties = (properties: SingleHoldNoteProperties) => {
-    singleHoldNoteProperties = properties
+export const setDefaultSingleHoldNoteProperties = (properties: DefaultSingleHoldNoteProperties) => {
+    defaultSingleHoldNoteProperties = properties
 }
 
 export const singleHoldNote = createHoldNoteTool(
@@ -27,10 +27,10 @@ export const singleHoldNote = createHoldNoteTool(
 
     (beat, lane, joint) => ({
         beat,
-        color: singleHoldNoteProperties.color ?? joint?.color ?? 0,
+        color: defaultSingleHoldNoteProperties.color ?? joint?.color ?? 0,
         lane,
-        scaleL: singleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
-        scaleR: singleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
+        scaleL: defaultSingleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
+        scaleR: defaultSingleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
     }),
     (entity, beat, startLane, lane) => ({
         beat,
@@ -41,10 +41,10 @@ export const singleHoldNote = createHoldNoteTool(
     }),
     (beat, startLane, lane, joint) => ({
         beat,
-        color: singleHoldNoteProperties.color ?? joint?.color ?? 0,
+        color: defaultSingleHoldNoteProperties.color ?? joint?.color ?? 0,
         lane,
-        scaleL: singleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
-        scaleR: singleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
+        scaleL: defaultSingleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
+        scaleR: defaultSingleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
     }),
 
     'singleHoldNoteJoint',

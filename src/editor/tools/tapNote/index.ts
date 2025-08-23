@@ -25,14 +25,14 @@ import {
 import { hitEntitiesAtPoint } from '../utils'
 import TapNotePropertiesModal from './TapNotePropertiesModal.vue'
 
-export type TapNoteProperties = {
+export type DefaultTapNoteProperties = {
     color?: number
 }
 
-export let tapNoteProperties: TapNoteProperties = {}
+export let defaultTapNoteProperties: DefaultTapNoteProperties = {}
 
-export const setTapNoteProperties = (properties: TapNoteProperties) => {
-    tapNoteProperties = properties
+export const setDefaultTapNoteProperties = (properties: DefaultTapNoteProperties) => {
+    defaultTapNoteProperties = properties
 }
 
 let active:
@@ -219,7 +219,7 @@ const getPropertiesFromSelection = () => {
     const tapNote = getTapNoteFromSelection()
 
     return {
-        color: tapNoteProperties.color ?? tapNote?.color ?? 0,
+        color: defaultTapNoteProperties.color ?? tapNote?.color ?? 0,
     }
 }
 

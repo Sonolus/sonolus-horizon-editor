@@ -4,11 +4,11 @@ import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { switchToolTo, toolName } from '../../../tools'
 import {
-    setSingleHoldNoteProperties,
-    singleHoldNoteProperties,
+    defaultSingleHoldNoteProperties,
+    setDefaultSingleHoldNoteProperties,
 } from '../../../tools/holdNotes/single'
+import DefaultSingleHoldNotePropertiesModal from './DefaultSingleHoldNotePropertiesModal.vue'
 import SingleHoldNoteIcon from './SingleHoldNoteIcon.vue'
-import SingleHoldNotePropertiesModal from './SingleHoldNotePropertiesModal.vue'
 
 export const singleHoldNote: Command = {
     title: () => i18n.value.commands.singleHoldNote.title,
@@ -18,12 +18,12 @@ export const singleHoldNote: Command = {
 
     async execute() {
         if (toolName.value === 'singleHoldNote') {
-            const properties = await showModal(SingleHoldNotePropertiesModal, {
-                singleHoldNoteProperties,
+            const properties = await showModal(DefaultSingleHoldNotePropertiesModal, {
+                properties: defaultSingleHoldNoteProperties,
             })
             if (!properties) return
 
-            setSingleHoldNoteProperties(properties)
+            setDefaultSingleHoldNoteProperties(properties)
         } else {
             switchToolTo('singleHoldNote')
 

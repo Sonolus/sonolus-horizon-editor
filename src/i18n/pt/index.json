@@ -56,7 +56,6 @@
       "title": "Mudar para a ferramenta Evento Girar",
       "switched": "Mudou para a ferramenta Evento Girar",
       "modal": {
-        "title": "Girar propriedades do evento",
         "ease": "Facilidade"
       }
     },
@@ -64,7 +63,6 @@
       "title": "Mudar para Ferramenta Evento Shift",
       "switched": "Mudou para a ferramenta Evento Shift",
       "modal": {
-        "title": "Propriedades do evento Shift",
         "ease": "Facilidade"
       }
     },
@@ -72,7 +70,6 @@
       "title": "Mudar para a ferramenta de eventos do Zoom",
       "switched": "Mudou para a ferramenta Zoom Event",
       "modal": {
-        "title": "Propriedades do evento de zoom",
         "ease": "Facilidade"
       }
     },
@@ -88,7 +85,6 @@
       "title": "Mudar para a ferramenta Nota de retenção dupla",
       "switched": "Mudou para a ferramenta Nota de retenção dupla",
       "modal": {
-        "title": "Propriedades da nota de retenção dupla",
         "color": "Cor",
         "laneL": "Faixa L",
         "laneR": "Faixa R",
@@ -99,7 +95,6 @@
       "title": "Mudar para a ferramenta Nota de retenção única",
       "switched": "Mudou para a ferramenta Nota de retenção única",
       "modal": {
-        "title": "Propriedades de nota de retenção única",
         "color": "Cor",
         "lane": "Faixa",
         "beat": "Bater",
@@ -177,7 +172,6 @@
       "title": "Mudar para a ferramenta Tap Note",
       "switched": "Mudou para a ferramenta Tap Note",
       "modal": {
-        "title": "Propriedades das Notas de Toque ",
         "color": "Cor"
       }
     },
