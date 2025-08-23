@@ -12,7 +12,9 @@ const toP = (event: MouseEvent) => ({
     id: 1,
     x: event.clientX,
     y: event.clientY,
-    isShift: event.shiftKey,
+    modifiers: {
+        shift: event.shiftKey,
+    },
 })
 
 let secondarySwitchBack: ToolName | undefined
@@ -42,7 +44,7 @@ const mousemove = (event: MouseEvent) => {
         mouseGesture.move([p])
     } else {
         setViewHover(p.x, p.y)
-        void tool.value.hover?.(p.x, p.y, p.isShift)
+        void tool.value.hover?.(p.x, p.y, p.modifiers)
     }
 
     event.preventDefault()

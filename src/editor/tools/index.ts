@@ -1,4 +1,5 @@
 import { computed, ref } from 'vue'
+import type { Modifiers } from '../controls/gestures/pointer'
 import { view } from '../view'
 import { brush } from './brush'
 import { eraser } from './eraser'
@@ -14,13 +15,13 @@ import { bpm } from './values/bpm'
 import { timeScale } from './values/timeScale'
 
 export type Tool = {
-    hover?: (x: number, y: number, isShift: boolean) => void | Promise<void>
+    hover?: (x: number, y: number, modifiers: Modifiers) => void | Promise<void>
 
-    tap?: (x: number, y: number, isShift: boolean) => void | Promise<void>
+    tap?: (x: number, y: number, modifiers: Modifiers) => void | Promise<void>
 
-    dragStart?: (x: number, y: number, isShift: boolean) => boolean
-    dragUpdate?: (x: number, y: number, isShift: boolean) => void
-    dragEnd?: (x: number, y: number, isShift: boolean) => void | Promise<void>
+    dragStart?: (x: number, y: number, modifiers: Modifiers) => boolean
+    dragUpdate?: (x: number, y: number, modifiers: Modifiers) => void
+    dragEnd?: (x: number, y: number, modifiers: Modifiers) => void | Promise<void>
 }
 
 export const tools = {

@@ -1,4 +1,4 @@
-import type { Pointer } from './pointer'
+import type { Modifiers, Pointer } from './pointer'
 import type { Recognizer } from './recognizers/recognizer'
 
 export const gesture = (...recognizers: Recognizer[]) => {
@@ -36,10 +36,10 @@ export const gesture = (...recognizers: Recognizer[]) => {
         }
     }
 
-    const start = (ps: { id: number; x: number; y: number; isShift: boolean }[]) => {
+    const start = (ps: { id: number; x: number; y: number; modifiers: Modifiers }[]) => {
         const t = performance.now()
 
-        for (const { id, x, y, isShift } of ps) {
+        for (const { id, x, y, modifiers } of ps) {
             pointers.set(id, {
                 isActive: true,
                 st: t,
@@ -48,33 +48,33 @@ export const gesture = (...recognizers: Recognizer[]) => {
                 t,
                 x,
                 y,
-                isShift,
+                modifiers,
             })
         }
 
         flush()
     }
 
-    const move = (ps: { id: number; x: number; y: number; isShift: boolean }[]) => {
+    const move = (ps: { id: number; x: number; y: number; modifiers: Modifiers }[]) => {
         const t = performance.now()
 
-        for (const { id, x, y, isShift } of ps) {
+        for (const { id, x, y, modifiers } of ps) {
             const pointer = pointers.get(id)
             if (!pointer) continue
 
             pointer.t = t
             pointer.x = x
             pointer.y = y
-            pointer.isShift = isShift
+            pointer.modifiers = modifiers
         }
 
         flush()
     }
 
-    const end = (ps: { id: number; x: number; y: number; isShift: boolean }[]) => {
+    const end = (ps: { id: number; x: number; y: number; modifiers: Modifiers }[]) => {
         const t = performance.now()
 
-        for (const { id, x, y, isShift } of ps) {
+        for (const { id, x, y, modifiers } of ps) {
             const pointer = pointers.get(id)
             if (!pointer) continue
 
@@ -82,7 +82,7 @@ export const gesture = (...recognizers: Recognizer[]) => {
             pointer.t = t
             pointer.x = x
             pointer.y = y
-            pointer.isShift = isShift
+            pointer.modifiers = modifiers
         }
 
         flush()

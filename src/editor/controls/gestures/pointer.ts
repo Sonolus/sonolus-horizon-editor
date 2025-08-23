@@ -1,3 +1,7 @@
+export type Modifiers = {
+    shift: boolean
+}
+
 export type Pointer = {
     isActive: boolean
     st: number
@@ -6,5 +10,5 @@ export type Pointer = {
     t: number
     x: number
     y: number
-    isShift: boolean
+    modifiers: Modifiers
 }

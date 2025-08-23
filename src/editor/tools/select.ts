@@ -92,10 +92,10 @@ export const select: Tool = {
         }
     },
 
-    tap(x, y, isShift) {
+    tap(x, y, modifiers) {
         const entities = hitEntitiesAtPoint(x, y)
 
-        if (isShift) {
+        if (modifiers.shift) {
             const [entity] = entities
             if (!entity) return
 
@@ -192,14 +192,14 @@ export const select: Tool = {
         return true
     },
 
-    dragUpdate(x, y, isShift) {
+    dragUpdate(x, y, modifiers) {
         if (!active) return
 
         setViewHover(x, y)
 
         if (active.type === 'select') {
             const selection = toSelection(active.lane, active.time, x, y)
-            const selectedEntities = isShift
+            const selectedEntities = modifiers.shift
                 ? [...new Set([...active.entities, ...hitEntitiesInSelection(selection)])]
                 : hitEntitiesInSelection(selection)
 
@@ -248,12 +248,12 @@ export const select: Tool = {
         }
     },
 
-    dragEnd(x, y, isShift) {
+    dragEnd(x, y, modifiers) {
         if (!active) return
 
         if (active.type === 'select') {
             const selection = toSelection(active.lane, active.time, x, y)
-            const selectedEntities = isShift
+            const selectedEntities = modifiers.shift
                 ? [...new Set([...active.entities, ...hitEntitiesInSelection(selection)])]
                 : hitEntitiesInSelection(selection)
 

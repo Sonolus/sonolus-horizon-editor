@@ -5,13 +5,13 @@ import type { Recognizer } from './recognizer'
 export const tap = (): Recognizer<1> => ({
     count: 1,
 
-    recognize([, { isActive, st, sx, sy, t, x, y, isShift }]) {
+    recognize([, { isActive, st, sx, sy, t, x, y, modifiers }]) {
         if (isActive) return false
         if (t - st > 250) return false
         if (Math.hypot(x - sx, y - sy) > 20) return false
 
         setViewHover(x, y)
-        void tool.value.tap?.(x, y, isShift)
+        void tool.value.tap?.(x, y, modifiers)
         return true
     },
 })

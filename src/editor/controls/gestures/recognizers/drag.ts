@@ -3,6 +3,7 @@ import { time } from '../../../../time'
 import { unlerp } from '../../../../utils/math'
 import { tool } from '../../../tools'
 import { scrollViewBy, view } from '../../../view'
+import type { Modifiers } from '../pointer'
 import type { Recognizer } from './recognizer'
 
 export const isDragging = ref(0)
@@ -18,13 +19,13 @@ export const drag = (): Recognizer<1> => {
         | {
               x: number
               y: number
-              isShift: boolean
+              modifiers: Modifiers
           }
         | undefined
 
     watch(time, ({ delta }) => {
         if (!update) return
-        const { x, y, isShift } = update
+        const { x, y, modifiers } = update
 
         const p = (y - view.y) / view.h
         if (p < 0.2) {
@@ -35,17 +36,17 @@ export const drag = (): Recognizer<1> => {
             update = undefined
         }
 
-        tool.value.dragUpdate?.(x, y, isShift)
+        tool.value.dragUpdate?.(x, y, modifiers)
     })
 
     return {
         count: 1,
 
-        recognize([id, { isActive, sx, sy, x, y, isShift }]) {
+        recognize([id, { isActive, sx, sy, x, y, modifiers }]) {
             if (!isActive) return false
             if (Math.hypot(x - sx, y - sy) <= 20) return false
 
-            if (!tool.value.dragStart?.(sx, sy, isShift)) return true
+            if (!tool.value.dragStart?.(sx, sy, modifiers)) return true
 
             isDragging.value++
 
@@ -55,7 +56,7 @@ export const drag = (): Recognizer<1> => {
             update = {
                 x,
                 y,
-                isShift,
+                modifiers,
             }
             return true
         },
@@ -70,12 +71,12 @@ export const drag = (): Recognizer<1> => {
                 update = {
                     x: p.x,
                     y: p.y,
-                    isShift: p.isShift,
+                    modifiers: p.modifiers,
                 }
             } else {
                 isDragging.value--
 
-                void tool.value.dragEnd?.(p.x, p.y, p.isShift)
+                void tool.value.dragEnd?.(p.x, p.y, p.modifiers)
             }
         },
 
