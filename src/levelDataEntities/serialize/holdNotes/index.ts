@@ -13,7 +13,7 @@ export const serializeLevelDataHoldNoteEntities = <T extends HoldNoteJointEntity
     }[],
     connectionArchetype: string,
 ) => {
-    const map = new Map<object, LevelDataEntity>()
+    const map = new Map<HoldNoteJointEntity, LevelDataEntity>()
 
     for (const joint of joints) {
         map.set(joint, {

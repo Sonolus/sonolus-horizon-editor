@@ -8,7 +8,7 @@ export const serializeLevelDataEventEntities = (
     getName: () => string,
     archetype: string,
 ) => {
-    const map = new Map<object, LevelDataEntity>()
+    const map = new Map<EventJointEntity, LevelDataEntity>()
 
     for (const joint of joints) {
         map.set(joint, {
