@@ -15,6 +15,7 @@ const modelValue = defineModel<Ease | undefined>({ required: true })
     <OptionalSelectField
         v-model="modelValue"
         :label
+        default-value="linear"
         :options="[
             [i18n.modals.form.ease.out, 'out'],
             [i18n.modals.form.ease.linear, 'linear'],

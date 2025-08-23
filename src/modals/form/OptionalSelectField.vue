@@ -4,6 +4,7 @@ import { createOptional } from './optionalField'
 
 const props = defineProps<{
     label: string
+    defaultValue: NoInfer<T>
     options: [string, NoInfer<T>][]
     autofocus?: boolean
 }>()
@@ -11,11 +12,7 @@ const props = defineProps<{
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const modelValue = defineModel<T | undefined>({ required: true })
 
-const { isEnabled, enabledValue } = createOptional(
-    modelValue,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    props.options[0]![1],
-)
+const { isEnabled, enabledValue } = createOptional(modelValue, props.defaultValue)
 </script>
 
 <template>
