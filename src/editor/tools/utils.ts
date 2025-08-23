@@ -1,5 +1,7 @@
-import { hitEntities } from '../../history/store'
+import { cullEntities, hitEntities, store } from '../../history/store'
 import type { Entity } from '../../state/entities'
+import { maxBeatToKey, minBeatToKey } from '../../state/store/grid'
+import type { Modifiers } from '../controls/gestures/pointer'
 import { view, xToLane, yToTime, type Selection } from '../view'
 
 export const hitEntitiesAtPoint = (x: number, y: number) =>
@@ -11,6 +13,31 @@ export const hitEntitiesInSelection = (selection: Selection) =>
     hitEntities(selection.laneMin, selection.laneMax, selection.timeMin, selection.timeMax).filter(
         isVisible,
     )
+
+export const modifyEntities = (entities: Entity[], modifiers: Modifiers) => {
+    if (!modifiers.ctrl) return entities
+
+    const allEntities = new Set(entities)
+
+    for (const entity of entities) {
+        if (entity.type !== 'singleHoldNoteJoint' && entity.type !== 'doubleHoldNoteJoint') continue
+
+        const range = store.value.holdNoteRanges[entity.type].get(entity.id)
+        if (!range) continue
+
+        for (const joint of cullEntities(
+            entity.type,
+            minBeatToKey(range.min.beat),
+            maxBeatToKey(range.max.beat),
+        )) {
+            if (joint.id !== entity.id) continue
+
+            allEntities.add(joint)
+        }
+    }
+
+    return [...allEntities]
+}
 
 export const toSelection = (startLane: number, startTime: number, x: number, y: number) => {
     let laneMin = startLane

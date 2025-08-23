@@ -26,7 +26,7 @@ import { interpolate } from '../../utils/interpolate'
 import type { Ease } from '../ease'
 import { notify } from '../notification'
 import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
-import { hitEntitiesAtPoint, hitEntitiesInSelection, toSelection } from './utils'
+import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from './utils'
 
 export type BrushProperties = {
     color?: number
@@ -50,8 +50,8 @@ let active:
     | undefined
 
 export const brush: Tool = {
-    hover(x, y) {
-        const entities = hitEntitiesAtPoint(x, y)
+    hover(x, y, modifiers) {
+        const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
 
         view.entities = {
             hovered: entities,
@@ -59,16 +59,16 @@ export const brush: Tool = {
         }
     },
 
-    tap(x, y) {
+    tap(x, y, modifiers) {
         const entities = hitEntitiesAtPoint(x, y)
 
         if (entities.some((entity) => selectedEntities.value.includes(entity))) {
-            apply(selectedEntities.value)
+            apply(modifyEntities(selectedEntities.value, modifiers))
             focusViewAtBeat(yToValidBeat(y))
         } else {
             const [entity] = entities
             if (entity) {
-                apply(entities)
+                apply(modifyEntities(entities, modifiers))
                 focusViewAtBeat(entity.beat)
             } else {
                 const selectedLength = selectedEntities.value.length
@@ -98,17 +98,17 @@ export const brush: Tool = {
         return true
     },
 
-    dragUpdate(x, y) {
+    dragUpdate(x, y, modifiers) {
         if (!active) return
 
         setViewHover(x, y)
 
         const selection = toSelection(active.lane, active.time, x, y)
-        const selectedEntities = hitEntitiesInSelection(selection)
+        const targets = modifyEntities(hitEntitiesInSelection(selection), modifiers)
 
         replaceState({
             ...state.value,
-            selectedEntities,
+            selectedEntities: targets,
         })
         view.selection = selection
         view.entities = {
@@ -116,20 +116,20 @@ export const brush: Tool = {
             creating: [],
         }
 
-        if (active.count === selectedEntities.length) return
-        active.count = selectedEntities.length
+        if (active.count === targets.length) return
+        active.count = targets.length
 
-        notify(interpolate(() => i18n.value.tools.brush.brushing, `${selectedEntities.length}`))
+        notify(interpolate(() => i18n.value.tools.brush.brushing, `${targets.length}`))
     },
 
-    dragEnd(x, y) {
+    dragEnd(x, y, modifiers) {
         if (!active) return
 
         const selection = toSelection(active.lane, active.time, x, y)
 
         view.selection = undefined
 
-        apply(hitEntitiesInSelection(selection))
+        apply(modifyEntities(hitEntitiesInSelection(selection), modifiers))
 
         active = undefined
     },

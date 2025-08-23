@@ -1,4 +1,5 @@
 export type Modifiers = {
+    ctrl: boolean
     shift: boolean
 }
 

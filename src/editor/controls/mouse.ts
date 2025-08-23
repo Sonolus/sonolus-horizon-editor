@@ -13,6 +13,7 @@ const toP = (event: MouseEvent) => ({
     x: event.clientX,
     y: event.clientY,
     modifiers: {
+        ctrl: event.ctrlKey,
         shift: event.shiftKey,
     },
 })

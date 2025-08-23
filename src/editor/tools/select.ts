@@ -64,7 +64,7 @@ import {
     yToTime,
     yToValidBeat,
 } from '../view'
-import { hitEntitiesAtPoint, hitEntitiesInSelection, toSelection } from './utils'
+import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from './utils'
 
 let active:
     | {
@@ -83,8 +83,8 @@ let active:
     | undefined
 
 export const select: Tool = {
-    hover(x, y) {
-        const entities = hitEntitiesAtPoint(x, y)
+    hover(x, y, modifiers) {
+        const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
 
         view.entities = {
             hovered: entities,
@@ -93,9 +93,9 @@ export const select: Tool = {
     },
 
     tap(x, y, modifiers) {
-        const entities = hitEntitiesAtPoint(x, y)
-
         if (modifiers.shift) {
+            const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
+
             const [entity] = entities
             if (!entity) return
 
@@ -115,15 +115,18 @@ export const select: Tool = {
             focusViewAtBeat(entity.beat)
             notify(interpolate(() => i18n.value.tools.select.selected, `${targets.length}`))
         } else {
+            const entities = hitEntitiesAtPoint(x, y)
+
             const selectedLength = selectedEntities.value.length
             const current = selectedLength ? selectedEntities.value[0] : undefined
 
             const index = current ? (entities.indexOf(current) + 1) % entities.length : 0
             const entity = entities[index]
+            const targets = modifyEntities(entity ? [entity] : [], modifiers)
 
             replaceState({
                 ...state.value,
-                selectedEntities: entity ? [entity] : [],
+                selectedEntities: targets,
             })
             view.entities = {
                 hovered: entities,
@@ -132,7 +135,7 @@ export const select: Tool = {
 
             if (entity) {
                 focusViewAtBeat(entity.beat)
-                notify(interpolate(() => i18n.value.tools.select.selected, '1'))
+                notify(interpolate(() => i18n.value.tools.select.selected, `${targets.length}`))
             } else {
                 focusViewAtBeat(yToValidBeat(y))
                 if (selectedLength) notify(() => i18n.value.tools.select.deselected)
@@ -199,13 +202,14 @@ export const select: Tool = {
 
         if (active.type === 'select') {
             const selection = toSelection(active.lane, active.time, x, y)
-            const selectedEntities = modifiers.shift
-                ? [...new Set([...active.entities, ...hitEntitiesInSelection(selection)])]
-                : hitEntitiesInSelection(selection)
+            const entities = modifyEntities(hitEntitiesInSelection(selection), modifiers)
+            const targets = modifiers.shift
+                ? [...new Set([...active.entities, ...entities])]
+                : entities
 
             replaceState({
                 ...state.value,
-                selectedEntities,
+                selectedEntities: targets,
             })
             view.selection = selection
             view.entities = {
@@ -213,12 +217,10 @@ export const select: Tool = {
                 creating: [],
             }
 
-            if (active.count === selectedEntities.length) return
-            active.count = selectedEntities.length
+            if (active.count === targets.length) return
+            active.count = targets.length
 
-            notify(
-                interpolate(() => i18n.value.tools.select.selecting, `${selectedEntities.length}`),
-            )
+            notify(interpolate(() => i18n.value.tools.select.selecting, `${targets.length}`))
         } else {
             const lane = xToLane(x)
             const beatOffset = yToBeatOffset(y, active.focus.beat)
@@ -253,13 +255,14 @@ export const select: Tool = {
 
         if (active.type === 'select') {
             const selection = toSelection(active.lane, active.time, x, y)
-            const selectedEntities = modifiers.shift
-                ? [...new Set([...active.entities, ...hitEntitiesInSelection(selection)])]
-                : hitEntitiesInSelection(selection)
+            const entities = modifyEntities(hitEntitiesInSelection(selection), modifiers)
+            const targets = modifiers.shift
+                ? [...new Set([...active.entities, ...entities])]
+                : entities
 
             replaceState({
                 ...state.value,
-                selectedEntities,
+                selectedEntities: targets,
             })
             view.selection = undefined
             view.entities = {
@@ -267,9 +270,7 @@ export const select: Tool = {
                 creating: [],
             }
 
-            notify(
-                interpolate(() => i18n.value.tools.select.selected, `${selectedEntities.length}`),
-            )
+            notify(interpolate(() => i18n.value.tools.select.selected, `${targets.length}`))
         } else {
             const transaction = createTransaction(state.value)
 
