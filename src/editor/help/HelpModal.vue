@@ -34,18 +34,21 @@ import HelpSection from './HelpSection.vue'
             <li>{{ i18n.help.modal.selectTool.move }}</li>
             <li>{{ i18n.help.modal.selectTool.selectMultiple }}</li>
             <li>{{ i18n.help.modal.selectTool.selectAdd }}</li>
+            <li>{{ i18n.help.modal.selectTool.ctrl }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.eraserTool.title">
             <li>{{ i18n.help.modal.eraserTool.erase }}</li>
             <li>{{ i18n.help.modal.eraserTool.deselect }}</li>
             <li>{{ i18n.help.modal.eraserTool.eraseMultiple }}</li>
+            <li>{{ i18n.help.modal.eraserTool.ctrl }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.brushTool.title">
             <li>{{ i18n.help.modal.brushTool.brush }}</li>
             <li>{{ i18n.help.modal.brushTool.deselect }}</li>
             <li>{{ i18n.help.modal.brushTool.brushMultiple }}</li>
+            <li>{{ i18n.help.modal.brushTool.ctrl }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.pasteTool.title">

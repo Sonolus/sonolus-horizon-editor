@@ -258,19 +258,22 @@
                 "deselect": "Tap empty space to deselect all objects.",
                 "move": "Drag objects to move multiple objects.",
                 "selectMultiple": "Drag empty space to select multiple objects.",
-                "selectAdd": "Drag empty space with Shift key to add multiple objects to selection."
+                "selectAdd": "Drag empty space with Shift key to add multiple objects to selection.",
+                "ctrl": "Use Ctrl key to operate on all related hold note objects."
             },
             "eraserTool": {
                 "title": "Eraser Tool",
                 "erase": "Tap objects to erase.",
                 "deselect": "Tap empty space to deselect all objects.",
-                "eraseMultiple": "Drag to erase multiple objects."
+                "eraseMultiple": "Drag to erase multiple objects.",
+                "ctrl": "Use Ctrl key to operate on all related hold note objects."
             },
             "brushTool": {
                 "title": "Brush Tool",
                 "brush": "Tap objects to brush.",
                 "deselect": "Tap empty space to deselect all objects.",
-                "brushMultiple": "Drag to brush multiple objects."
+                "brushMultiple": "Drag to brush multiple objects.",
+                "ctrl": "Use Ctrl key to operate on all related hold note objects."
             },
             "pasteTool": {
                 "title": "Paste Tool",
