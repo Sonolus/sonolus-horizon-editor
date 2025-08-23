@@ -19,7 +19,7 @@ export const brush: Command = {
         notify(() => i18n.value.commands.brush.switched)
 
         const properties = await showModal(BrushPropertiesModal, {
-            brushProperties,
+            properties: brushProperties,
         })
         if (!properties) return
 
