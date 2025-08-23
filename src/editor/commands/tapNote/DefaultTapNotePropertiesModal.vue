@@ -1,48 +1,31 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { shallowReactive } from 'vue'
 import { i18n } from '../../../i18n'
-import ColorField from '../../../modals/form/ColorField.vue'
 import FormModal from '../../../modals/form/FormModal.vue'
-import ToggleField from '../../../modals/form/ToggleField.vue'
+import OptionalColorField from '../../../modals/form/OptionalColorField.vue'
 import type { DefaultTapNoteProperties } from '../../tools/tapNote'
 
 const props = defineProps<{
     properties: DefaultTapNoteProperties
 }>()
 
-const emit = defineEmits<{
+defineEmits<{
     close: [properties?: DefaultTapNoteProperties]
 }>()
 
-const model = reactive({
-    color: {
-        isEnabled: props.properties.color !== undefined,
-        value: props.properties.color ?? 0,
-    },
-})
-
-const onSubmit = () => {
-    emit('close', {
-        color: model.color.isEnabled ? model.color.value : undefined,
-    })
-}
+const model = shallowReactive({ ...props.properties })
 </script>
 
 <template>
     <FormModal
         :title="i18n.commands.tapNote.modal.title"
         @close="$emit('close')"
-        @submit="onSubmit"
+        @submit="$emit('close', model)"
     >
-        <ToggleField
-            v-model="model.color.isEnabled"
+        <OptionalColorField
+            v-model="model.color"
             :label="i18n.commands.tapNote.modal.color"
             autofocus
-        />
-        <ColorField
-            v-if="model.color.isEnabled"
-            v-model="model.color.value"
-            :label="i18n.commands.tapNote.modal.color"
         />
     </FormModal>
 </template>

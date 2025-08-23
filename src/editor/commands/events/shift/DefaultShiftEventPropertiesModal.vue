@@ -1,48 +1,31 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { shallowReactive } from 'vue'
 import { i18n } from '../../../../i18n'
-import EaseField from '../../../../modals/form/EaseField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
-import ToggleField from '../../../../modals/form/ToggleField.vue'
+import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
 import type { DefaultShiftEventProperties } from '../../../tools/events/shift'
 
 const props = defineProps<{
     properties: DefaultShiftEventProperties
 }>()
 
-const emit = defineEmits<{
+defineEmits<{
     close: [properties?: DefaultShiftEventProperties]
 }>()
 
-const model = reactive({
-    ease: {
-        isEnabled: props.properties.ease !== undefined,
-        value: props.properties.ease ?? 'linear',
-    },
-})
-
-const onSubmit = () => {
-    emit('close', {
-        ease: model.ease.isEnabled ? model.ease.value : undefined,
-    })
-}
+const model = shallowReactive({ ...props.properties })
 </script>
 
 <template>
     <FormModal
         :title="i18n.commands.shiftEvent.modal.title"
         @close="$emit('close')"
-        @submit="onSubmit"
+        @submit="$emit('close', model)"
     >
-        <ToggleField
-            v-model="model.ease.isEnabled"
+        <OptionalEaseField
+            v-model="model.ease"
             :label="i18n.commands.shiftEvent.modal.ease"
             autofocus
-        />
-        <EaseField
-            v-if="model.ease.isEnabled"
-            v-model="model.ease.value"
-            :label="i18n.commands.shiftEvent.modal.ease"
         />
     </FormModal>
 </template>
