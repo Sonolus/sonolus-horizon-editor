@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import { bpms } from '../history/bpms'
 import { settings } from '../settings'
 import { timeToBeat } from '../state/integrals/bpms'
-import { maxBeatToKey, minBeatToKey } from '../state/store/grid'
+import { beatToKey } from '../state/store/grid'
 import { computedRange } from '../utils/range'
 import { view } from './view'
 
@@ -17,7 +17,7 @@ export const beats = computed(() => ({
 }))
 
 export const keys = computedRange(() => ({
-    min: minBeatToKey(
+    min: beatToKey(
         timeToBeat(
             bpms.value,
             Math.max(
@@ -26,7 +26,7 @@ export const keys = computedRange(() => ({
             ),
         ),
     ),
-    max: maxBeatToKey(
+    max: beatToKey(
         timeToBeat(
             bpms.value,
             Math.max(

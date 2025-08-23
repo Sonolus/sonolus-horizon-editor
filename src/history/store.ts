@@ -4,7 +4,7 @@ import { view } from '../editor/view'
 import { settings } from '../settings'
 import type { Entity, EntityOfType, EntityType } from '../state/entities'
 import { beatToTime, timeToBeat } from '../state/integrals/bpms'
-import { maxBeatToKey, minBeatToKey } from '../state/store/grid'
+import { beatToKey } from '../state/store/grid'
 import { bpms } from './bpms'
 
 export const store = computed(() => state.value.store)
@@ -56,8 +56,8 @@ export const cullAllEntities = (minKey: number, maxKey: number) => {
 export const hitEntities = (laneMin: number, laneMax: number, timeMin: number, timeMax: number) => {
     const spu = view.w / settings.width / settings.pps
 
-    const min = minBeatToKey(timeToBeat(bpms.value, Math.max(0, timeMin - 0.25 * spu)))
-    const max = maxBeatToKey(timeToBeat(bpms.value, Math.max(0, timeMax + 0.25 * spu)))
+    const min = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMin - 0.25 * spu)))
+    const max = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMax + 0.25 * spu)))
 
     return [...cullAllEntities(min, max)].filter(({ hitbox }) => {
         if (!hitbox) return false

@@ -1,6 +1,6 @@
 import { cullEntities, hitEntities, store } from '../../history/store'
 import type { Entity } from '../../state/entities'
-import { maxBeatToKey, minBeatToKey } from '../../state/store/grid'
+import { beatToKey } from '../../state/store/grid'
 import type { Modifiers } from '../controls/gestures/pointer'
 import { view, xToLane, yToTime, type Selection } from '../view'
 
@@ -27,8 +27,8 @@ export const modifyEntities = (entities: Entity[], modifiers: Modifiers) => {
 
         for (const joint of cullEntities(
             entity.type,
-            minBeatToKey(range.min.beat),
-            maxBeatToKey(range.max.beat),
+            beatToKey(range.min.beat),
+            beatToKey(range.max.beat),
         )) {
             if (joint.id !== entity.id) continue
 

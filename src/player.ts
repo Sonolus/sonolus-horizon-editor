@@ -8,7 +8,7 @@ import { bpms } from './history/bpms'
 import { cullAllEntities } from './history/store'
 import { settings } from './settings'
 import { beatToTime, timeToBeat } from './state/integrals/bpms'
-import { maxBeatToKey, minBeatToKey } from './state/store/grid'
+import { beatToKey } from './state/store/grid'
 import { time } from './time'
 import { optional } from './utils/optional'
 
@@ -50,7 +50,7 @@ watch(time, ({ now }) => {
         max: timeToBeat(bpms.value, (now - state.time) * state.speed + state.cursorTime),
     }
 
-    for (const entity of cullAllEntities(minBeatToKey(beats.min), maxBeatToKey(beats.max))) {
+    for (const entity of cullAllEntities(beatToKey(beats.min), beatToKey(beats.max))) {
         if (entity.beat < beats.min || entity.beat >= beats.max) continue
 
         // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
@@ -63,8 +63,6 @@ watch(time, ({ now }) => {
                 break
             case 'doubleHoldNoteJoint':
                 targets.double.add(entity.beat)
-                break
-            default:
                 break
         }
     }

@@ -4,9 +4,7 @@ export type StoreGrid = {
     [T in EntityType]: Map<number, Set<EntityOfType<T>>>
 }
 
-export const minBeatToKey = (minBeat: number) => Math.floor(minBeat)
-
-export const maxBeatToKey = (maxBeat: number) => Math.ceil(maxBeat - 1)
+export const beatToKey = (beat: number) => Math.floor(beat)
 
 export const getInStoreGrid = <T extends EntityType>(grid: StoreGrid, type: T, beat: number) => {
     const entities = grid[type].get(Math.floor(beat))
