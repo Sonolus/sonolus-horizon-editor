@@ -203,20 +203,24 @@ export const createHoldNoteTool = <
         async tap(x, y) {
             const [entity, beat, lane] = tryFind(x, y)
             if (entity) {
-                replaceState({
-                    ...state.value,
-                    selectedEntities: [entity],
-                })
-                view.entities = {
-                    hovered: [],
-                    creating: [],
+                if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
+                    const object = await showPropertiesModal(entity)
+                    if (!object) return
+
+                    editMoveOrReplaceJoint(entity, object)
+                } else {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [entity],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+
+                    notify(interpolate(() => i18n.value.tools.holdNotes.selected, '1', objectName))
                 }
-                focusViewAtBeat(entity.beat)
-
-                const object = await showPropertiesModal(entity)
-                if (!object) return
-
-                editMoveOrReplaceJoint(entity, object)
             } else {
                 const object = getObject(beat, lane, getJointFromSelection())
 
