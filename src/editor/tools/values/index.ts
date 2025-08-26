@@ -119,11 +119,11 @@ export const createValueTool = <T extends ValueEntityType>(
 
     let active:
         | {
-              type: 'move'
-              entity: EntityOfType<T>
+              type: 'add'
           }
         | {
-              type: 'add'
+              type: 'move'
+              entity: EntityOfType<T>
           }
         | undefined
 
@@ -234,67 +234,10 @@ export const createValueTool = <T extends ValueEntityType>(
 
             setViewHover(x, y)
 
-            if (active.type === 'move') {
-                const beat = snapYToBeat(y, active.entity.beat)
+            switch (active.type) {
+                case 'add': {
+                    const beat = yToValidBeat(y)
 
-                focusViewAtBeat(beat)
-
-                view.entities = {
-                    hovered: [],
-                    creating: [
-                        toEntity({
-                            beat,
-                            value: active.entity.value,
-                        }),
-                    ],
-                }
-            } else {
-                const beat = yToValidBeat(y)
-
-                focusViewAtBeat(beat)
-
-                view.entities = {
-                    hovered: [],
-                    creating: [
-                        toEntity({
-                            beat,
-                            value: defaultValue,
-                        }),
-                    ],
-                }
-            }
-        },
-
-        async dragEnd(x, y) {
-            if (!active) return
-
-            if (active.type === 'move') {
-                editMoveOrReplace(active.entity, {
-                    beat: snapYToBeat(y, active.entity.beat),
-                    value: active.entity.value,
-                })
-            } else {
-                const [entity, beat] = tryFind(x, y)
-                if (entity) {
-                    replaceState({
-                        ...state.value,
-                        selectedEntities: [entity],
-                    })
-                    view.entities = {
-                        hovered: [],
-                        creating: [],
-                    }
-                    focusViewAtBeat(entity.beat)
-
-                    const object = await showPropertiesModal(entity)
-                    if (!object) return
-
-                    editMoveOrReplace(entity, object)
-                } else {
-                    replaceState({
-                        ...state.value,
-                        selectedEntities: [],
-                    })
                     view.entities = {
                         hovered: [],
                         creating: [
@@ -305,20 +248,85 @@ export const createValueTool = <T extends ValueEntityType>(
                         ],
                     }
                     focusViewAtBeat(beat)
+                    break
+                }
+                case 'move': {
+                    const beat = snapYToBeat(y, active.entity.beat)
 
-                    const object = await showPropertiesModal({
-                        beat,
-                        value: defaultValue,
-                    })
-                    if (!object) return
-
-                    const overlap = find(object.beat)
-                    if (overlap) {
-                        edit(overlap, object)
-                    } else {
-                        add(object)
+                    view.entities = {
+                        hovered: [],
+                        creating: [
+                            toEntity({
+                                beat,
+                                value: active.entity.value,
+                            }),
+                        ],
                     }
-                    focusViewAtBeat(object.beat)
+                    focusViewAtBeat(beat)
+                    break
+                }
+            }
+        },
+
+        async dragEnd(x, y) {
+            if (!active) return
+
+            switch (active.type) {
+                case 'add': {
+                    const [entity, beat] = tryFind(x, y)
+                    if (entity) {
+                        replaceState({
+                            ...state.value,
+                            selectedEntities: [entity],
+                        })
+                        view.entities = {
+                            hovered: [],
+                            creating: [],
+                        }
+                        focusViewAtBeat(entity.beat)
+
+                        const object = await showPropertiesModal(entity)
+                        if (!object) return
+
+                        editMoveOrReplace(entity, object)
+                    } else {
+                        replaceState({
+                            ...state.value,
+                            selectedEntities: [],
+                        })
+                        view.entities = {
+                            hovered: [],
+                            creating: [
+                                toEntity({
+                                    beat,
+                                    value: defaultValue,
+                                }),
+                            ],
+                        }
+                        focusViewAtBeat(beat)
+
+                        const object = await showPropertiesModal({
+                            beat,
+                            value: defaultValue,
+                        })
+                        if (!object) return
+
+                        const overlap = find(object.beat)
+                        if (overlap) {
+                            edit(overlap, object)
+                        } else {
+                            add(object)
+                        }
+                        focusViewAtBeat(object.beat)
+                    }
+                    break
+                }
+                case 'move': {
+                    editMoveOrReplace(active.entity, {
+                        beat: snapYToBeat(y, active.entity.beat),
+                        value: active.entity.value,
+                    })
+                    break
                 }
             }
 

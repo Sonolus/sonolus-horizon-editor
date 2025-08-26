@@ -143,12 +143,12 @@ export const createEventTool = <T extends EventJointEntityType>(
 
     let active:
         | {
+              type: 'add'
+          }
+        | {
               type: 'move'
               entity: EntityOfType<T>
               x: number
-          }
-        | {
-              type: 'add'
           }
         | undefined
 
@@ -246,35 +246,38 @@ export const createEventTool = <T extends EventJointEntityType>(
 
             setViewHover(x, y)
 
-            if (active.type === 'move') {
-                const beat = snapYToBeat(y, active.entity.beat)
+            switch (active.type) {
+                case 'add': {
+                    const beat = yToValidBeat(y)
 
-                focusViewAtBeat(beat)
-
-                view.entities = {
-                    hovered: [],
-                    creating: [
-                        toEntity({
-                            beat,
-                            value: shiftValue(active.entity.value, active.x, x),
-                            ease: active.entity.ease,
-                        }),
-                    ],
+                    view.entities = {
+                        hovered: [],
+                        creating: [
+                            toEntity({
+                                beat,
+                                value: getValue(beat, x),
+                                ...getPropertiesFromSelection(),
+                            }),
+                        ],
+                    }
+                    focusViewAtBeat(beat)
+                    break
                 }
-            } else {
-                const beat = yToValidBeat(y)
+                case 'move': {
+                    const beat = snapYToBeat(y, active.entity.beat)
 
-                focusViewAtBeat(beat)
-
-                view.entities = {
-                    hovered: [],
-                    creating: [
-                        toEntity({
-                            beat,
-                            value: getValue(beat, x),
-                            ...getPropertiesFromSelection(),
-                        }),
-                    ],
+                    view.entities = {
+                        hovered: [],
+                        creating: [
+                            toEntity({
+                                beat,
+                                value: shiftValue(active.entity.value, active.x, x),
+                                ease: active.entity.ease,
+                            }),
+                        ],
+                    }
+                    focusViewAtBeat(beat)
+                    break
                 }
             }
         },
@@ -282,43 +285,48 @@ export const createEventTool = <T extends EventJointEntityType>(
         async dragEnd(x, y) {
             if (!active) return
 
-            if (active.type === 'move') {
-                editMoveOrReplace(active.entity, {
-                    beat: snapYToBeat(y, active.entity.beat),
-                    value: shiftValue(active.entity.value, active.x, x),
-                    ease: active.entity.ease,
-                })
-            } else {
-                const [entity, beat, value] = tryFind(x, y)
-                if (entity) {
-                    replaceState({
-                        ...state.value,
-                        selectedEntities: [entity],
-                    })
-                    view.entities = {
-                        hovered: [],
-                        creating: [],
-                    }
-                    focusViewAtBeat(entity.beat)
+            switch (active.type) {
+                case 'add': {
+                    const [entity, beat, value] = tryFind(x, y)
+                    if (entity) {
+                        replaceState({
+                            ...state.value,
+                            selectedEntities: [entity],
+                        })
+                        view.entities = {
+                            hovered: [],
+                            creating: [],
+                        }
+                        focusViewAtBeat(entity.beat)
 
-                    const object = await showPropertiesModal(entity)
-                    if (!object) return
+                        const object = await showPropertiesModal(entity)
+                        if (!object) return
 
-                    editMoveOrReplace(entity, object)
-                } else {
-                    const object: EventObject = {
-                        beat,
-                        value,
-                        ...getPropertiesFromSelection(),
-                    }
-
-                    const overlap = find(object.beat)
-                    if (overlap) {
-                        edit(overlap, object)
+                        editMoveOrReplace(entity, object)
                     } else {
-                        add(object)
+                        const object: EventObject = {
+                            beat,
+                            value,
+                            ...getPropertiesFromSelection(),
+                        }
+
+                        const overlap = find(object.beat)
+                        if (overlap) {
+                            edit(overlap, object)
+                        } else {
+                            add(object)
+                        }
+                        focusViewAtBeat(object.beat)
                     }
-                    focusViewAtBeat(object.beat)
+                    break
+                }
+                case 'move': {
+                    editMoveOrReplace(active.entity, {
+                        beat: snapYToBeat(y, active.entity.beat),
+                        value: shiftValue(active.entity.value, active.x, x),
+                        ease: active.entity.ease,
+                    })
+                    break
                 }
             }
 

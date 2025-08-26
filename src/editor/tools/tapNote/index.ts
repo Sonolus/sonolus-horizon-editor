@@ -37,12 +37,12 @@ export const setDefaultTapNoteProperties = (properties: DefaultTapNoteProperties
 
 let active:
     | {
+          type: 'add'
+      }
+    | {
           type: 'move'
           entity: TapNoteEntity
           lane: number
-      }
-    | {
-          type: 'add'
       }
     | undefined
 
@@ -135,31 +135,35 @@ export const tapNote: Tool = {
 
         setViewHover(x, y)
 
-        if (active.type === 'move') {
-            view.entities = {
-                hovered: [],
-                creating: [
-                    toTapNoteEntity({
-                        beat: snapYToBeat(y, active.entity.beat),
-                        color: active.entity.color,
-                        lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
-                    }),
-                ],
+        switch (active.type) {
+            case 'add': {
+                const beat = yToValidBeat(y)
+
+                view.entities = {
+                    hovered: [],
+                    creating: [
+                        toTapNoteEntity({
+                            beat,
+                            lane: xToValidLane(x),
+                            ...getPropertiesFromSelection(),
+                        }),
+                    ],
+                }
+                focusViewAtBeat(beat)
+                break
             }
-        } else {
-            const beat = yToValidBeat(y)
-
-            focusViewAtBeat(beat)
-
-            view.entities = {
-                hovered: [],
-                creating: [
-                    toTapNoteEntity({
-                        beat,
-                        lane: xToValidLane(x),
-                        ...getPropertiesFromSelection(),
-                    }),
-                ],
+            case 'move': {
+                view.entities = {
+                    hovered: [],
+                    creating: [
+                        toTapNoteEntity({
+                            beat: snapYToBeat(y, active.entity.beat),
+                            color: active.entity.color,
+                            lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
+                        }),
+                    ],
+                }
+                break
             }
         }
     },
@@ -167,38 +171,43 @@ export const tapNote: Tool = {
     async dragEnd(x, y) {
         if (!active) return
 
-        if (active.type === 'move') {
-            editMoveOrReplace(active.entity, {
-                beat: snapYToBeat(y, active.entity.beat),
-                color: active.entity.color,
-                lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
-            })
-        } else {
-            const [entity, beat, lane] = tryFind(x, y)
-            if (entity) {
-                replaceState({
-                    ...state.value,
-                    selectedEntities: [entity],
-                })
-                view.entities = {
-                    hovered: [],
-                    creating: [],
+        switch (active.type) {
+            case 'add': {
+                const [entity, beat, lane] = tryFind(x, y)
+                if (entity) {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [entity],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+
+                    const object = await showModal(TapNotePropertiesModal, {
+                        object: entity,
+                    })
+                    if (!object) return
+
+                    editMoveOrReplace(entity, object)
+                } else {
+                    add({
+                        beat,
+                        lane,
+                        ...getPropertiesFromSelection(),
+                    })
+                    focusViewAtBeat(beat)
                 }
-                focusViewAtBeat(entity.beat)
-
-                const object = await showModal(TapNotePropertiesModal, {
-                    object: entity,
+                break
+            }
+            case 'move': {
+                editMoveOrReplace(active.entity, {
+                    beat: snapYToBeat(y, active.entity.beat),
+                    color: active.entity.color,
+                    lane: mod(active.entity.lane + align(xToLane(x)) - active.lane, 8),
                 })
-                if (!object) return
-
-                editMoveOrReplace(entity, object)
-            } else {
-                add({
-                    beat,
-                    lane,
-                    ...getPropertiesFromSelection(),
-                })
-                focusViewAtBeat(beat)
+                break
             }
         }
 
