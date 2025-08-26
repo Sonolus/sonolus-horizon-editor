@@ -191,6 +191,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                 if (!object) return
 
                 editMoveOrReplace(entity, object)
+                focusViewAtBeat(object.beat)
             } else {
                 const object: EventObject = {
                     beat,
@@ -303,6 +304,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                         if (!object) return
 
                         editMoveOrReplace(entity, object)
+                        focusViewAtBeat(object.beat)
                     } else {
                         const object: EventObject = {
                             beat,
@@ -321,11 +323,14 @@ export const createEventTool = <T extends EventJointEntityType>(
                     break
                 }
                 case 'move': {
+                    const beat = snapYToBeat(y, active.entity.beat)
+
                     editMoveOrReplace(active.entity, {
-                        beat: snapYToBeat(y, active.entity.beat),
+                        beat,
                         value: shiftValue(active.entity.value, active.x, x),
                         ease: active.entity.ease,
                     })
+                    focusViewAtBeat(beat)
                     break
                 }
             }

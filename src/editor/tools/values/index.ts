@@ -165,6 +165,7 @@ export const createValueTool = <T extends ValueEntityType>(
                 if (!object) return
 
                 editMoveOrReplace(entity, object)
+                focusViewAtBeat(object.beat)
             } else {
                 replaceState({
                     ...state.value,
@@ -289,6 +290,7 @@ export const createValueTool = <T extends ValueEntityType>(
                         if (!object) return
 
                         editMoveOrReplace(entity, object)
+                        focusViewAtBeat(object.beat)
                     } else {
                         replaceState({
                             ...state.value,
@@ -322,10 +324,13 @@ export const createValueTool = <T extends ValueEntityType>(
                     break
                 }
                 case 'move': {
+                    const beat = snapYToBeat(y, active.entity.beat)
+
                     editMoveOrReplace(active.entity, {
-                        beat: snapYToBeat(y, active.entity.beat),
+                        beat,
                         value: active.entity.value,
                     })
+                    focusViewAtBeat(beat)
                     break
                 }
             }

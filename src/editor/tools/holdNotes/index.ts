@@ -208,6 +208,7 @@ export const createHoldNoteTool = <
                     if (!object) return
 
                     editMoveOrReplaceJoint(entity, object)
+                    focusViewAtBeat(object.beat)
                 } else {
                     replaceState({
                         ...state.value,
@@ -234,8 +235,8 @@ export const createHoldNoteTool = <
                     }
                 } else {
                     addJoint(createHoldNoteId(), object)
-                    focusViewAtBeat(beat)
                 }
+                focusViewAtBeat(beat)
             }
         },
 
@@ -338,6 +339,7 @@ export const createHoldNoteTool = <
                         if (!object) return
 
                         editMoveOrReplaceJoint(entity, object)
+                        focusViewAtBeat(object.beat)
                     } else {
                         const object = addObject(beat, active.lane, lane, getJointFromSelection())
 
@@ -351,21 +353,19 @@ export const createHoldNoteTool = <
                             }
                         } else {
                             addJoint(createHoldNoteId(), object)
-                            focusViewAtBeat(beat)
                         }
+                        focusViewAtBeat(beat)
                     }
                     break
                 }
                 case 'move': {
+                    const beat = snapYToBeat(y, active.entity.beat)
+
                     editMoveOrReplaceJoint(
                         active.entity,
-                        shiftObject(
-                            active.entity,
-                            snapYToBeat(y, active.entity.beat),
-                            active.lane,
-                            xToLane(x),
-                        ),
+                        shiftObject(active.entity, beat, active.lane, xToLane(x)),
                     )
+                    focusViewAtBeat(beat)
                     break
                 }
             }
