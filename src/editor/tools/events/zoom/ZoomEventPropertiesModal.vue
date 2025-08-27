@@ -12,7 +12,7 @@ const props = defineProps<{
 }>()
 
 defineEmits<{
-    close: [zoomEvent?: EventObject]
+    close: [object?: EventObject]
 }>()
 
 const model = shallowReactive({ ...props.object })

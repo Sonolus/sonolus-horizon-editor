@@ -14,7 +14,7 @@ const props = defineProps<{
 }>()
 
 defineEmits<{
-    close: [tapNote?: SingleHoldNoteJointObject]
+    close: [object?: SingleHoldNoteJointObject]
 }>()
 
 const model = shallowReactive({ ...props.object })

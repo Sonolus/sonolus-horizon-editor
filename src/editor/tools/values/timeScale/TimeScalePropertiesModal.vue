@@ -11,7 +11,7 @@ const props = defineProps<{
 }>()
 
 defineEmits<{
-    close: [timeScale?: ValueObject]
+    close: [object?: ValueObject]
 }>()
 
 const model = shallowReactive({ ...props.object })
