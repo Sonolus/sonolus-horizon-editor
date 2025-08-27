@@ -4,7 +4,6 @@ import { i18n } from '../../i18n'
 import OptionalSelectField from './OptionalSelectField.vue'
 
 defineProps<{
-    label: string
     autofocus?: boolean
 }>()
 
@@ -14,7 +13,7 @@ const modelValue = defineModel<Ease | undefined>({ required: true })
 <template>
     <OptionalSelectField
         v-model="modelValue"
-        :label
+        :label="i18n.modals.form.ease.label"
         default-value="linear"
         :options="[
             [i18n.modals.form.ease.out, 'out'],

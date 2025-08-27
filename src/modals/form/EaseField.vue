@@ -4,7 +4,6 @@ import { i18n } from '../../i18n'
 import SelectField from './SelectField.vue'
 
 defineProps<{
-    label: string
     autofocus?: boolean
 }>()
 
@@ -14,7 +13,7 @@ const modelValue = defineModel<Ease>({ required: true })
 <template>
     <SelectField
         v-model="modelValue"
-        :label
+        :label="i18n.modals.form.ease.label"
         :options="[
             [i18n.modals.form.ease.out, 'out'],
             [i18n.modals.form.ease.linear, 'linear'],

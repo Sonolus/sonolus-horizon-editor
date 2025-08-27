@@ -2,9 +2,12 @@
 import { shallowReactive } from 'vue'
 import type { SingleHoldNoteJointObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
+import BeatField from '../../../../modals/form/BeatField.vue'
 import ColorField from '../../../../modals/form/ColorField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
-import NumberField from '../../../../modals/form/NumberField.vue'
+import LaneField from '../../../../modals/form/LaneField.vue'
+import ScaleLField from '../../../../modals/form/ScaleLField.vue'
+import ScaleRField from '../../../../modals/form/ScaleRField.vue'
 
 const props = defineProps<{
     object: SingleHoldNoteJointObject
@@ -23,37 +26,10 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <ColorField
-            v-model="model.color"
-            :label="i18n.tools.holdNotes.modals.singleHoldNote.color"
-            autofocus
-        />
-        <NumberField
-            v-model="model.lane"
-            :label="i18n.tools.holdNotes.modals.singleHoldNote.lane"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
-        <NumberField
-            v-model="model.beat"
-            :label="i18n.tools.holdNotes.modals.singleHoldNote.beat"
-            :min="0"
-            step="any"
-        />
-        <NumberField
-            v-model="model.scaleL"
-            :label="i18n.tools.holdNotes.modals.singleHoldNote.scaleL"
-            :min="0"
-            :max="1"
-            step="any"
-        />
-        <NumberField
-            v-model="model.scaleR"
-            :label="i18n.tools.holdNotes.modals.singleHoldNote.scaleR"
-            :min="0"
-            :max="1"
-            step="any"
-        />
+        <ColorField v-model="model.color" autofocus />
+        <LaneField v-model="model.lane" :min="0" :max="7" :step="1" />
+        <BeatField v-model="model.beat" />
+        <ScaleLField v-model="model.scaleL" />
+        <ScaleRField v-model="model.scaleR" />
     </FormModal>
 </template>

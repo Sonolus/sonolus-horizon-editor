@@ -2,9 +2,10 @@
 import { shallowReactive } from 'vue'
 import type { EventObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
+import BeatField from '../../../../modals/form/BeatField.vue'
 import EaseField from '../../../../modals/form/EaseField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
-import NumberField from '../../../../modals/form/NumberField.vue'
+import LaneField from '../../../../modals/form/LaneField.vue'
 
 const props = defineProps<{
     object: EventObject
@@ -23,18 +24,8 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <NumberField
-            v-model="model.value"
-            :label="i18n.tools.events.modals.rotateEvent.lane"
-            step="any"
-            autofocus
-        />
-        <EaseField v-model="model.ease" :label="i18n.tools.events.modals.rotateEvent.ease" />
-        <NumberField
-            v-model="model.beat"
-            :label="i18n.tools.events.modals.rotateEvent.beat"
-            :min="0"
-            step="any"
-        />
+        <LaneField v-model="model.value" step="any" autofocus />
+        <EaseField v-model="model.ease" />
+        <BeatField v-model="model.beat" />
     </FormModal>
 </template>

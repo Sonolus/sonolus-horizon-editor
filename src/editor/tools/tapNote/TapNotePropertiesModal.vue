@@ -2,9 +2,10 @@
 import { shallowReactive } from 'vue'
 import type { TapNoteObject } from '../../../chart'
 import { i18n } from '../../../i18n'
+import BeatField from '../../../modals/form/BeatField.vue'
 import ColorField from '../../../modals/form/ColorField.vue'
 import FormModal from '../../../modals/form/FormModal.vue'
-import NumberField from '../../../modals/form/NumberField.vue'
+import LaneField from '../../../modals/form/LaneField.vue'
 
 const props = defineProps<{
     object: TapNoteObject
@@ -23,19 +24,8 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <ColorField v-model="model.color" :label="i18n.tools.tapNote.modal.color" autofocus />
-        <NumberField
-            v-model="model.lane"
-            :label="i18n.tools.tapNote.modal.lane"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
-        <NumberField
-            v-model="model.beat"
-            :label="i18n.tools.tapNote.modal.beat"
-            :min="0"
-            step="any"
-        />
+        <ColorField v-model="model.color" autofocus />
+        <LaneField v-model="model.lane" :min="0" :max="7" :step="1" />
+        <BeatField v-model="model.beat" />
     </FormModal>
 </template>

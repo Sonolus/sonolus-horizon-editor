@@ -16,11 +16,7 @@
       "title": "Mudar para a ferramenta Pincel ",
       "switched": "Mudou para a ferramenta Pincel ",
       "modal": {
-        "title": "Propriedades do pincel ",
-        "color": "Cor",
-        "scaleL": "Escala L",
-        "scaleR": "Escala R",
-        "ease": "Ease"
+        "title": "Propriedades do pincel "
       }
     },
     "copy": {
@@ -54,24 +50,15 @@
     },
     "rotateEvent": {
       "title": "Mudar para a ferramenta Evento Girar",
-      "switched": "Mudou para a ferramenta Evento Girar",
-      "modal": {
-        "ease": "Facilidade"
-      }
+      "switched": "Mudou para a ferramenta Evento Girar"
     },
     "shiftEvent": {
       "title": "Mudar para Ferramenta Evento Shift",
-      "switched": "Mudou para a ferramenta Evento Shift",
-      "modal": {
-        "ease": "Facilidade"
-      }
+      "switched": "Mudou para a ferramenta Evento Shift"
     },
     "zoomEvent": {
       "title": "Mudar para a ferramenta de eventos do Zoom",
-      "switched": "Mudou para a ferramenta Zoom Event",
-      "modal": {
-        "ease": "Facilidade"
-      }
+      "switched": "Mudou para a ferramenta Zoom Event"
     },
     "flip": {
       "title": "Virar",
@@ -83,24 +70,11 @@
     },
     "doubleHoldNote": {
       "title": "Mudar para a ferramenta Nota de retenção dupla",
-      "switched": "Mudou para a ferramenta Nota de retenção dupla",
-      "modal": {
-        "color": "Cor",
-        "laneL": "Faixa L",
-        "laneR": "Faixa R",
-        "beat": "Bater"
-      }
+      "switched": "Mudou para a ferramenta Nota de retenção dupla"
     },
     "singleHoldNote": {
       "title": "Mudar para a ferramenta Nota de retenção única",
-      "switched": "Mudou para a ferramenta Nota de retenção única",
-      "modal": {
-        "color": "Cor",
-        "lane": "Faixa",
-        "beat": "Bater",
-        "scaleL": "Escala L",
-        "scaleR": "Escala R"
-      }
+      "switched": "Mudou para a ferramenta Nota de retenção única"
     },
     "jumpDown": {
       "title": "Saltar para baixo"
@@ -170,10 +144,7 @@
     },
     "tapNote": {
       "title": "Mudar para a ferramenta Tap Note",
-      "switched": "Mudou para a ferramenta Tap Note",
-      "modal": {
-        "color": "Cor"
-      }
+      "switched": "Mudou para a ferramenta Tap Note"
     },
     "undo": {
       "title": "Desfazer",
@@ -406,22 +377,13 @@
       },
       "modals": {
         "rotateEvent": {
-          "title": "Girar propriedades do evento",
-          "lane": "Faixa",
-          "ease": "Facilidade",
-          "beat": "Bater"
+          "title": "Girar propriedades do evento"
         },
         "shiftEvent": {
-          "title": "Propriedades do evento Shift",
-          "value": "Valor",
-          "ease": "Facilidade",
-          "beat": "Bater"
+          "title": "Propriedades do evento Shift"
         },
         "zoomEvent": {
-          "title": "Propriedades do evento de zoom",
-          "value": "Valor",
-          "ease": "Facilidade",
-          "beat": "Bater"
+          "title": "Propriedades do evento de zoom"
         }
       }
     },
@@ -438,19 +400,10 @@
       },
       "modals": {
         "singleHoldNote": {
-          "title": "Propriedades de nota de retenção única",
-          "color": "Cor",
-          "lane": "Faixa",
-          "beat": "Bater",
-          "scaleL": "Escala L",
-          "scaleR": "Escala R"
+          "title": "Propriedades de nota de retenção única"
         },
         "doubleHoldNote": {
-          "title": "Propriedades da nota de retenção dupla",
-          "color": "Cor",
-          "laneL": "Faixa L",
-          "laneR": "Faixa R",
-          "beat": "Bater"
+          "title": "Propriedades da nota de retenção dupla"
         }
       }
     },
@@ -472,10 +425,7 @@
       "moved": "Moveu {0} objetos de Notas de Toque",
       "replaced": "Substituiu {0} objetos de Notas de Toque",
       "modal": {
-        "title": "Propriedades das Notas de Toque ",
-        "color": "Cor",
-        "lane": "Faixa",
-        "beat": "Batida"
+        "title": "Propriedades das Notas de Toque "
       }
     },
     "values": {
@@ -491,14 +441,10 @@
       },
       "modals": {
         "bpm": {
-          "title": "Propriedades do BPM",
-          "bpm": "BPM",
-          "beat": "Batida"
+          "title": "Propriedades do BPM"
         },
         "timeScale": {
-          "title": "Propriedades da Escala de Tempo ",
-          "timeScale": "Escala de Tempo",
-          "beat": "Batida"
+          "title": "Propriedades da Escala de Tempo "
         }
       }
     }
@@ -525,7 +471,14 @@
   "modals": {
     "form": {
       "confirm": "Confirmar",
+      "beat": {
+        "label": "Bater"
+      },
+      "bpm": {
+        "label": "BPM"
+      },
       "color": {
+        "label": "Cor",
         "neutral": "Neutro",
         "red": "Vermelho",
         "green": "Verde",
@@ -535,6 +488,7 @@
         "cyan": "Ciano"
       },
       "ease": {
+        "label": "Facilidade",
         "out": "Fora ",
         "linear": "Linear ",
         "in": "Em"
@@ -542,13 +496,34 @@
       "file": {
         "select": "Selecione Arquivo..."
       },
+      "lane": {
+        "label": "Faixa"
+      },
+      "laneL": {
+        "label": "Faixa L"
+      },
+      "laneR": {
+        "label": "Faixa R"
+      },
       "key": {
         "input": "Chave de entrada",
         "press": "Pressione uma tecla..."
       },
+      "scaleL": {
+        "label": "Escala L"
+      },
+      "scaleR": {
+        "label": "Escala R"
+      },
+      "timeScale": {
+        "label": "Escala de Tempo"
+      },
       "toggle": {
         "enabled": "Ativado",
         "disabled": "Desativado"
+      },
+      "value": {
+        "label": "Valor"
       }
     },
     "confirm": {

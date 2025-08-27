@@ -16,11 +16,7 @@
       "title": "Passer à l'outil Pinceau",
       "switched": "Outil Pinceau activé ",
       "modal": {
-        "title": "Propriétés du Pinceau",
-        "color": "Couleur",
-        "scaleL": "Échelle Gauche",
-        "scaleR": "Échelle Droite",
-        "ease": "Accélération"
+        "title": "Propriétés du Pinceau"
       }
     },
     "copy": {
@@ -54,24 +50,15 @@
     },
     "rotateEvent": {
       "title": "Passer à l'outil Événement Rotation",
-      "switched": "Outil Événement Rotation activé",
-      "modal": {
-        "ease": "Accélération"
-      }
+      "switched": "Outil Événement Rotation activé"
     },
     "shiftEvent": {
       "title": "Passer à l'outil Événement Décalage",
-      "switched": "Outil Événement Décalage activé",
-      "modal": {
-        "ease": "Accélération"
-      }
+      "switched": "Outil Événement Décalage activé"
     },
     "zoomEvent": {
       "title": "Passer à l'outil Événement Zoom",
-      "switched": "Outil Événement Zoom activé",
-      "modal": {
-        "ease": "Accélération"
-      }
+      "switched": "Outil Événement Zoom activé"
     },
     "flip": {
       "title": "Retourner",
@@ -83,24 +70,11 @@
     },
     "doubleHoldNote": {
       "title": "Passer à l'outil Note Maintenue Double",
-      "switched": "Outil Note Maintenue Double",
-      "modal": {
-        "color": "Couleur",
-        "laneL": "Voie G",
-        "laneR": "Voie D",
-        "beat": "Temps"
-      }
+      "switched": "Outil Note Maintenue Double"
     },
     "singleHoldNote": {
       "title": "Passer à l'outil Note Maintenue Simple activé",
-      "switched": "Outil Note Maintenue Simple activé",
-      "modal": {
-        "color": "Couleur",
-        "lane": "Voie",
-        "beat": "Temps",
-        "scaleL": "Échelle Gauche",
-        "scaleR": "Échelle Droite"
-      }
+      "switched": "Outil Note Maintenue Simple activé"
     },
     "jumpDown": {
       "title": "Aller en Bas"
@@ -170,10 +144,7 @@
     },
     "tapNote": {
       "title": "Passer à l'outil Note Tapée",
-      "switched": "Outil Note Tapée activé",
-      "modal": {
-        "color": "Couleur"
-      }
+      "switched": "Outil Note Tapée activé"
     },
     "undo": {
       "title": "Défaire",
@@ -406,22 +377,13 @@
       },
       "modals": {
         "rotateEvent": {
-          "title": "Propriétés de l'Événement Rotation",
-          "lane": "Voie",
-          "ease": "Accélération",
-          "beat": "Temps"
+          "title": "Propriétés de l'Événement Rotation"
         },
         "shiftEvent": {
-          "title": "Propriétés de l'Événement Décalage",
-          "value": "Valeur",
-          "ease": "Accélération",
-          "beat": "Temps"
+          "title": "Propriétés de l'Événement Décalage"
         },
         "zoomEvent": {
-          "title": "Propriétés de l'Événement Zoom",
-          "value": "Valeur",
-          "ease": "Accélération",
-          "beat": "Temps"
+          "title": "Propriétés de l'Événement Zoom"
         }
       }
     },
@@ -438,19 +400,10 @@
       },
       "modals": {
         "singleHoldNote": {
-          "title": "Propriétés de la Note Maintenue Simple",
-          "color": "Couleur",
-          "lane": "Voie",
-          "beat": "Temps",
-          "scaleL": "Échelle Gauche",
-          "scaleR": "Échelle Droite"
+          "title": "Propriétés de la Note Maintenue Simple"
         },
         "doubleHoldNote": {
-          "title": "Propriétés de la Note Maintenue Double",
-          "color": "Couleur",
-          "laneL": "Voie G",
-          "laneR": "Voie D",
-          "beat": "Temps"
+          "title": "Propriétés de la Note Maintenue Double"
         }
       }
     },
@@ -472,10 +425,7 @@
       "moved": "{0} objets Note Tapée déplacés ",
       "replaced": "{0} objets Note Tapée remplacés",
       "modal": {
-        "title": "Propriétés de la Note Tapée",
-        "color": "Couleur",
-        "lane": "voie",
-        "beat": "Temps"
+        "title": "Propriétés de la Note Tapée"
       }
     },
     "values": {
@@ -491,14 +441,10 @@
       },
       "modals": {
         "bpm": {
-          "title": "Propriétés du BPM",
-          "bpm": "BPM",
-          "beat": "Temps"
+          "title": "Propriétés du BPM"
         },
         "timeScale": {
-          "title": "Propriétés de l'Échelle de Temps",
-          "timeScale": "Échelle de Temps",
-          "beat": "Temps"
+          "title": "Propriétés de l'Échelle de Temps"
         }
       }
     }
@@ -525,7 +471,14 @@
   "modals": {
     "form": {
       "confirm": "Confirmer",
+      "beat": {
+        "label": "Temps"
+      },
+      "bpm": {
+        "label": "BPM"
+      },
       "color": {
+        "label": "Couleur",
         "neutral": "Neutre",
         "red": "Rouge",
         "green": "Vert",
@@ -535,6 +488,7 @@
         "cyan": "Cyan"
       },
       "ease": {
+        "label": "Accélération",
         "out": "Out",
         "linear": "Linéaire",
         "in": "In"
@@ -542,13 +496,34 @@
       "file": {
         "select": "Sélectionner un Fichier…"
       },
+      "lane": {
+        "label": "Voie"
+      },
+      "laneL": {
+        "label": "Voie G"
+      },
+      "laneR": {
+        "label": "Voie D"
+      },
       "key": {
         "input": "Touche de Saisie",
         "press": "Appuyez sur une touche…"
       },
+      "scaleL": {
+        "label": "Échelle Gauche"
+      },
+      "scaleR": {
+        "label": "Échelle Droite"
+      },
+      "timeScale": {
+        "label": "Échelle de Temps"
+      },
       "toggle": {
         "enabled": "Activé",
         "disabled": "Désactivé"
+      },
+      "value": {
+        "label": "Valeur"
       }
     },
     "confirm": {

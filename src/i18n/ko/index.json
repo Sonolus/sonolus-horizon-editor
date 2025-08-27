@@ -16,11 +16,7 @@
       "title": "붓 도구로 변경",
       "switched": "붓 도구로 변경됨",
       "modal": {
-        "title": "붓 속성",
-        "color": "색상",
-        "scaleL": "좌 배율",
-        "scaleR": "우 배율",
-        "ease": "함수"
+        "title": "붓 속성"
       }
     },
     "copy": {
@@ -54,24 +50,15 @@
     },
     "rotateEvent": {
       "title": "회전 이벤트 도구로 변경",
-      "switched": "회전 이벤트 도구로 변경됨",
-      "modal": {
-        "ease": "함수"
-      }
+      "switched": "회전 이벤트 도구로 변경됨"
     },
     "shiftEvent": {
       "title": "이동 이벤트 도구로 변경",
-      "switched": "이동 이벤트 도구로 변경됨",
-      "modal": {
-        "ease": "함수"
-      }
+      "switched": "이동 이벤트 도구로 변경됨"
     },
     "zoomEvent": {
       "title": "줌 이벤트 도구로 변경",
-      "switched": "줌 이벤트 도구로 변경됨",
-      "modal": {
-        "ease": "함수"
-      }
+      "switched": "줌 이벤트 도구로 변경됨"
     },
     "flip": {
       "title": "뒤집기",
@@ -83,24 +70,11 @@
     },
     "doubleHoldNote": {
       "title": "다중 유지 노트 도구로 변경",
-      "switched": "다중 유지 노트 도구로 변경됨",
-      "modal": {
-        "color": "색상",
-        "laneL": "좌 레인",
-        "laneR": "우 레인",
-        "beat": "비트"
-      }
+      "switched": "다중 유지 노트 도구로 변경됨"
     },
     "singleHoldNote": {
       "title": "단일 유지 노트 도구로 변경",
-      "switched": "단일 유지 노트 도구로 변경됨",
-      "modal": {
-        "color": "색상",
-        "lane": "레인",
-        "beat": "비트",
-        "scaleL": "좌 배율",
-        "scaleR": "우 배율"
-      }
+      "switched": "단일 유지 노트 도구로 변경됨"
     },
     "jumpDown": {
       "title": "아래로 점프"
@@ -170,10 +144,7 @@
     },
     "tapNote": {
       "title": "탭 노트 도구로 변경",
-      "switched": "탭 노트 도구로 변경됨",
-      "modal": {
-        "color": "색상"
-      }
+      "switched": "탭 노트 도구로 변경됨"
     },
     "undo": {
       "title": "되돌리기",
@@ -406,22 +377,13 @@
       },
       "modals": {
         "rotateEvent": {
-          "title": "회전 이벤트 속성",
-          "lane": "레인",
-          "ease": "함수",
-          "beat": "비트"
+          "title": "회전 이벤트 속성"
         },
         "shiftEvent": {
-          "title": "이동 이벤트 속성",
-          "value": "값",
-          "ease": "함수",
-          "beat": "비트"
+          "title": "이동 이벤트 속성"
         },
         "zoomEvent": {
-          "title": "줌 이벤트 속성",
-          "value": "값",
-          "ease": "함수",
-          "beat": "비트"
+          "title": "줌 이벤트 속성"
         }
       }
     },
@@ -438,19 +400,10 @@
       },
       "modals": {
         "singleHoldNote": {
-          "title": "단일 유지 노트 속성",
-          "color": "색상",
-          "lane": "레인",
-          "beat": "비트",
-          "scaleL": "좌 배율",
-          "scaleR": "우 배율"
+          "title": "단일 유지 노트 속성"
         },
         "doubleHoldNote": {
-          "title": "다중 유지 노트 속성",
-          "color": "색상",
-          "laneL": "좌 레인",
-          "laneR": "우 레인",
-          "beat": "비트"
+          "title": "다중 유지 노트 속성"
         }
       }
     },
@@ -472,10 +425,7 @@
       "moved": "탭 노트 객체 {0}개 옮김",
       "replaced": "탭 노트 객체 {0}개 재배치됨",
       "modal": {
-        "title": "탭 노트 속성",
-        "color": "색상",
-        "lane": "레인",
-        "beat": "비트"
+        "title": "탭 노트 속성"
       }
     },
     "values": {
@@ -491,14 +441,10 @@
       },
       "modals": {
         "bpm": {
-          "title": "BPM 속성",
-          "bpm": "BPM",
-          "beat": "비트"
+          "title": "BPM 속성"
         },
         "timeScale": {
-          "title": "시간 배율 속성",
-          "timeScale": "시간 배율",
-          "beat": "비트"
+          "title": "시간 배율 속성"
         }
       }
     }
@@ -525,7 +471,14 @@
   "modals": {
     "form": {
       "confirm": "수락",
+      "beat": {
+        "label": "비트"
+      },
+      "bpm": {
+        "label": "BPM"
+      },
       "color": {
+        "label": "색상",
         "neutral": "기본",
         "red": "빨간색",
         "green": "초록색",
@@ -535,6 +488,7 @@
         "cyan": "청록색"
       },
       "ease": {
+        "label": "함수",
         "out": "Out",
         "linear": "Linear",
         "in": "In"
@@ -542,13 +496,34 @@
       "file": {
         "select": "파일 선택..."
       },
+      "lane": {
+        "label": "레인"
+      },
+      "laneL": {
+        "label": "좌 레인"
+      },
+      "laneR": {
+        "label": "우 레인"
+      },
       "key": {
         "input": "입력 키",
         "press": "키 입력..."
       },
+      "scaleL": {
+        "label": "좌 배율"
+      },
+      "scaleR": {
+        "label": "우 배율"
+      },
+      "timeScale": {
+        "label": "시간 배율"
+      },
       "toggle": {
         "enabled": "활성화됨",
         "disabled": "비활성화됨"
+      },
+      "value": {
+        "label": "값"
       }
     },
     "confirm": {

@@ -3,7 +3,7 @@ import { shallowReactive } from 'vue'
 import { i18n } from '../../../../i18n'
 import FormModal from '../../../../modals/form/FormModal.vue'
 import OptionalColorField from '../../../../modals/form/OptionalColorField.vue'
-import OptionalNumberField from '../../../../modals/form/OptionalNumberField.vue'
+import OptionalSizeField from '../../../../modals/form/OptionalSizeField.vue'
 import type { DefaultDoubleHoldNoteProperties } from '../../../tools/holdNotes/double'
 
 const props = defineProps<{
@@ -23,18 +23,7 @@ const model = shallowReactive({ ...props.properties })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <OptionalColorField
-            v-model="model.color"
-            :label="i18n.commands.doubleHoldNote.modal.color"
-            autofocus
-        />
-        <OptionalNumberField
-            v-model="model.size"
-            :label="i18n.commands.doubleHoldNote.modal.size"
-            :default-value="1"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
+        <OptionalColorField v-model="model.color" autofocus />
+        <OptionalSizeField v-model="model.size" />
     </FormModal>
 </template>

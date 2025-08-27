@@ -2,9 +2,11 @@
 import { shallowReactive } from 'vue'
 import type { DoubleHoldNoteJointObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
+import BeatField from '../../../../modals/form/BeatField.vue'
 import ColorField from '../../../../modals/form/ColorField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
-import NumberField from '../../../../modals/form/NumberField.vue'
+import LaneLField from '../../../../modals/form/LaneLField.vue'
+import LaneRField from '../../../../modals/form/LaneRField.vue'
 
 const props = defineProps<{
     object: DoubleHoldNoteJointObject
@@ -23,30 +25,9 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <ColorField
-            v-model="model.color"
-            :label="i18n.tools.holdNotes.modals.doubleHoldNote.color"
-            autofocus
-        />
-        <NumberField
-            v-model="model.laneL"
-            :label="i18n.tools.holdNotes.modals.doubleHoldNote.laneL"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
-        <NumberField
-            v-model="model.laneR"
-            :label="i18n.tools.holdNotes.modals.doubleHoldNote.laneR"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
-        <NumberField
-            v-model="model.beat"
-            :label="i18n.tools.holdNotes.modals.doubleHoldNote.beat"
-            :min="0"
-            step="any"
-        />
+        <ColorField v-model="model.color" autofocus />
+        <LaneLField v-model="model.laneL" />
+        <LaneRField v-model="model.laneR" />
+        <BeatField v-model="model.beat" />
     </FormModal>
 </template>

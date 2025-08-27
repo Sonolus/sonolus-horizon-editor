@@ -16,11 +16,7 @@
             "title": "Switch to Brush tool",
             "switched": "Switched to Brush tool",
             "modal": {
-                "title": "Brush Properties",
-                "color": "Color",
-                "scaleL": "Scale L",
-                "scaleR": "Scale R",
-                "ease": "Ease"
+                "title": "Brush Properties"
             }
         },
         "copy": {
@@ -56,24 +52,21 @@
             "title": "Switch to Rotate Event tool",
             "switched": "Switched to Rotate Event tool",
             "modal": {
-                "title": "Default Rotate Event Properties",
-                "ease": "Ease"
+                "title": "Default Rotate Event Properties"
             }
         },
         "shiftEvent": {
             "title": "Switch to Shift Event tool",
             "switched": "Switched to Shift Event tool",
             "modal": {
-                "title": "Default Shift Event Properties",
-                "ease": "Ease"
+                "title": "Default Shift Event Properties"
             }
         },
         "zoomEvent": {
             "title": "Switch to Zoom Event tool",
             "switched": "Switched to Zoom Event tool",
             "modal": {
-                "title": "Default Zoom Event Properties",
-                "ease": "Ease"
+                "title": "Default Zoom Event Properties"
             }
         },
         "flip": {
@@ -88,19 +81,14 @@
             "title": "Switch to Double Hold Note tool",
             "switched": "Switched to Double Hold Note tool",
             "modal": {
-                "title": "Default Double Hold Note Properties",
-                "color": "Color",
-                "size": "Size"
+                "title": "Default Double Hold Note Properties"
             }
         },
         "singleHoldNote": {
             "title": "Switch to Single Hold Note tool",
             "switched": "Switched to Single Hold Note tool",
             "modal": {
-                "title": "Default Single Hold Note Properties",
-                "color": "Color",
-                "scaleL": "Scale L",
-                "scaleR": "Scale R"
+                "title": "Default Single Hold Note Properties"
             }
         },
         "jumpDown": {
@@ -173,8 +161,7 @@
             "title": "Switch to Tap Note tool",
             "switched": "Switched to Tap Note tool",
             "modal": {
-                "title": "Default Tap Note Properties",
-                "color": "Color"
+                "title": "Default Tap Note Properties"
             }
         },
         "undo": {
@@ -417,22 +404,13 @@
             },
             "modals": {
                 "rotateEvent": {
-                    "title": "Rotate Event Properties",
-                    "lane": "Lane",
-                    "ease": "Ease",
-                    "beat": "Beat"
+                    "title": "Rotate Event Properties"
                 },
                 "shiftEvent": {
-                    "title": "Shift Event Properties",
-                    "value": "Value",
-                    "ease": "Ease",
-                    "beat": "Beat"
+                    "title": "Shift Event Properties"
                 },
                 "zoomEvent": {
-                    "title": "Zoom Event Properties",
-                    "value": "Value",
-                    "ease": "Ease",
-                    "beat": "Beat"
+                    "title": "Zoom Event Properties"
                 }
             }
         },
@@ -450,19 +428,10 @@
             },
             "modals": {
                 "singleHoldNote": {
-                    "title": "Single Hold Note Properties",
-                    "color": "Color",
-                    "lane": "Lane",
-                    "beat": "Beat",
-                    "scaleL": "Scale L",
-                    "scaleR": "Scale R"
+                    "title": "Single Hold Note Properties"
                 },
                 "doubleHoldNote": {
-                    "title": "Double Hold Note Properties",
-                    "color": "Color",
-                    "laneL": "Lane L",
-                    "laneR": "Lane R",
-                    "beat": "Beat"
+                    "title": "Double Hold Note Properties"
                 }
             }
         },
@@ -484,10 +453,7 @@
             "moved": "Moved {0} Tap Note objects",
             "replaced": "Replaced {0} Tap Note objects",
             "modal": {
-                "title": "Tap Note Properties",
-                "color": "Color",
-                "lane": "Lane",
-                "beat": "Beat"
+                "title": "Tap Note Properties"
             }
         },
         "values": {
@@ -503,14 +469,10 @@
             },
             "modals": {
                 "bpm": {
-                    "title": "BPM Properties",
-                    "bpm": "BPM",
-                    "beat": "Beat"
+                    "title": "BPM Properties"
                 },
                 "timeScale": {
-                    "title": "Time Scale Properties",
-                    "timeScale": "Time Scale",
-                    "beat": "Beat"
+                    "title": "Time Scale Properties"
                 }
             }
         }
@@ -537,7 +499,14 @@
     "modals": {
         "form": {
             "confirm": "Confirm",
+            "beat": {
+                "label": "Beat"
+            },
+            "bpm": {
+                "label": "BPM"
+            },
             "color": {
+                "label": "Color",
                 "neutral": "Neutral",
                 "red": "Red",
                 "green": "Green",
@@ -547,6 +516,7 @@
                 "cyan": "Cyan"
             },
             "ease": {
+                "label": "Ease",
                 "out": "Out",
                 "linear": "Linear",
                 "in": "In"
@@ -554,13 +524,37 @@
             "file": {
                 "select": "Select File..."
             },
+            "lane": {
+                "label": "Lane"
+            },
+            "laneL": {
+                "label": "Lane L"
+            },
+            "laneR": {
+                "label": "Lane R"
+            },
             "key": {
                 "input": "Input Key",
                 "press": "Press a key..."
             },
+            "scaleL": {
+                "label": "Scale L"
+            },
+            "scaleR": {
+                "label": "Scale R"
+            },
+            "size": {
+                "label": "Size"
+            },
+            "timeScale": {
+                "label": "Time Scale"
+            },
             "toggle": {
                 "enabled": "Enabled",
                 "disabled": "Disabled"
+            },
+            "value": {
+                "label": "Value"
             }
         },
         "confirm": {

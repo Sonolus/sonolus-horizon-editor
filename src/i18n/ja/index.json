@@ -16,11 +16,7 @@
       "title": "ブラシツールを選択",
       "switched": "ブラシツールを選択しました",
       "modal": {
-        "title": "ブラシの設定",
-        "color": "色",
-        "scaleL": "左端の低さ",
-        "scaleR": "右端の低さ",
-        "ease": "加減速"
+        "title": "ブラシの設定"
       }
     },
     "copy": {
@@ -54,24 +50,15 @@
     },
     "rotateEvent": {
       "title": "回転イベントツールに切り替え",
-      "switched": "回転イベントツールに切り替えました",
-      "modal": {
-        "ease": "加減速"
-      }
+      "switched": "回転イベントツールに切り替えました"
     },
     "shiftEvent": {
       "title": "シフトイベントツールに切り替え",
-      "switched": "シフトイベントツールに切り替えました",
-      "modal": {
-        "ease": "加減速"
-      }
+      "switched": "シフトイベントツールに切り替えました"
     },
     "zoomEvent": {
       "title": "ズームイベントツールに切り替え",
-      "switched": "ズームイベントツールに切り替えました",
-      "modal": {
-        "ease": "加減速"
-      }
+      "switched": "ズームイベントツールに切り替えました"
     },
     "flip": {
       "title": "反転",
@@ -83,24 +70,11 @@
     },
     "doubleHoldNote": {
       "title": "ダブルホールドノーツツールに切り替え",
-      "switched": "ダブルホールドノーツツールに切り替えました",
-      "modal": {
-        "color": "色",
-        "laneL": "左端のレーン位置",
-        "laneR": "右端のレーン位置",
-        "beat": "拍"
-      }
+      "switched": "ダブルホールドノーツツールに切り替えました"
     },
     "singleHoldNote": {
       "title": "シングルホールドノーツツールに切り替え",
-      "switched": "シングルホールドノーツツールに切り替えました",
-      "modal": {
-        "color": "色",
-        "lane": "レーン",
-        "beat": "拍",
-        "scaleL": "左端の低さ",
-        "scaleR": "右端の低さ"
-      }
+      "switched": "シングルホールドノーツツールに切り替えました"
     },
     "jumpDown": {
       "title": "最下部に移動"
@@ -170,10 +144,7 @@
     },
     "tapNote": {
       "title": "タップノーツツールに切り替え",
-      "switched": "タップノーツツールに切り替えました",
-      "modal": {
-        "color": "色"
-      }
+      "switched": "タップノーツツールに切り替えました"
     },
     "undo": {
       "title": "元に戻す",
@@ -406,22 +377,13 @@
       },
       "modals": {
         "rotateEvent": {
-          "title": "回転イベントの設定",
-          "lane": "下端のレーン位置",
-          "ease": "加減速",
-          "beat": "拍"
+          "title": "回転イベントの設定"
         },
         "shiftEvent": {
-          "title": "シフトイベントの設定",
-          "value": "開き具合",
-          "ease": "加減速",
-          "beat": "拍"
+          "title": "シフトイベントの設定"
         },
         "zoomEvent": {
-          "title": "Zoomイベントの設定",
-          "value": "ズーム倍率",
-          "ease": "加減速",
-          "beat": "拍"
+          "title": "Zoomイベントの設定"
         }
       }
     },
@@ -438,19 +400,10 @@
       },
       "modals": {
         "singleHoldNote": {
-          "title": "シングルホールドノーツの設定",
-          "color": "色",
-          "lane": "レーン",
-          "beat": "拍",
-          "scaleL": "左端の低さ",
-          "scaleR": "右端の低さ"
+          "title": "シングルホールドノーツの設定"
         },
         "doubleHoldNote": {
-          "title": "ダブルホールドノーツの設定",
-          "color": "色",
-          "laneL": "左端のレーン位置",
-          "laneR": "右端のレーン位置",
-          "beat": "拍"
+          "title": "ダブルホールドノーツの設定"
         }
       }
     },
@@ -472,10 +425,7 @@
       "moved": "{0}個のタップノーツを移動しました",
       "replaced": "{0}個のタップノーツを置換しました",
       "modal": {
-        "title": "タップノーツの設定",
-        "color": "色",
-        "lane": "レーン",
-        "beat": "拍"
+        "title": "タップノーツの設定"
       }
     },
     "values": {
@@ -491,14 +441,10 @@
       },
       "modals": {
         "bpm": {
-          "title": "BPM設定",
-          "bpm": "BPM",
-          "beat": "拍"
+          "title": "BPM設定"
         },
         "timeScale": {
-          "title": "ハイスピードの設定",
-          "timeScale": "ハイスピード",
-          "beat": "拍"
+          "title": "ハイスピードの設定"
         }
       }
     }
@@ -525,7 +471,14 @@
   "modals": {
     "form": {
       "confirm": "確認",
+      "beat": {
+        "label": "拍"
+      },
+      "bpm": {
+        "label": "BPM"
+      },
       "color": {
+        "label": "色",
         "neutral": "なし",
         "red": "赤",
         "green": "緑",
@@ -535,6 +488,7 @@
         "cyan": "水色"
       },
       "ease": {
+        "label": "加減速",
         "out": "減速",
         "linear": "直線",
         "in": "加速"
@@ -542,13 +496,34 @@
       "file": {
         "select": "ファイルを選択してください..."
       },
+      "lane": {
+        "label": "レーン"
+      },
+      "laneL": {
+        "label": "左端のレーン位置"
+      },
+      "laneR": {
+        "label": "右端のレーン位置"
+      },
       "key": {
         "input": "キーを入力してください",
         "press": "キーを押してください..."
       },
+      "scaleL": {
+        "label": "左端の低さ"
+      },
+      "scaleR": {
+        "label": "右端の低さ"
+      },
+      "timeScale": {
+        "label": "ハイスピード"
+      },
       "toggle": {
         "enabled": "有効",
         "disabled": "無効"
+      },
+      "value": {
+        "label": "開き具合"
       }
     },
     "confirm": {
