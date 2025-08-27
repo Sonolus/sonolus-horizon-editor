@@ -14,7 +14,6 @@ const modelValue = defineModel<number | undefined>({ required: true })
     <OptionalSelectField
         v-model="modelValue"
         :label="i18n.modals.form.color.label"
-        :default-value="0"
         :options="colorNames.map((name, index) => [i18n.modals.form.color[name], index])"
         :autofocus
     />

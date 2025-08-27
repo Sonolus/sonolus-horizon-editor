@@ -13,7 +13,6 @@ const modelValue = defineModel<number | undefined>({ required: true })
     <OptionalNumberField
         v-model="modelValue"
         :label="i18n.modals.form.size.label"
-        :default-value="1"
         :min="0"
         :max="7"
         :step="1"

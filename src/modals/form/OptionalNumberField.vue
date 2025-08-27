@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import BaseOptionalField from './BaseOptionalField.vue'
-import { createOptional } from './optionalField'
+import BaseField from './BaseField.vue'
 
-const props = defineProps<{
+defineProps<{
     label: string
-    defaultValue: number
     min?: number
     max?: number
     step?: number | 'any'
     autofocus?: boolean
 }>()
 
-const modelValue = defineModel<number | undefined>({ required: true })
-
-const { isEnabled, enabledValue } = createOptional(modelValue, props.defaultValue)
+const modelValue = defineModel<number | undefined>({
+    required: true,
+    set: (value) => (typeof value === 'number' ? value : undefined),
+})
 
 const onFocus = (event: FocusEvent) => {
     ;(event.currentTarget as HTMLInputElement | null)?.select()
@@ -21,16 +20,16 @@ const onFocus = (event: FocusEvent) => {
 </script>
 
 <template>
-    <BaseOptionalField v-model="isEnabled" :label :autofocus>
+    <BaseField :label>
         <input
-            v-model.lazy="enabledValue"
+            v-model.lazy="modelValue"
             class="w-full appearance-none bg-[#222] px-2 py-1 transition-colors hover:bg-[#444] active:bg-[#111]"
             type="number"
             :min
             :max
             :step
-            required
+            :autofocus
             @focus="onFocus"
         />
-    </BaseOptionalField>
+    </BaseField>
 </template>
