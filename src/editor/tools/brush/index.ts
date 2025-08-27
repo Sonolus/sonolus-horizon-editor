@@ -1,32 +1,33 @@
-import type { Tool } from '.'
-import type { EventObject } from '../../chart'
-import { pushState, replaceState, state } from '../../history'
-import { selectedEntities } from '../../history/selectedEntities'
-import { i18n } from '../../i18n'
-import type { Entity } from '../../state/entities'
-import type { EventJointEntity } from '../../state/entities/events/joints'
-import type { DoubleHoldNoteJointEntity } from '../../state/entities/holdNotes/joints/double'
-import type { SingleHoldNoteJointEntity } from '../../state/entities/holdNotes/joints/single'
-import type { TapNoteEntity } from '../../state/entities/tapNote'
-import type { AddMutation, RemoveMutation } from '../../state/mutations'
-import { addRotateEventJoint, removeRotateEventJoint } from '../../state/mutations/events/rotate'
-import { addShiftEventJoint, removeShiftEventJoint } from '../../state/mutations/events/shift'
-import { addZoomEventJoint, removeZoomEventJoint } from '../../state/mutations/events/zoom'
+import type { Tool } from '..'
+import type { EventObject } from '../../../chart'
+import { pushState, replaceState, state } from '../../../history'
+import { selectedEntities } from '../../../history/selectedEntities'
+import { i18n } from '../../../i18n'
+import type { Entity } from '../../../state/entities'
+import type { EventJointEntity } from '../../../state/entities/events/joints'
+import type { DoubleHoldNoteJointEntity } from '../../../state/entities/holdNotes/joints/double'
+import type { SingleHoldNoteJointEntity } from '../../../state/entities/holdNotes/joints/single'
+import type { TapNoteEntity } from '../../../state/entities/tapNote'
+import type { AddMutation, RemoveMutation } from '../../../state/mutations'
+import { addRotateEventJoint, removeRotateEventJoint } from '../../../state/mutations/events/rotate'
+import { addShiftEventJoint, removeShiftEventJoint } from '../../../state/mutations/events/shift'
+import { addZoomEventJoint, removeZoomEventJoint } from '../../../state/mutations/events/zoom'
 import {
     addDoubleHoldNoteJoint,
     removeDoubleHoldNoteJoint,
-} from '../../state/mutations/holdNotes/double'
+} from '../../../state/mutations/holdNotes/double'
 import {
     addSingleHoldNoteJoint,
     removeSingleHoldNoteJoint,
-} from '../../state/mutations/holdNotes/single'
-import { addTapNote, removeTapNote } from '../../state/mutations/tapNote'
-import { createTransaction, type Transaction } from '../../state/transaction'
-import { interpolate } from '../../utils/interpolate'
-import type { Ease } from '../ease'
-import { notify } from '../notification'
-import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
-import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from './utils'
+} from '../../../state/mutations/holdNotes/single'
+import { addTapNote, removeTapNote } from '../../../state/mutations/tapNote'
+import { createTransaction, type Transaction } from '../../../state/transaction'
+import { interpolate } from '../../../utils/interpolate'
+import type { Ease } from '../../ease'
+import { notify } from '../../notification'
+import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../../view'
+import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from '../utils'
+import BrushSidebar from './BrushSidebar.vue'
 
 export type BrushProperties = {
     color?: number
@@ -50,6 +51,8 @@ let active:
     | undefined
 
 export const brush: Tool = {
+    sidebar: BrushSidebar,
+
     hover(x, y, modifiers) {
         const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
 

@@ -384,7 +384,10 @@
         "brush": {
             "deselected": "Deselected all objects",
             "brushing": "Brushing {0} objects",
-            "brushed": "Brushed {0} objects"
+            "brushed": "Brushed {0} objects",
+            "sidebar": {
+                "title": "Brush Properties"
+            }
         },
         "eraser": {
             "deselected": "Deselected all objects",

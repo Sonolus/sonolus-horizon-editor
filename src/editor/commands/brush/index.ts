@@ -2,6 +2,7 @@ import type { Command } from '..'
 import { i18n } from '../../../i18n'
 import { showModal } from '../../../modals'
 import { notify } from '../../notification'
+import { isSidebarVisible } from '../../sidebars'
 import { switchToolTo } from '../../tools'
 import { brushProperties, setBrushProperties } from '../../tools/brush'
 import BrushIcon from './BrushIcon.vue'
@@ -17,6 +18,8 @@ export const brush: Command = {
         switchToolTo('brush')
 
         notify(() => i18n.value.commands.brush.switched)
+
+        if (isSidebarVisible.value) return
 
         const properties = await showModal(BrushPropertiesModal, {
             properties: brushProperties,
