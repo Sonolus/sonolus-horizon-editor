@@ -1,85 +1,96 @@
-import type { Tool } from '.'
+import { ref } from 'vue'
+import type { Tool } from '..'
 import type {
     DoubleHoldNoteJointObject,
     EventObject,
     SingleHoldNoteJointObject,
     TapNoteObject,
     ValueObject,
-} from '../../chart'
-import { parseChart } from '../../chart/parse'
-import { parseClipboardData } from '../../clipboardData/parse'
-import { pushState, state } from '../../history'
-import { i18n } from '../../i18n'
-import type { Entity, EntityOfType } from '../../state/entities'
-import type { EventJointEntityType } from '../../state/entities/events/joints'
+} from '../../../chart'
+import { parseChart } from '../../../chart/parse'
+import { parseClipboardData } from '../../../clipboardData/parse'
+import { pushState, state } from '../../../history'
+import { i18n } from '../../../i18n'
+import type { Entity, EntityOfType } from '../../../state/entities'
+import type { EventJointEntityType } from '../../../state/entities/events/joints'
 import {
     toRotateEventJointEntity,
     type RotateEventJointEntity,
-} from '../../state/entities/events/joints/rotate'
+} from '../../../state/entities/events/joints/rotate'
 import {
     laneToShiftEventValue,
     toShiftEventJointEntity,
-} from '../../state/entities/events/joints/shift'
+} from '../../../state/entities/events/joints/shift'
 import {
     laneToZoomEventValue,
     toZoomEventJointEntity,
-} from '../../state/entities/events/joints/zoom'
-import { createHoldNoteId } from '../../state/entities/holdNotes'
+} from '../../../state/entities/events/joints/zoom'
+import { createHoldNoteId } from '../../../state/entities/holdNotes'
 import {
     toDoubleHoldNoteJointEntity,
     type DoubleHoldNoteJointEntity,
-} from '../../state/entities/holdNotes/joints/double'
+} from '../../../state/entities/holdNotes/joints/double'
 import {
     toSingleHoldNoteJointEntity,
     type SingleHoldNoteJointEntity,
-} from '../../state/entities/holdNotes/joints/single'
-import { toTapNoteEntity, type TapNoteEntity } from '../../state/entities/tapNote'
-import type { ValueEntity, ValueEntityType } from '../../state/entities/values'
-import { toBpmEntity } from '../../state/entities/values/bpm'
-import { toTimeScaleEntity } from '../../state/entities/values/timeScale'
-import type { AddMutation, RemoveMutation } from '../../state/mutations'
-import { addRotateEventJoint, removeRotateEventJoint } from '../../state/mutations/events/rotate'
-import { addShiftEventJoint, removeShiftEventJoint } from '../../state/mutations/events/shift'
-import { addZoomEventJoint, removeZoomEventJoint } from '../../state/mutations/events/zoom'
-import { addDoubleHoldNoteJoint } from '../../state/mutations/holdNotes/double'
-import { addSingleHoldNoteJoint } from '../../state/mutations/holdNotes/single'
-import { addTapNote, removeTapNote } from '../../state/mutations/tapNote'
-import { addBpm, removeBpm } from '../../state/mutations/values/bpm'
-import { addTimeScale, removeTimeScale } from '../../state/mutations/values/timeScale'
-import { getInStoreGrid } from '../../state/store/grid'
-import { createTransaction, type Transaction } from '../../state/transaction'
-import { interpolate } from '../../utils/interpolate'
-import { align, clamp, mod } from '../../utils/math'
-import { timeout } from '../../utils/promise'
-import { notify } from '../notification'
-import { view, xToLane, yToBeatOffset } from '../view'
+} from '../../../state/entities/holdNotes/joints/single'
+import { toTapNoteEntity, type TapNoteEntity } from '../../../state/entities/tapNote'
+import type { ValueEntity, ValueEntityType } from '../../../state/entities/values'
+import { toBpmEntity } from '../../../state/entities/values/bpm'
+import { toTimeScaleEntity } from '../../../state/entities/values/timeScale'
+import type { AddMutation, RemoveMutation } from '../../../state/mutations'
+import { addRotateEventJoint, removeRotateEventJoint } from '../../../state/mutations/events/rotate'
+import { addShiftEventJoint, removeShiftEventJoint } from '../../../state/mutations/events/shift'
+import { addZoomEventJoint, removeZoomEventJoint } from '../../../state/mutations/events/zoom'
+import { addDoubleHoldNoteJoint } from '../../../state/mutations/holdNotes/double'
+import { addSingleHoldNoteJoint } from '../../../state/mutations/holdNotes/single'
+import { addTapNote, removeTapNote } from '../../../state/mutations/tapNote'
+import { addBpm, removeBpm } from '../../../state/mutations/values/bpm'
+import { addTimeScale, removeTimeScale } from '../../../state/mutations/values/timeScale'
+import { getInStoreGrid } from '../../../state/store/grid'
+import { createTransaction, type Transaction } from '../../../state/transaction'
+import { interpolate } from '../../../utils/interpolate'
+import { align, clamp, mod } from '../../../utils/math'
+import { timeout } from '../../../utils/promise'
+import { notify } from '../../notification'
+import { view, xToLane, yToBeatOffset } from '../../view'
+import PasteSidebar from './PasteSidebar.vue'
 
-let text: string | undefined
-let data:
-    | {
-          lane: number
-          beat: number
-          entities: Entity[]
-      }
-    | undefined
+export type ClipboardEntry = {
+    name: string
+    text: string
+    data?: {
+        lane: number
+        beat: number
+        entities: Entity[]
+    }
+}
+
+let i = 0
+let clipboardEntry: ClipboardEntry | undefined
+const clipboardEntries: ClipboardEntry[] = []
+
+export const clipboardEntryNames = ref<string[]>([])
 
 export const paste: Tool = {
+    sidebar: PasteSidebar,
+
     async hover(x, y) {
-        await updateClipboard(false)
-        if (!data?.entities.length) return
+        await updateClipboard()
+        if (!clipboardEntry?.data?.entities.length) return
 
         const lane = xToLane(x)
-        const beatOffset = yToBeatOffset(y, data.beat)
+        const beatOffset = yToBeatOffset(y, clipboardEntry.data.beat)
 
         const creating: Entity[] = []
-        for (const entity of data.entities) {
+        for (const entity of clipboardEntry.data.entities) {
             const beat = entity.beat + beatOffset
             if (beat < 0) continue
 
             const result = creates[entity.type]?.(
-                data.entities,
+                clipboardEntry.data.entities,
                 entity as never,
-                data.lane,
+                clipboardEntry.data.lane,
                 lane,
                 beat,
             )
@@ -95,24 +106,24 @@ export const paste: Tool = {
     },
 
     async tap(x, y) {
-        await updateClipboard(true)
-        if (!data?.entities.length) return
+        await updateClipboard()
+        if (!clipboardEntry?.data?.entities.length) return
 
         const transaction = createTransaction(state.value)
 
         const lane = xToLane(x)
-        const beatOffset = yToBeatOffset(y, data.beat)
+        const beatOffset = yToBeatOffset(y, clipboardEntry.data.beat)
 
         const selectedEntities: Entity[] = []
-        for (const entity of data.entities) {
+        for (const entity of clipboardEntry.data.entities) {
             const beat = entity.beat + beatOffset
             if (beat < 0) continue
 
             const result = pastes[entity.type]?.(
                 transaction,
-                data.entities,
+                clipboardEntry.data.entities,
                 entity as never,
-                data.lane,
+                clipboardEntry.data.lane,
                 lane,
                 beat,
             )
@@ -137,12 +148,30 @@ export const paste: Tool = {
     },
 }
 
-const updateClipboard = async (force: boolean) => {
-    const newText = await getText()
-    if (!force && text === newText) return
+export const updateClipboard = async () => {
+    const text = await getText()
+    if (!text) return
+    if (clipboardEntry?.text === text) return
 
-    text = newText
-    data = getData(text)
+    clipboardEntry = clipboardEntries.find((entry) => entry.text === text)
+    if (clipboardEntry) {
+        clipboardEntries.splice(clipboardEntries.indexOf(clipboardEntry), 1)
+        clipboardEntries.unshift(clipboardEntry)
+        clipboardEntryNames.value = clipboardEntries.map(({ name }) => name)
+        return
+    }
+
+    const data = getData(text)
+    clipboardEntry = {
+        name: `#${++i} (${data?.entities.length ?? 0})`,
+        text,
+        data,
+    }
+    if (clipboardEntry.data) {
+        clipboardEntries.unshift(clipboardEntry)
+        if (clipboardEntries.length > 10) clipboardEntries.pop()
+        clipboardEntryNames.value = clipboardEntries.map(({ name }) => name)
+    }
 }
 
 const getText = async () => {
@@ -153,10 +182,8 @@ const getText = async () => {
     }
 }
 
-const getData = (text: string | undefined) => {
+const getData = (text: string) => {
     try {
-        if (!text) return
-
         const clipboardData = parseClipboardData(JSON.parse(text))
         const chart = parseChart(clipboardData.entities)
 
@@ -188,6 +215,14 @@ const getData = (text: string | undefined) => {
     } catch {
         return
     }
+}
+
+export const setToClipboardEntry = async (name: string) => {
+    const entry = clipboardEntries.find((entry) => entry.name === name)
+    if (!entry) return
+
+    await navigator.clipboard.writeText(entry.text)
+    await updateClipboard()
 }
 
 const toMovedValueObject = (entity: ValueEntity, beat: number): ValueObject => ({

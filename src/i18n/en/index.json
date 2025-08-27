@@ -440,7 +440,10 @@
             }
         },
         "paste": {
-            "pasted": "Pasted {0} objects"
+            "pasted": "Pasted {0} objects",
+            "sidebar": {
+                "title": "Clipboard History"
+            }
         },
         "select": {
             "deselected": "Deselected all objects",
