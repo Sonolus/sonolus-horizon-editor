@@ -437,6 +437,20 @@
                 "doubleHoldNote": {
                     "title": "Double Hold Note Properties"
                 }
+            },
+            "sidebars": {
+                "singleHoldNote": {
+                    "title": {
+                        "default": "Default Single Hold Note Properties",
+                        "selected": "Single Hold Note Properties"
+                    }
+                },
+                "doubleHoldNote": {
+                    "title": {
+                        "default": "Default Double Hold Note Properties",
+                        "selected": "Double Hold Note Properties"
+                    }
+                }
             }
         },
         "paste": {

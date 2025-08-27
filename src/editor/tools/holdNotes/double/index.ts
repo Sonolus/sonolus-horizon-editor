@@ -8,6 +8,7 @@ import {
 } from '../../../../state/mutations/holdNotes/double'
 import { align, mod } from '../../../../utils/math'
 import DoubleHoldNotePropertiesModal from './DoubleHoldNotePropertiesModal.vue'
+import DoubleHoldNoteSidebar from './DoubleHoldNoteSidebar.vue'
 
 export type DefaultDoubleHoldNoteProperties = {
     color?: number
@@ -20,8 +21,9 @@ export const setDefaultDoubleHoldNoteProperties = (properties: DefaultDoubleHold
     defaultDoubleHoldNoteProperties = properties
 }
 
-export const doubleHoldNote = createHoldNoteTool(
+export const [doubleHoldNote, editSelectedDoubleHoldNoteJoints] = createHoldNoteTool(
     () => i18n.value.tools.holdNotes.types.doubleHoldNote,
+    DoubleHoldNoteSidebar,
     (entity) => showModal(DoubleHoldNotePropertiesModal, { object: entity }),
 
     (beat, lane, joint) => ({
@@ -67,6 +69,12 @@ export const doubleHoldNote = createHoldNoteTool(
         color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
         laneL: startLane,
         laneR: lane,
+    }),
+    (entity, object) => ({
+        beat: object.beat ?? entity.beat,
+        color: object.color ?? entity.color,
+        laneL: object.laneL ?? entity.laneL,
+        laneR: object.laneR ?? entity.laneR,
     }),
 
     'doubleHoldNoteJoint',

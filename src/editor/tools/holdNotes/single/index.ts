@@ -8,6 +8,7 @@ import {
 } from '../../../../state/mutations/holdNotes/single'
 import { align, mod } from '../../../../utils/math'
 import SingleHoldNotePropertiesModal from './SingleHoldNotePropertiesModal.vue'
+import SingleHoldNoteSidebar from './SingleHoldNoteSidebar.vue'
 
 export type DefaultSingleHoldNoteProperties = {
     color?: number
@@ -21,8 +22,9 @@ export const setDefaultSingleHoldNoteProperties = (properties: DefaultSingleHold
     defaultSingleHoldNoteProperties = properties
 }
 
-export const singleHoldNote = createHoldNoteTool(
+export const [singleHoldNote, editSelectedSingleHoldNoteJoints] = createHoldNoteTool(
     () => i18n.value.tools.holdNotes.types.singleHoldNote,
+    SingleHoldNoteSidebar,
     (entity) => showModal(SingleHoldNotePropertiesModal, { object: entity }),
 
     (beat, lane, joint) => ({
@@ -45,6 +47,13 @@ export const singleHoldNote = createHoldNoteTool(
         lane,
         scaleL: defaultSingleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
         scaleR: defaultSingleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
+    }),
+    (entity, object) => ({
+        beat: object.beat ?? entity.beat,
+        color: object.color ?? entity.color,
+        lane: object.lane ?? entity.lane,
+        scaleL: object.scaleL ?? entity.scaleL,
+        scaleR: object.scaleR ?? entity.scaleR,
     }),
 
     'singleHoldNoteJoint',
