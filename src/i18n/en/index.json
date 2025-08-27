@@ -455,12 +455,19 @@
         "tapNote": {
             "moving": "Moving {0} Tap Note objects",
             "adding": "Adding {0} Tap Note objects",
+            "selected": "Selected {0} Tap Note objects",
             "added": "Added {0} Tap Note objects",
             "edited": "Edited {0} Tap Note objects",
             "moved": "Moved {0} Tap Note objects",
             "replaced": "Replaced {0} Tap Note objects",
             "modal": {
                 "title": "Tap Note Properties"
+            },
+            "sidebar": {
+                "title": {
+                    "default": "Default Tap Note Properties",
+                    "selected": "Tap Note Properties"
+                }
             }
         },
         "values": {
