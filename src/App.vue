@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import LevelEditor from './editor/LevelEditor.vue'
 import ModalManager from './modals/ModalManager.vue'
 import LevelPreview from './preview/LevelPreview.vue'
+import { screenSm } from './screen'
 import { settings } from './settings'
 
 watch(
@@ -11,6 +12,14 @@ watch(
         document.documentElement.lang = settings.locale
     },
     { immediate: true },
+)
+
+const previewPosition = computed(() =>
+    settings.previewPosition !== 'auto'
+        ? settings.previewPosition
+        : screenSm.value
+          ? 'left'
+          : 'top',
 )
 
 const isDragging = ref(false)
@@ -26,7 +35,7 @@ const onDrag = (event: PointerEvent) => {
     wasDragging.value = true
 
     settings.showPreview = true
-    if (settings.previewPosition === 'left') {
+    if (previewPosition.value === 'left') {
         settings.previewWidth = event.clientX
     } else {
         settings.previewHeight = event.clientY
@@ -51,7 +60,7 @@ const onFocus = (event: FocusEvent) => {
 <template>
     <div
         class="flex h-screen w-screen overflow-hidden"
-        :class="settings.previewPosition === 'left' ? 'flex-row-reverse' : 'flex-col-reverse'"
+        :class="previewPosition === 'left' ? 'flex-row-reverse' : 'flex-col-reverse'"
         @pointermove="onDrag"
         @pointerup="onStopDragging"
     >
@@ -62,12 +71,12 @@ const onFocus = (event: FocusEvent) => {
         <div
             class="relative bg-[#111]"
             :class="
-                settings.previewPosition === 'left'
+                previewPosition === 'left'
                     ? { 'min-w-[25%] max-w-[75%]': settings.showPreview }
                     : { 'max-h-[75%] min-h-[25%]': settings.showPreview }
             "
             :style="
-                settings.previewPosition === 'left'
+                previewPosition === 'left'
                     ? { width: (settings.showPreview ? settings.previewWidth : 0) + 'px' }
                     : { height: (settings.showPreview ? settings.previewHeight : 0) + 'px' }
             "
@@ -77,7 +86,7 @@ const onFocus = (event: FocusEvent) => {
             <button
                 class="absolute flex items-center justify-center bg-[#222] transition-colors hover:bg-[#444] active:bg-[#111]"
                 :class="
-                    settings.previewPosition === 'left'
+                    previewPosition === 'left'
                         ? 'left-full top-1/2 h-16 w-4 -translate-y-1/2 cursor-col-resize'
                         : 'left-1/2 top-full h-4 w-16 -translate-x-1/2 cursor-row-resize'
                 "
@@ -86,7 +95,7 @@ const onFocus = (event: FocusEvent) => {
                 @focus="onFocus"
             >
                 <svg
-                    v-if="settings.previewPosition === 'left'"
+                    v-if="previewPosition === 'left'"
                     class="size-4"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 192 512"

@@ -12,6 +12,7 @@ import SettingsSection from './SettingsSection.vue'
             v-model="settings.previewPosition"
             :label="i18n.settings.preview.position.title"
             :options="[
+                [i18n.settings.preview.position.auto, 'auto'],
                 [i18n.settings.preview.position.top, 'top'],
                 [i18n.settings.preview.position.left, 'left'],
             ]"

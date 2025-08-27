@@ -13,7 +13,7 @@ const number = (def: number, min: number, max: number) =>
         .Encode((value) => value)
 
 const settingsProperties = {
-    previewPosition: Type.Union([Type.Literal('top'), Type.Literal('left')]),
+    previewPosition: Type.Union([Type.Literal('auto'), Type.Literal('top'), Type.Literal('left')]),
 
     showPreview: Type.Boolean({ default: true }),
 

@@ -362,6 +362,7 @@
             "title": "Preview",
             "position": {
                 "title": "Position",
+                "auto": "Auto",
                 "top": "Top",
                 "left": "Left"
             },
