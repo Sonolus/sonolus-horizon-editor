@@ -23,7 +23,7 @@ useKeyboardControl()
 
 useAutoSave()
 
-const container: Ref<Element | null> = useTemplateRef('container')
+const container: Ref<HTMLDivElement | null> = useTemplateRef('container')
 
 watch(time, () => {
     if (!container.value) return
@@ -37,7 +37,12 @@ watch(time, () => {
 </script>
 
 <template>
-    <div ref="container" class="relative size-full select-none overflow-hidden">
+    <div
+        ref="container"
+        class="relative size-full select-none overflow-hidden"
+        tabindex="-1"
+        @pointerdown="container?.focus()"
+    >
         <template v-if="view.w && view.h">
             <LevelEditorRangeMarkers />
             <LevelEditorHoverMarkers />

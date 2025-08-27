@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, type Component } from 'vue'
 import type { Modifiers } from '../controls/gestures/pointer'
 import { view } from '../view'
 import { brush } from './brush'
@@ -15,6 +15,8 @@ import { bpm } from './values/bpm'
 import { timeScale } from './values/timeScale'
 
 export type Tool = {
+    sidebar?: Component
+
     hover?: (x: number, y: number, modifiers: Modifiers) => void | Promise<void>
 
     tap?: (x: number, y: number, modifiers: Modifiers) => void | Promise<void>

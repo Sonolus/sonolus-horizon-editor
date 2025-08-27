@@ -13,6 +13,10 @@ const number = (def: number, min: number, max: number) =>
         .Encode((value) => value)
 
 const settingsProperties = {
+    showSidebar: Type.Boolean({ default: true }),
+
+    sidebarWidth: Type.Number(),
+
     previewPosition: Type.Union([Type.Literal('auto'), Type.Literal('top'), Type.Literal('left')]),
 
     showPreview: Type.Boolean({ default: true }),

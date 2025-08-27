@@ -47,7 +47,7 @@ const onClickSub = (index: number, name: CommandName) => {
             v-for="(activeName, i) in activeNames"
             :key="i"
             class="pointer-events-auto relative"
-            :class="{ 'z-10': activeIndex === i }"
+            :class="{ 'z-20': activeIndex === i }"
             :inert="activeIndex !== -1 && activeIndex !== i"
         >
             <LevelEditorToolbarTool :name="activeName" @click="onClickMain(i, activeName)" />
