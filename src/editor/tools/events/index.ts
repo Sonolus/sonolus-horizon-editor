@@ -1,5 +1,6 @@
+import type { Component } from 'vue'
 import type { Tool } from '..'
-import type { EventObject } from '../../../chart'
+import type { Ease, EventObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
 import { selectedEntities } from '../../../history/selectedEntities'
 import { store } from '../../../history/store'
@@ -10,13 +11,14 @@ import type { AddMutation, RemoveMutation } from '../../../state/mutations'
 import { getInStoreGrid } from '../../../state/store/grid'
 import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
-import type { Ease } from '../../ease'
 import { notify } from '../../notification'
+import { isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
 
 export const createEventTool = <T extends EventJointEntityType>(
     objectName: () => string,
+    sidebar: Component,
     showPropertiesModal: (object: EntityOfType<T>) => Promise<EventObject | undefined>,
 
     isMatch: (value: number, x: number) => boolean,
@@ -28,12 +30,15 @@ export const createEventTool = <T extends EventJointEntityType>(
     toEntity: (object: EventObject) => EntityOfType<T>,
     addEntity: AddMutation<EventObject>,
     removeEntity: RemoveMutation<EntityOfType<T>>,
-): Tool => {
+): [Tool, (object: Partial<EventObject>) => void] => {
+    const isJoint = (entity: Entity): entity is EntityOfType<T> => entity.type === type
+
     const getEntityFromSelection = () => {
         if (selectedEntities.value.length !== 1) return
 
         const [entity] = selectedEntities.value
-        if (entity?.type !== type) return
+        if (!entity) return
+        if (!isJoint(entity)) return
 
         return entity
     }
@@ -56,7 +61,7 @@ export const createEventTool = <T extends EventJointEntityType>(
 
     const tryFind = (x: number, y: number): [EntityOfType<T>] | [undefined, number, number] => {
         const [hit] = hitEntitiesAtPoint(x, y)
-            .filter((entity): entity is EntityOfType<T> => entity.type === type)
+            .filter(isJoint)
             .sort(
                 (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),
             )
@@ -152,144 +157,46 @@ export const createEventTool = <T extends EventJointEntityType>(
           }
         | undefined
 
-    return {
-        hover(x, y) {
-            const [entity, beat, value] = tryFind(x, y)
-            if (entity) {
-                view.entities = {
-                    hovered: [entity],
-                    creating: [],
-                }
-            } else {
-                view.entities = {
-                    hovered: [],
-                    creating: [
-                        toEntity({
-                            beat,
-                            value,
-                            ...getPropertiesFromSelection(),
-                        }),
-                    ],
-                }
-            }
-        },
+    return [
+        {
+            sidebar,
 
-        async tap(x, y) {
-            const [entity, beat, value] = tryFind(x, y)
-            if (entity) {
-                replaceState({
-                    ...state.value,
-                    selectedEntities: [entity],
-                })
-                view.entities = {
-                    hovered: [],
-                    creating: [],
-                }
-                focusViewAtBeat(entity.beat)
-
-                const object = await showPropertiesModal(entity)
-                if (!object) return
-
-                editMoveOrReplace(entity, object)
-                focusViewAtBeat(object.beat)
-            } else {
-                const object: EventObject = {
-                    beat,
-                    value,
-                    ...getPropertiesFromSelection(),
-                }
-
-                const overlap = find(object.beat)
-                if (overlap) {
-                    edit(overlap, object)
+            hover(x, y) {
+                const [entity, beat, value] = tryFind(x, y)
+                if (entity) {
+                    view.entities = {
+                        hovered: [entity],
+                        creating: [],
+                    }
                 } else {
-                    add(object)
-                }
-                focusViewAtBeat(object.beat)
-            }
-        },
-
-        dragStart(x, y) {
-            const [entity, beat] = tryFind(x, y)
-            if (entity) {
-                replaceState({
-                    ...state.value,
-                    selectedEntities: [entity],
-                })
-                view.entities = {
-                    hovered: [],
-                    creating: [],
-                }
-                focusViewAtBeat(entity.beat)
-
-                notify(interpolate(() => i18n.value.tools.events.moving, '1', objectName))
-
-                active = {
-                    type: 'move',
-                    entity,
-                    x,
-                }
-            } else {
-                focusViewAtBeat(beat)
-
-                notify(interpolate(() => i18n.value.tools.events.adding, '1', objectName))
-
-                active = {
-                    type: 'add',
-                }
-            }
-
-            return true
-        },
-
-        dragUpdate(x, y) {
-            if (!active) return
-
-            setViewHover(x, y)
-
-            switch (active.type) {
-                case 'add': {
-                    const beat = yToValidBeat(y)
-
                     view.entities = {
                         hovered: [],
                         creating: [
                             toEntity({
                                 beat,
-                                value: getValue(beat, x),
+                                value,
                                 ...getPropertiesFromSelection(),
                             }),
                         ],
                     }
-                    focusViewAtBeat(beat)
-                    break
                 }
-                case 'move': {
-                    const beat = snapYToBeat(y, active.entity.beat)
+            },
 
-                    view.entities = {
-                        hovered: [],
-                        creating: [
-                            toEntity({
-                                beat,
-                                value: shiftValue(active.entity.value, active.x, x),
-                                ease: active.entity.ease,
-                            }),
-                        ],
-                    }
-                    focusViewAtBeat(beat)
-                    break
-                }
-            }
-        },
+            async tap(x, y) {
+                const [entity, beat, value] = tryFind(x, y)
+                if (entity) {
+                    if (
+                        selectedEntities.value.length === 1 &&
+                        selectedEntities.value[0] === entity
+                    ) {
+                        if (isSidebarVisible.value) return
 
-        async dragEnd(x, y) {
-            if (!active) return
+                        const object = await showPropertiesModal(entity)
+                        if (!object) return
 
-            switch (active.type) {
-                case 'add': {
-                    const [entity, beat, value] = tryFind(x, y)
-                    if (entity) {
+                        editMoveOrReplace(entity, object)
+                        focusViewAtBeat(object.beat)
+                    } else {
                         replaceState({
                             ...state.value,
                             selectedEntities: [entity],
@@ -300,42 +207,188 @@ export const createEventTool = <T extends EventJointEntityType>(
                         }
                         focusViewAtBeat(entity.beat)
 
-                        const object = await showPropertiesModal(entity)
-                        if (!object) return
-
-                        editMoveOrReplace(entity, object)
-                        focusViewAtBeat(object.beat)
-                    } else {
-                        const object: EventObject = {
-                            beat,
-                            value,
-                            ...getPropertiesFromSelection(),
-                        }
-
-                        const overlap = find(object.beat)
-                        if (overlap) {
-                            edit(overlap, object)
-                        } else {
-                            add(object)
-                        }
-                        focusViewAtBeat(object.beat)
+                        notify(interpolate(() => i18n.value.tools.events.selected, '1', objectName))
                     }
-                    break
-                }
-                case 'move': {
-                    const beat = snapYToBeat(y, active.entity.beat)
-
-                    editMoveOrReplace(active.entity, {
+                } else {
+                    const object: EventObject = {
                         beat,
-                        value: shiftValue(active.entity.value, active.x, x),
-                        ease: active.entity.ease,
-                    })
-                    focusViewAtBeat(beat)
-                    break
-                }
-            }
+                        value,
+                        ...getPropertiesFromSelection(),
+                    }
 
-            active = undefined
+                    const overlap = find(object.beat)
+                    if (overlap) {
+                        edit(overlap, object)
+                    } else {
+                        add(object)
+                    }
+                    focusViewAtBeat(object.beat)
+                }
+            },
+
+            dragStart(x, y) {
+                const [entity, beat] = tryFind(x, y)
+                if (entity) {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [entity],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+
+                    notify(interpolate(() => i18n.value.tools.events.moving, '1', objectName))
+
+                    active = {
+                        type: 'move',
+                        entity,
+                        x,
+                    }
+                } else {
+                    focusViewAtBeat(beat)
+
+                    notify(interpolate(() => i18n.value.tools.events.adding, '1', objectName))
+
+                    active = {
+                        type: 'add',
+                    }
+                }
+
+                return true
+            },
+
+            dragUpdate(x, y) {
+                if (!active) return
+
+                setViewHover(x, y)
+
+                switch (active.type) {
+                    case 'add': {
+                        const beat = yToValidBeat(y)
+
+                        view.entities = {
+                            hovered: [],
+                            creating: [
+                                toEntity({
+                                    beat,
+                                    value: getValue(beat, x),
+                                    ...getPropertiesFromSelection(),
+                                }),
+                            ],
+                        }
+                        focusViewAtBeat(beat)
+                        break
+                    }
+                    case 'move': {
+                        const beat = snapYToBeat(y, active.entity.beat)
+
+                        view.entities = {
+                            hovered: [],
+                            creating: [
+                                toEntity({
+                                    beat,
+                                    value: shiftValue(active.entity.value, active.x, x),
+                                    ease: active.entity.ease,
+                                }),
+                            ],
+                        }
+                        focusViewAtBeat(beat)
+                        break
+                    }
+                }
+            },
+
+            async dragEnd(x, y) {
+                if (!active) return
+
+                switch (active.type) {
+                    case 'add': {
+                        const [entity, beat, value] = tryFind(x, y)
+                        if (entity) {
+                            replaceState({
+                                ...state.value,
+                                selectedEntities: [entity],
+                            })
+                            view.entities = {
+                                hovered: [],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+
+                            const object = await showPropertiesModal(entity)
+                            if (!object) return
+
+                            editMoveOrReplace(entity, object)
+                            focusViewAtBeat(object.beat)
+                        } else {
+                            const object: EventObject = {
+                                beat,
+                                value,
+                                ...getPropertiesFromSelection(),
+                            }
+
+                            const overlap = find(object.beat)
+                            if (overlap) {
+                                edit(overlap, object)
+                            } else {
+                                add(object)
+                            }
+                            focusViewAtBeat(object.beat)
+                        }
+                        break
+                    }
+                    case 'move': {
+                        const beat = snapYToBeat(y, active.entity.beat)
+
+                        editMoveOrReplace(active.entity, {
+                            beat,
+                            value: shiftValue(active.entity.value, active.x, x),
+                            ease: active.entity.ease,
+                        })
+                        focusViewAtBeat(beat)
+                        break
+                    }
+                }
+
+                active = undefined
+            },
         },
-    }
+        (object) => {
+            const [entity] = selectedEntities.value
+            if (selectedEntities.value.length === 1 && entity && isJoint(entity)) {
+                editMoveOrReplace(entity, {
+                    beat: object.beat ?? entity.beat,
+                    value: object.value ?? entity.value,
+                    ease: object.ease ?? entity.ease,
+                })
+            } else {
+                update(
+                    () => i18n.value.tools.events.edited,
+                    (transaction) => {
+                        const entities: Entity[] = []
+
+                        for (const entity of selectedEntities.value) {
+                            if (!isJoint(entity)) {
+                                entities.push(entity)
+                                continue
+                            }
+
+                            removeEntity(transaction, entity)
+                            entities.push(
+                                ...addEntity(transaction, {
+                                    beat: object.beat ?? entity.beat,
+                                    value: object.value ?? entity.value,
+                                    ease: object.ease ?? entity.ease,
+                                }),
+                            )
+                        }
+
+                        return entities
+                    },
+                )
+            }
+        },
+    ]
 }

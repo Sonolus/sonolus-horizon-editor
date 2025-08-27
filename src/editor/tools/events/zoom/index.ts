@@ -10,6 +10,7 @@ import { align, clamp } from '../../../../utils/math'
 import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import ZoomEventPropertiesModal from './ZoomEventPropertiesModal.vue'
+import ZoomEventSidebar from './ZoomEventSidebar.vue'
 
 export type DefaultZoomEventProperties = {
     ease?: Ease
@@ -23,8 +24,9 @@ export const setDefaultZoomEventProperties = (properties: DefaultZoomEventProper
 
 const toValue = (x: number) => clamp(align(laneToZoomEventValue(xToLane(x)), 10))
 
-export const zoomEvent = createEventTool(
+export const [zoomEvent, editSelectedZoomEvents] = createEventTool(
     () => i18n.value.tools.events.types.zoomEvent,
+    ZoomEventSidebar,
     (object) => showModal(ZoomEventPropertiesModal, { object }),
 
     (value, x) => value === toValue(x),

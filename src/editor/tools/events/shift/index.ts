@@ -10,6 +10,7 @@ import { align, clamp } from '../../../../utils/math'
 import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import ShiftEventPropertiesModal from './ShiftEventPropertiesModal.vue'
+import ShiftEventSidebar from './ShiftEventSidebar.vue'
 
 export type DefaultShiftEventProperties = {
     ease?: Ease
@@ -23,8 +24,9 @@ export const setDefaultShiftEventProperties = (properties: DefaultShiftEventProp
 
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
 
-export const shiftEvent = createEventTool(
+export const [shiftEvent, editSelectedShiftEvents] = createEventTool(
     () => i18n.value.tools.events.types.shiftEvent,
+    ShiftEventSidebar,
     (object) => showModal(ShiftEventPropertiesModal, { object }),
 
     (value, x) => value === toValue(x),

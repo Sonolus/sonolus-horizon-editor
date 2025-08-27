@@ -12,6 +12,7 @@ import { align, clamp } from '../../../../utils/math'
 import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import RotateEventPropertiesModal from './RotateEventPropertiesModal.vue'
+import RotateEventSidebar from './RotateEventSidebar.vue'
 
 export type DefaultRotateEventProperties = {
     ease?: Ease
@@ -35,8 +36,9 @@ const getPrev = (beat: number) => {
     return range && beat >= range.max.beat ? range.max : undefined
 }
 
-export const rotateEvent = createEventTool(
+export const [rotateEvent, editSelectedRotateEvents] = createEventTool(
     () => i18n.value.tools.events.types.rotateEvent,
+    RotateEventSidebar,
     (object) => showModal(RotateEventPropertiesModal, { object }),
 
     (value, x) => (value - toValue(x)) % 8 === 0,
