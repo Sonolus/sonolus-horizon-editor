@@ -56,13 +56,7 @@ const selectedLane = createSelectedModel('lane')
 <template>
     <BaseSidebar v-if="selectedTapNotes.length" :title="i18n.tools.tapNote.sidebar.title.selected">
         <OptionalColorField v-model="selectedColor" />
-        <LaneField
-            v-if="selectedTapNotes.length === 1"
-            v-model="selectedLane!"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
+        <LaneField v-if="selectedTapNotes.length === 1" v-model="selectedLane!" />
         <BeatField v-if="selectedTapNotes.length === 1" v-model="selectedBeat!" />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.tapNote.sidebar.title.default">

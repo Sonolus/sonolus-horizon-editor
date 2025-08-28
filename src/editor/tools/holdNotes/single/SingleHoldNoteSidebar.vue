@@ -65,13 +65,7 @@ const selectedScaleR = createSelectedModel('scaleR')
         :title="i18n.tools.holdNotes.sidebars.singleHoldNote.title.selected"
     >
         <OptionalColorField v-model="selectedColor" />
-        <LaneField
-            v-if="selectedSingleHoldNoteJoints.length === 1"
-            v-model="selectedLane!"
-            :min="0"
-            :max="7"
-            :step="1"
-        />
+        <LaneField v-if="selectedSingleHoldNoteJoints.length === 1" v-model="selectedLane!" />
         <BeatField v-if="selectedSingleHoldNoteJoints.length === 1" v-model="selectedBeat!" />
         <OptionalScaleLField v-model="selectedScaleL" />
         <OptionalScaleRField v-model="selectedScaleR" />

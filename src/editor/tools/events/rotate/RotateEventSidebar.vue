@@ -10,8 +10,8 @@ import type { EventObject } from '../../../../chart'
 import { selectedEntities } from '../../../../history/selectedEntities'
 import { i18n } from '../../../../i18n'
 import BeatField from '../../../../modals/form/BeatField.vue'
-import LaneField from '../../../../modals/form/LaneField.vue'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
+import RotateLaneField from '../../../../modals/form/RotateLaneField.vue'
 import BaseSidebar from '../../../sidebars/BaseSidebar.vue'
 
 const createDefaultModel = <K extends keyof DefaultRotateEventProperties>(key: K) =>
@@ -58,7 +58,7 @@ const selectedEase = createSelectedModel('ease')
         v-if="selectedRotateEvents.length"
         :title="i18n.tools.events.sidebars.rotateEvent.title.selected"
     >
-        <LaneField v-if="selectedRotateEvents.length === 1" v-model="selectedValue!" step="any" />
+        <RotateLaneField v-if="selectedRotateEvents.length === 1" v-model="selectedValue!" />
         <OptionalEaseField v-model="selectedEase" />
         <BeatField v-if="selectedRotateEvents.length === 1" v-model="selectedBeat!" />
     </BaseSidebar>
