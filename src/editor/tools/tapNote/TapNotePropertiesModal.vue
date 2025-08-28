@@ -24,7 +24,7 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <ColorField v-model="model.color" autofocus />
+        <ColorField v-model="model.color" />
         <LaneField v-model="model.lane" />
         <BeatField v-model="model.beat" />
     </FormModal>

@@ -23,7 +23,7 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <BpmField v-model="model.value" autofocus />
+        <BpmField v-model="model.value" />
         <BeatField v-model="model.beat" />
     </FormModal>
 </template>

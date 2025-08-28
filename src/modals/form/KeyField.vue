@@ -5,7 +5,6 @@ import BaseField from './BaseField.vue'
 
 defineProps<{
     label: string
-    autofocus?: boolean
 }>()
 
 const modelValue = defineModel<string | undefined>({ required: true })

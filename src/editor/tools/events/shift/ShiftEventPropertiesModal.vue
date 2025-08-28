@@ -24,7 +24,7 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <ValueField v-model="model.value" autofocus />
+        <ValueField v-model="model.value" />
         <EaseField v-model="model.ease" />
         <BeatField v-model="model.beat" />
     </FormModal>

@@ -23,7 +23,6 @@ const model = ref(view.division)
             :label="i18n.commands.divisions.custom.modal.division"
             :min="1"
             :step="1"
-            autofocus
         />
     </FormModal>
 </template>

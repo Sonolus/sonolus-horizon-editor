@@ -7,7 +7,6 @@ defineProps<{
     min?: number
     max?: number
     step?: number | 'any'
-    autofocus?: boolean
 }>()
 
 const input: Ref<HTMLInputElement | null> = useTemplateRef('input')
@@ -37,7 +36,6 @@ const onFocus = (event: FocusEvent) => {
             :min
             :max
             :step
-            :autofocus
             @focus="onFocus"
         />
     </BaseField>

@@ -19,7 +19,6 @@ defineEmits<{
         <div class="flex justify-end gap-2">
             <button
                 class="w-32 bg-[#222] px-2 py-1 transition-colors hover:bg-[#444] active:bg-[#111]"
-                autofocus
                 @click="$emit('close', true)"
             >
                 {{ i18n.modals.confirm.confirm }}

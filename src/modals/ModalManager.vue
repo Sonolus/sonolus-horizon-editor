@@ -17,6 +17,9 @@ const close = (modal: Modal, result?: never) => {
 const vOpen = {
     mounted(el: HTMLDialogElement) {
         el.showModal()
+        setTimeout(() => {
+            el.querySelector('label')?.focus()
+        }, 0)
     },
 }
 </script>

@@ -2,10 +2,6 @@
 import { i18n } from '../../i18n'
 import NumberField from './NumberField.vue'
 
-defineProps<{
-    autofocus?: boolean
-}>()
-
 const modelValue = defineModel<number>({ required: true })
 </script>
 
@@ -16,6 +12,5 @@ const modelValue = defineModel<number>({ required: true })
         :min="0"
         :max="7"
         :step="1"
-        :autofocus
     />
 </template>

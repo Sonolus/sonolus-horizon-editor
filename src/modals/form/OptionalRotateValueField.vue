@@ -2,18 +2,9 @@
 import { i18n } from '../../i18n'
 import OptionalNumberField from './OptionalNumberField.vue'
 
-defineProps<{
-    autofocus?: boolean
-}>()
-
 const modelValue = defineModel<number | undefined>({ required: true })
 </script>
 
 <template>
-    <OptionalNumberField
-        v-model="modelValue"
-        :label="i18n.modals.form.value.label"
-        step="any"
-        :autofocus
-    />
+    <OptionalNumberField v-model="modelValue" :label="i18n.modals.form.value.label" step="any" />
 </template>

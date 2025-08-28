@@ -2,10 +2,6 @@
 import { i18n } from '../../i18n'
 import OptionalNumberField from './OptionalNumberField.vue'
 
-defineProps<{
-    autofocus?: boolean
-}>()
-
 const modelValue = defineModel<number | undefined>({ required: true })
 </script>
 
@@ -15,6 +11,5 @@ const modelValue = defineModel<number | undefined>({ required: true })
         :label="i18n.modals.form.beat.label"
         :min="0"
         step="any"
-        :autofocus
     />
 </template>

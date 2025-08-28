@@ -22,6 +22,6 @@ const model = shallowReactive({ ...props.properties })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <OptionalColorField v-model="model.color" autofocus />
+        <OptionalColorField v-model="model.color" />
     </FormModal>
 </template>

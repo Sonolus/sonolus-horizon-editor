@@ -3,10 +3,6 @@ import type { Ease } from '../../chart'
 import { i18n } from '../../i18n'
 import SelectField from './SelectField.vue'
 
-defineProps<{
-    autofocus?: boolean
-}>()
-
 const modelValue = defineModel<Ease>({ required: true })
 </script>
 
@@ -19,6 +15,5 @@ const modelValue = defineModel<Ease>({ required: true })
             [i18n.modals.form.ease.linear, 'linear'],
             [i18n.modals.form.ease.in, 'in'],
         ]"
-        :autofocus
     />
 </template>

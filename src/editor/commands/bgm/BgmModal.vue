@@ -62,7 +62,6 @@ const onSubmit = () => {
         <FileField
             :label="i18n.commands.bgm.modal.file"
             :value="model.buffer && formatTime(model.buffer.duration)"
-            autofocus
             @select="onSelect"
         />
         <NumberField v-model="model.offset" :label="i18n.commands.bgm.modal.offset" step="any" />
