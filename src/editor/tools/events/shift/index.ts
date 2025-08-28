@@ -24,7 +24,7 @@ export const setDefaultShiftEventProperties = (properties: DefaultShiftEventProp
 
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
 
-export const [shiftEvent, editSelectedShiftEvents] = createEventTool(
+export const [shiftEvent, editShiftEventJoint, editSelectedShiftEventJoint] = createEventTool(
     () => i18n.value.tools.events.types.shiftEvent,
     ShiftEventSidebar,
     (object) => showModal(ShiftEventPropertiesModal, { object }),

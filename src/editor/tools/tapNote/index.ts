@@ -272,40 +272,25 @@ const tryFind = (x: number, y: number): [TapNoteEntity] | [undefined, number, nu
     return [undefined, beat, lane]
 }
 
-export const editSelectedTapNotes = (object: Partial<TapNoteObject>) => {
-    const [entity] = selectedEntities.value
-    if (selectedEntities.value.length === 1 && entity?.type === 'tapNote') {
-        editMoveOrReplace(entity, {
-            beat: object.beat ?? entity.beat,
-            color: object.color ?? entity.color,
-            lane: object.lane ?? entity.lane,
-        })
-    } else {
-        update(
-            () => i18n.value.tools.tapNote.edited,
-            (transaction) => {
-                const entities: Entity[] = []
+export const editTapNote = (entity: TapNoteEntity, object: Partial<TapNoteObject>) => {
+    editMoveOrReplace(entity, {
+        beat: object.beat ?? entity.beat,
+        color: object.color ?? entity.color,
+        lane: object.lane ?? entity.lane,
+    })
+}
 
-                for (const entity of selectedEntities.value) {
-                    if (entity.type !== 'tapNote') {
-                        entities.push(entity)
-                        continue
-                    }
-
-                    removeTapNote(transaction, entity)
-                    entities.push(
-                        ...addTapNote(transaction, {
-                            beat: object.beat ?? entity.beat,
-                            color: object.color ?? entity.color,
-                            lane: object.lane ?? entity.lane,
-                        }),
-                    )
-                }
-
-                return entities
-            },
-        )
-    }
+export const editSelectedTapNote = (
+    transaction: Transaction,
+    entity: TapNoteEntity,
+    object: Partial<TapNoteObject>,
+) => {
+    removeTapNote(transaction, entity)
+    return addTapNote(transaction, {
+        beat: object.beat ?? entity.beat,
+        color: object.color ?? entity.color,
+        lane: object.lane ?? entity.lane,
+    })
 }
 
 const editMoveOrReplace = (entity: TapNoteEntity, object: TapNoteObject) => {

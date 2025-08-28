@@ -380,6 +380,13 @@
             "scrollInertia": "Scroll Inertia"
         }
     },
+    "sidebar": {
+        "default": {
+            "title": "Object Properties",
+            "none": "No object selected",
+            "edited": "Edited {0} objects"
+        }
+    },
     "tools": {
         "brush": {
             "deselected": "Deselected all objects",
@@ -420,22 +427,13 @@
             },
             "sidebars": {
                 "rotateEvent": {
-                    "title": {
-                        "default": "Default Rotate Event Properties",
-                        "selected": "Rotate Event Properties"
-                    }
+                    "title": "Default Rotate Event Properties"
                 },
                 "shiftEvent": {
-                    "title": {
-                        "default": "Default Shift Event Properties",
-                        "selected": "Shift Event Properties"
-                    }
+                    "title": "Default Shift Event Properties"
                 },
                 "zoomEvent": {
-                    "title": {
-                        "default": "Default Zoom Event Properties",
-                        "selected": "Zoom Event Properties"
-                    }
+                    "title": "Default Zoom Event Properties"
                 }
             }
         },
@@ -461,16 +459,10 @@
             },
             "sidebars": {
                 "singleHoldNote": {
-                    "title": {
-                        "default": "Default Single Hold Note Properties",
-                        "selected": "Single Hold Note Properties"
-                    }
+                    "title": "Default Single Hold Note Properties"
                 },
                 "doubleHoldNote": {
-                    "title": {
-                        "default": "Default Double Hold Note Properties",
-                        "selected": "Double Hold Note Properties"
-                    }
+                    "title": "Default Double Hold Note Properties"
                 }
             }
         },
@@ -499,10 +491,7 @@
                 "title": "Tap Note Properties"
             },
             "sidebar": {
-                "title": {
-                    "default": "Default Tap Note Properties",
-                    "selected": "Tap Note Properties"
-                }
+                "title": "Default Tap Note Properties"
             }
         },
         "values": {

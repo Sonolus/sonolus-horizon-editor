@@ -21,65 +21,66 @@ export const setDefaultDoubleHoldNoteProperties = (properties: DefaultDoubleHold
     defaultDoubleHoldNoteProperties = properties
 }
 
-export const [doubleHoldNote, editSelectedDoubleHoldNoteJoints] = createHoldNoteTool(
-    () => i18n.value.tools.holdNotes.types.doubleHoldNote,
-    DoubleHoldNoteSidebar,
-    (entity) => showModal(DoubleHoldNotePropertiesModal, { object: entity }),
+export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNoteJoint] =
+    createHoldNoteTool(
+        () => i18n.value.tools.holdNotes.types.doubleHoldNote,
+        DoubleHoldNoteSidebar,
+        (entity) => showModal(DoubleHoldNotePropertiesModal, { object: entity }),
 
-    (beat, lane, joint) => ({
-        beat,
-        color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
-        laneL: mod(
-            lane -
-                (defaultDoubleHoldNoteProperties.size ??
-                    (joint ? Math.abs(joint.laneL - joint.laneR) : 1)),
-            8,
-        ),
-        laneR: mod(lane, 8),
-    }),
-    (entity, beat, startLane, lane) => {
-        const laneL = Math.min(entity.laneL, entity.laneR)
-        const laneR = Math.max(entity.laneL, entity.laneR)
+        (beat, lane, joint) => ({
+            beat,
+            color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
+            laneL: mod(
+                lane -
+                    (defaultDoubleHoldNoteProperties.size ??
+                        (joint ? Math.abs(joint.laneL - joint.laneR) : 1)),
+                8,
+            ),
+            laneR: mod(lane, 8),
+        }),
+        (entity, beat, startLane, lane) => {
+            const laneL = Math.min(entity.laneL, entity.laneR)
+            const laneR = Math.max(entity.laneL, entity.laneR)
 
-        if (startLane < laneL)
+            if (startLane < laneL)
+                return {
+                    beat: entity.beat,
+                    color: entity.color,
+                    laneL: mod(laneL + align(lane) - align(startLane), 8),
+                    laneR,
+                }
+
+            if (startLane > laneR)
+                return {
+                    beat: entity.beat,
+                    color: entity.color,
+                    laneL,
+                    laneR: mod(laneR + align(lane) - align(startLane), 8),
+                }
+
             return {
-                beat: entity.beat,
+                beat,
                 color: entity.color,
                 laneL: mod(laneL + align(lane) - align(startLane), 8),
-                laneR,
-            }
-
-        if (startLane > laneR)
-            return {
-                beat: entity.beat,
-                color: entity.color,
-                laneL,
                 laneR: mod(laneR + align(lane) - align(startLane), 8),
             }
-
-        return {
+        },
+        (beat, startLane, lane, joint) => ({
             beat,
-            color: entity.color,
-            laneL: mod(laneL + align(lane) - align(startLane), 8),
-            laneR: mod(laneR + align(lane) - align(startLane), 8),
-        }
-    },
-    (beat, startLane, lane, joint) => ({
-        beat,
-        color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
-        laneL: startLane,
-        laneR: lane,
-    }),
-    (entity, object) => ({
-        beat: object.beat ?? entity.beat,
-        color: object.color ?? entity.color,
-        laneL: object.laneL ?? entity.laneL,
-        laneR: object.laneR ?? entity.laneR,
-    }),
+            color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
+            laneL: startLane,
+            laneR: lane,
+        }),
+        (entity, object) => ({
+            beat: object.beat ?? entity.beat,
+            color: object.color ?? entity.color,
+            laneL: object.laneL ?? entity.laneL,
+            laneR: object.laneR ?? entity.laneR,
+        }),
 
-    'doubleHoldNoteJoint',
-    (joint, lane) => lane >= joint.laneL && lane <= joint.laneR,
-    toDoubleHoldNoteJointEntity,
-    addDoubleHoldNoteJoint,
-    removeDoubleHoldNoteJoint,
-)
+        'doubleHoldNoteJoint',
+        (joint, lane) => lane >= joint.laneL && lane <= joint.laneR,
+        toDoubleHoldNoteJointEntity,
+        addDoubleHoldNoteJoint,
+        removeDoubleHoldNoteJoint,
+    )

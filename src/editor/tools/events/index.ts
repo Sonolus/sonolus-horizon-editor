@@ -30,7 +30,11 @@ export const createEventTool = <T extends EventJointEntityType>(
     toEntity: (object: EventObject) => EntityOfType<T>,
     addEntity: AddMutation<EventObject>,
     removeEntity: RemoveMutation<EntityOfType<T>>,
-): [Tool, (object: Partial<EventObject>) => void] => {
+): [
+    Tool,
+    (entity: EntityOfType<T>, object: Partial<EventObject>) => void,
+    (transaction: Transaction, entity: EntityOfType<T>, object: Partial<EventObject>) => Entity[],
+] => {
     const isJoint = (entity: Entity): entity is EntityOfType<T> => entity.type === type
 
     const getEntityFromSelection = () => {
@@ -355,40 +359,22 @@ export const createEventTool = <T extends EventJointEntityType>(
                 active = undefined
             },
         },
-        (object) => {
-            const [entity] = selectedEntities.value
-            if (selectedEntities.value.length === 1 && entity && isJoint(entity)) {
-                editMoveOrReplace(entity, {
-                    beat: object.beat ?? entity.beat,
-                    value: object.value ?? entity.value,
-                    ease: object.ease ?? entity.ease,
-                })
-            } else {
-                update(
-                    () => i18n.value.tools.events.edited,
-                    (transaction) => {
-                        const entities: Entity[] = []
 
-                        for (const entity of selectedEntities.value) {
-                            if (!isJoint(entity)) {
-                                entities.push(entity)
-                                continue
-                            }
+        (entity, object) => {
+            editMoveOrReplace(entity, {
+                beat: object.beat ?? entity.beat,
+                value: object.value ?? entity.value,
+                ease: object.ease ?? entity.ease,
+            })
+        },
 
-                            removeEntity(transaction, entity)
-                            entities.push(
-                                ...addEntity(transaction, {
-                                    beat: object.beat ?? entity.beat,
-                                    value: object.value ?? entity.value,
-                                    ease: object.ease ?? entity.ease,
-                                }),
-                            )
-                        }
-
-                        return entities
-                    },
-                )
-            }
+        (transaction, entity, object) => {
+            removeEntity(transaction, entity)
+            return addEntity(transaction, {
+                beat: object.beat ?? entity.beat,
+                value: object.value ?? entity.value,
+                ease: object.ease ?? entity.ease,
+            })
         },
     ]
 }

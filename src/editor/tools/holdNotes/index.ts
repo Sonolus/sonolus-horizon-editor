@@ -46,7 +46,11 @@ export const createHoldNoteTool = <
     toJointEntity: (id: HoldNoteId, object: T) => EntityOfType<U>,
     addJointEntity: (transaction: Transaction, id: HoldNoteId, object: T) => Entity[],
     removeJointEntity: (transaction: Transaction, entity: EntityOfType<U>) => void,
-): [Tool, (object: Partial<T>) => void] => {
+): [
+    Tool,
+    (entity: EntityOfType<U>, object: Partial<T>) => void,
+    (transaction: Transaction, entity: EntityOfType<U>, object: Partial<T>) => Entity[],
+] => {
     const isJoint = (entity: Entity): entity is EntityOfType<U> => entity.type === jointType
 
     const getJointFromSelection = () => {
@@ -387,36 +391,14 @@ export const createHoldNoteTool = <
                 active = undefined
             },
         },
-        (object) => {
-            const [entity] = selectedEntities.value
-            if (selectedEntities.value.length === 1 && entity && isJoint(entity)) {
-                editMoveOrReplaceJoint(entity, editEntity(entity, object))
-            } else {
-                update(
-                    () => i18n.value.tools.holdNotes.edited,
-                    (transaction) => {
-                        const entities: Entity[] = []
 
-                        for (const entity of selectedEntities.value) {
-                            if (!isJoint(entity)) {
-                                entities.push(entity)
-                                continue
-                            }
+        (entity, object) => {
+            editMoveOrReplaceJoint(entity, editEntity(entity, object))
+        },
 
-                            removeJointEntity(transaction, entity)
-                            entities.push(
-                                ...addJointEntity(
-                                    transaction,
-                                    entity.id,
-                                    editEntity(entity, object),
-                                ),
-                            )
-                        }
-
-                        return entities
-                    },
-                )
-            }
+        (transaction, entity, object) => {
+            removeJointEntity(transaction, entity)
+            return addJointEntity(transaction, entity.id, editEntity(entity, object))
         },
     ]
 }

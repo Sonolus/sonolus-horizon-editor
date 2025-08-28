@@ -36,7 +36,7 @@ const getPrev = (beat: number) => {
     return range && beat >= range.max.beat ? range.max : undefined
 }
 
-export const [rotateEvent, editSelectedRotateEvents] = createEventTool(
+export const [rotateEvent, editRotateEventJoint, editSelectedRotateEventJoint] = createEventTool(
     () => i18n.value.tools.events.types.rotateEvent,
     RotateEventSidebar,
     (object) => showModal(RotateEventPropertiesModal, { object }),

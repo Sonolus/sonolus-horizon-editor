@@ -5,7 +5,7 @@ import { toTimeScaleEntity } from '../../../../state/entities/values/timeScale'
 import { addTimeScale, removeTimeScale } from '../../../../state/mutations/values/timeScale'
 import TimeScalePropertiesModal from './TimeScalePropertiesModal.vue'
 
-export const timeScale = createValueTool(
+export const [timeScale, editTimeScale, editSelectedTimeScale] = createValueTool(
     () => i18n.value.tools.values.types.timeScale,
     (object) => showModal(TimeScalePropertiesModal, { object }),
 
