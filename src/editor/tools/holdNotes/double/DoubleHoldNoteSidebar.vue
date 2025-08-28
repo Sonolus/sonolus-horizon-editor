@@ -65,12 +65,12 @@ const selectedLaneR = createSelectedModel('laneR')
         :title="i18n.tools.holdNotes.sidebars.doubleHoldNote.title.selected"
     >
         <OptionalColorField v-model="selectedColor" />
-        <OptionalLaneLField v-if="isSingle" v-model="selectedLaneL" />
-        <OptionalLaneRField v-if="isSingle" v-model="selectedLaneR" />
-        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" />
+        <OptionalLaneLField v-if="isSingle" v-model="selectedLaneL" validate />
+        <OptionalLaneRField v-if="isSingle" v-model="selectedLaneR" validate />
+        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" validate />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.holdNotes.sidebars.doubleHoldNote.title.default">
         <OptionalColorField v-model="defaultColor" />
-        <OptionalSizeField v-model="defaultSize" />
+        <OptionalSizeField v-model="defaultSize" validate />
     </BaseSidebar>
 </template>

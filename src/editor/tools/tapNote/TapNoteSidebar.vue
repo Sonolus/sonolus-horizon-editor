@@ -58,8 +58,8 @@ const selectedLane = createSelectedModel('lane')
 <template>
     <BaseSidebar v-if="selectedTapNotes.length" :title="i18n.tools.tapNote.sidebar.title.selected">
         <OptionalColorField v-model="selectedColor" />
-        <OptionalLaneField v-if="isSingle" v-model="selectedLane" />
-        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" />
+        <OptionalLaneField v-if="isSingle" v-model="selectedLane" validate />
+        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" validate />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.tapNote.sidebar.title.default">
         <OptionalColorField v-model="defaultColor" />

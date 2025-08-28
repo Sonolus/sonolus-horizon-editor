@@ -25,8 +25,8 @@ const ease = createModel('ease')
 <template>
     <BaseSidebar :title="i18n.tools.brush.sidebar.title">
         <OptionalColorField v-model="color" />
-        <OptionalScaleLField v-model="scaleL" />
-        <OptionalScaleRField v-model="scaleR" />
+        <OptionalScaleLField v-model="scaleL" validate />
+        <OptionalScaleRField v-model="scaleR" validate />
         <OptionalEaseField v-model="ease" />
     </BaseSidebar>
 </template>

@@ -60,9 +60,9 @@ const selectedEase = createSelectedModel('ease')
         v-if="selectedZoomEvents.length"
         :title="i18n.tools.events.sidebars.zoomEvent.title.selected"
     >
-        <OptionalValueField v-if="isSingle" v-model="selectedValue" />
+        <OptionalValueField v-if="isSingle" v-model="selectedValue" validate />
         <OptionalEaseField v-model="selectedEase" />
-        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" />
+        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" validate />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.events.sidebars.zoomEvent.title.default">
         <OptionalEaseField v-model="defaultEase" />
