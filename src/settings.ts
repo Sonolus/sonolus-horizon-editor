@@ -42,7 +42,7 @@ const settingsProperties = {
 
     autoSaveDelay: number(1, 0, 5),
 
-    waveform: Type.Union([Type.Literal('off'), Type.Literal('fft'), Type.Literal('volume')]),
+    waveform: Type.Union([Type.Literal('volume'), Type.Literal('fft'), Type.Literal('off')]),
 
     toolbar: Type.Transform(
         Type.Array(

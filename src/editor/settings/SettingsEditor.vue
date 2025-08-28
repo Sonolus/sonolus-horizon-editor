@@ -47,9 +47,9 @@ watch(
             v-model="settings.waveform"
             :label="i18n.settings.editor.waveformVisualization.title"
             :options="[
-                [i18n.settings.editor.waveformVisualization.off, 'off'],
-                [i18n.settings.editor.waveformVisualization.fft, 'fft'],
                 [i18n.settings.editor.waveformVisualization.volume, 'volume'],
+                [i18n.settings.editor.waveformVisualization.fft, 'fft'],
+                [i18n.settings.editor.waveformVisualization.off, 'off'],
             ]"
         />
     </SettingsSection>
