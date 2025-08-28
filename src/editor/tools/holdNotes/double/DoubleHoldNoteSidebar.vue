@@ -25,6 +25,6 @@ const size = createModel('size')
 <template>
     <BaseSidebar :title="i18n.tools.holdNotes.sidebars.doubleHoldNote.title">
         <OptionalColorField v-model="color" />
-        <OptionalSizeField v-model="size" validate />
+        <OptionalSizeField v-model="size" />
     </BaseSidebar>
 </template>

@@ -15,7 +15,7 @@ import OptionalEaseField from '../../../modals/form/OptionalEaseField.vue'
 import OptionalLaneField from '../../../modals/form/OptionalLaneField.vue'
 import OptionalLaneLField from '../../../modals/form/OptionalLaneLField.vue'
 import OptionalLaneRField from '../../../modals/form/OptionalLaneRField.vue'
-import OptionalRotateLaneField from '../../../modals/form/OptionalRotateLaneField.vue'
+import OptionalRotateValueField from '../../../modals/form/OptionalRotateValueField.vue'
 import OptionalScaleLField from '../../../modals/form/OptionalScaleLField.vue'
 import OptionalScaleRField from '../../../modals/form/OptionalScaleRField.vue'
 import OptionalTimeScaleField from '../../../modals/form/OptionalTimeScaleField.vue'
@@ -73,13 +73,9 @@ const laneR = createModel('laneR')
 <template>
     <BaseSidebar :title="i18n.sidebar.default.title">
         <div v-if="!selectedEditableEntities.length">{{ i18n.sidebar.default.none }}</div>
-        <OptionalBpmField v-if="types.bpm" v-model="value" validate />
-        <OptionalTimeScaleField v-if="types.timeScale" v-model="value" validate />
-        <OptionalRotateLaneField
-            v-if="isSingle && types.rotateEventJoint"
-            v-model="value"
-            validate
-        />
+        <OptionalBpmField v-if="types.bpm" v-model="value" />
+        <OptionalTimeScaleField v-if="types.timeScale" v-model="value" />
+        <OptionalRotateValueField v-if="isSingle && types.rotateEventJoint" v-model="value" />
         <OptionalValueField
             v-if="isSingle && (types.shiftEventJoint || types.zoomEventJoint)"
             v-model="value"
@@ -95,12 +91,11 @@ const laneR = createModel('laneR')
         <OptionalLaneField
             v-if="isSingle && (types.tapNote || types.singleHoldNoteJoint)"
             v-model="lane"
-            validate
         />
-        <OptionalLaneLField v-if="isSingle && types.doubleHoldNoteJoint" v-model="laneL" validate />
-        <OptionalLaneRField v-if="isSingle && types.doubleHoldNoteJoint" v-model="laneR" validate />
-        <OptionalBeatField v-if="isSingle" v-model="beat" validate />
-        <OptionalScaleLField v-if="types.singleHoldNoteJoint" v-model="scaleL" validate />
-        <OptionalScaleRField v-if="types.singleHoldNoteJoint" v-model="scaleR" validate />
+        <OptionalLaneLField v-if="isSingle && types.doubleHoldNoteJoint" v-model="laneL" />
+        <OptionalLaneRField v-if="isSingle && types.doubleHoldNoteJoint" v-model="laneR" />
+        <OptionalBeatField v-if="isSingle" v-model="beat" />
+        <OptionalScaleLField v-if="types.singleHoldNoteJoint" v-model="scaleL" />
+        <OptionalScaleRField v-if="types.singleHoldNoteJoint" v-model="scaleR" />
     </BaseSidebar>
 </template>

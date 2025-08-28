@@ -5,7 +5,7 @@ import { i18n } from '../../../../i18n'
 import BeatField from '../../../../modals/form/BeatField.vue'
 import EaseField from '../../../../modals/form/EaseField.vue'
 import FormModal from '../../../../modals/form/FormModal.vue'
-import RotateLaneField from '../../../../modals/form/RotateLaneField.vue'
+import RotateValueField from '../../../../modals/form/RotateValueField.vue'
 
 const props = defineProps<{
     object: EventObject
@@ -24,7 +24,7 @@ const model = shallowReactive({ ...props.object })
         @close="$emit('close')"
         @submit="$emit('close', model)"
     >
-        <RotateLaneField v-model="model.value" autofocus />
+        <RotateValueField v-model="model.value" autofocus />
         <EaseField v-model="model.ease" />
         <BeatField v-model="model.beat" />
     </FormModal>

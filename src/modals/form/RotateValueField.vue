@@ -10,5 +10,5 @@ const modelValue = defineModel<number>({ required: true })
 </script>
 
 <template>
-    <NumberField v-model="modelValue" :label="i18n.modals.form.lane.label" step="any" :autofocus />
+    <NumberField v-model="modelValue" :label="i18n.modals.form.value.label" step="any" :autofocus />
 </template>

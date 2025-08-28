@@ -7,7 +7,6 @@ defineProps<{
     min?: number
     max?: number
     step?: number | 'any'
-    validate?: boolean
     autofocus?: boolean
 }>()
 

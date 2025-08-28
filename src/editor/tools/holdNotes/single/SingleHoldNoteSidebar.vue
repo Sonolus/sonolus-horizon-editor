@@ -27,7 +27,7 @@ const scaleR = createModel('scaleR')
 <template>
     <BaseSidebar :title="i18n.tools.holdNotes.sidebars.singleHoldNote.title">
         <OptionalColorField v-model="color" />
-        <OptionalScaleLField v-model="scaleL" validate />
-        <OptionalScaleRField v-model="scaleR" validate />
+        <OptionalScaleLField v-model="scaleL" />
+        <OptionalScaleRField v-model="scaleR" />
     </BaseSidebar>
 </template>
