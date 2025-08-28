@@ -2,7 +2,7 @@ import type { Command } from '../..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
-import { isSidebarVisible } from '../../../sidebars'
+import { focusSidebar, isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
 import {
     defaultDoubleHoldNoteProperties,
@@ -19,7 +19,10 @@ export const doubleHoldNote: Command = {
 
     async execute() {
         if (toolName.value === 'doubleHoldNote') {
-            if (isSidebarVisible.value) return
+            if (isSidebarVisible.value) {
+                focusSidebar()
+                return
+            }
 
             const properties = await showModal(DefaultDoubleHoldNotePropertiesModal, {
                 properties: defaultDoubleHoldNoteProperties,

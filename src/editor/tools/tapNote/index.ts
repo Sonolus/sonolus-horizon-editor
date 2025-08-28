@@ -13,7 +13,7 @@ import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { align, mod } from '../../../utils/math'
 import { notify } from '../../notification'
-import { isSidebarVisible } from '../../sidebars'
+import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
 import {
     focusViewAtBeat,
     setViewHover,
@@ -76,7 +76,10 @@ export const tapNote: Tool = {
         const [entity, beat, lane] = tryFind(x, y)
         if (entity) {
             if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
-                if (isSidebarVisible.value) return
+                if (isSidebarVisible.value) {
+                    focusDefaultSidebar()
+                    return
+                }
 
                 const object: TapNoteObject | undefined = await showModal(TapNotePropertiesModal, {
                     object: entity,

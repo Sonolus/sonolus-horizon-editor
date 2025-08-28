@@ -12,7 +12,7 @@ import { getInStoreGrid } from '../../../state/store/grid'
 import { type Transaction, createTransaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
-import { isSidebarVisible } from '../../sidebars'
+import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
 import {
     focusViewAtBeat,
     setViewHover,
@@ -216,7 +216,10 @@ export const createHoldNoteTool = <
                         selectedEntities.value.length === 1 &&
                         selectedEntities.value[0] === entity
                     ) {
-                        if (isSidebarVisible.value) return
+                        if (isSidebarVisible.value) {
+                            focusDefaultSidebar()
+                            return
+                        }
 
                         const object = await showPropertiesModal(entity)
                         if (!object) return
