@@ -13,8 +13,7 @@ const modelValue = defineModel<number>({ required: true })
     <NumberField
         v-model="modelValue"
         :label="i18n.modals.form.bpm.label"
-        :min="0"
-        :max="1"
+        :min="1"
         step="any"
         :autofocus
     />
