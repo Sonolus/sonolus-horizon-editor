@@ -9,10 +9,10 @@ import {
 import type { DoubleHoldNoteJointObject } from '../../../../chart'
 import { selectedEntities } from '../../../../history/selectedEntities'
 import { i18n } from '../../../../i18n'
-import BeatField from '../../../../modals/form/BeatField.vue'
-import LaneLField from '../../../../modals/form/LaneLField.vue'
-import LaneRField from '../../../../modals/form/LaneRField.vue'
+import OptionalBeatField from '../../../../modals/form/OptionalBeatField.vue'
 import OptionalColorField from '../../../../modals/form/OptionalColorField.vue'
+import OptionalLaneLField from '../../../../modals/form/OptionalLaneLField.vue'
+import OptionalLaneRField from '../../../../modals/form/OptionalLaneRField.vue'
 import OptionalSizeField from '../../../../modals/form/OptionalSizeField.vue'
 import BaseSidebar from '../../../sidebars/BaseSidebar.vue'
 
@@ -30,6 +30,8 @@ const defaultSize = createDefaultModel('size')
 const selectedDoubleHoldNoteJoints = computed(() =>
     selectedEntities.value.filter((entity) => entity.type === 'doubleHoldNoteJoint'),
 )
+
+const isSingle = computed(() => selectedDoubleHoldNoteJoints.value.length === 1)
 
 const createSelectedModel = <K extends keyof DoubleHoldNoteJointObject>(key: K) =>
     computed({
@@ -63,9 +65,9 @@ const selectedLaneR = createSelectedModel('laneR')
         :title="i18n.tools.holdNotes.sidebars.doubleHoldNote.title.selected"
     >
         <OptionalColorField v-model="selectedColor" />
-        <LaneLField v-if="selectedDoubleHoldNoteJoints.length === 1" v-model="selectedLaneL!" />
-        <LaneRField v-if="selectedDoubleHoldNoteJoints.length === 1" v-model="selectedLaneR!" />
-        <BeatField v-if="selectedDoubleHoldNoteJoints.length === 1" v-model="selectedBeat!" />
+        <OptionalLaneLField v-if="isSingle" v-model="selectedLaneL" />
+        <OptionalLaneRField v-if="isSingle" v-model="selectedLaneR" />
+        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.holdNotes.sidebars.doubleHoldNote.title.default">
         <OptionalColorField v-model="defaultColor" />

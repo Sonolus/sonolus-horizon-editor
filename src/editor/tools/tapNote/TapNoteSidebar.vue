@@ -9,9 +9,9 @@ import {
 import type { TapNoteObject } from '../../../chart'
 import { selectedEntities } from '../../../history/selectedEntities'
 import { i18n } from '../../../i18n'
-import BeatField from '../../../modals/form/BeatField.vue'
-import LaneField from '../../../modals/form/LaneField.vue'
+import OptionalBeatField from '../../../modals/form/OptionalBeatField.vue'
 import OptionalColorField from '../../../modals/form/OptionalColorField.vue'
+import OptionalLaneField from '../../../modals/form/OptionalLaneField.vue'
 import BaseSidebar from '../../sidebars/BaseSidebar.vue'
 
 const createDefaultModel = <K extends keyof DefaultTapNoteProperties>(key: K) =>
@@ -27,6 +27,8 @@ const defaultColor = createDefaultModel('color')
 const selectedTapNotes = computed(() =>
     selectedEntities.value.filter((entity) => entity.type === 'tapNote'),
 )
+
+const isSingle = computed(() => selectedTapNotes.value.length === 1)
 
 const createSelectedModel = <K extends keyof TapNoteObject>(key: K) =>
     computed({
@@ -56,8 +58,8 @@ const selectedLane = createSelectedModel('lane')
 <template>
     <BaseSidebar v-if="selectedTapNotes.length" :title="i18n.tools.tapNote.sidebar.title.selected">
         <OptionalColorField v-model="selectedColor" />
-        <LaneField v-if="selectedTapNotes.length === 1" v-model="selectedLane!" />
-        <BeatField v-if="selectedTapNotes.length === 1" v-model="selectedBeat!" />
+        <OptionalLaneField v-if="isSingle" v-model="selectedLane" />
+        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.tapNote.sidebar.title.default">
         <OptionalColorField v-model="defaultColor" />

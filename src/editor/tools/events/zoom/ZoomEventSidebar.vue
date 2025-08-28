@@ -9,11 +9,11 @@ import {
 import type { EventObject } from '../../../../chart'
 import { selectedEntities } from '../../../../history/selectedEntities'
 import { i18n } from '../../../../i18n'
-import BeatField from '../../../../modals/form/BeatField.vue'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
-import ValueField from '../../../../modals/form/ValueField.vue'
 import BaseSidebar from '../../../sidebars/BaseSidebar.vue'
 
+import OptionalBeatField from '../../../../modals/form/OptionalBeatField.vue'
+import OptionalValueField from '../../../../modals/form/OptionalValueField.vue'
 const createDefaultModel = <K extends keyof DefaultZoomEventProperties>(key: K) =>
     computed({
         get: () => defaultZoomEventProperties[key],
@@ -27,6 +27,8 @@ const defaultEase = createDefaultModel('ease')
 const selectedZoomEvents = computed(() =>
     selectedEntities.value.filter((entity) => entity.type === 'zoomEventJoint'),
 )
+
+const isSingle = computed(() => selectedZoomEvents.value.length === 1)
 
 const createSelectedModel = <K extends keyof EventObject>(key: K) =>
     computed({
@@ -58,9 +60,9 @@ const selectedEase = createSelectedModel('ease')
         v-if="selectedZoomEvents.length"
         :title="i18n.tools.events.sidebars.zoomEvent.title.selected"
     >
-        <ValueField v-if="selectedZoomEvents.length === 1" v-model="selectedValue!" />
+        <OptionalValueField v-if="isSingle" v-model="selectedValue" />
         <OptionalEaseField v-model="selectedEase" />
-        <BeatField v-if="selectedZoomEvents.length === 1" v-model="selectedBeat!" />
+        <OptionalBeatField v-if="isSingle" v-model="selectedBeat" />
     </BaseSidebar>
     <BaseSidebar v-else :title="i18n.tools.events.sidebars.zoomEvent.title.default">
         <OptionalEaseField v-model="defaultEase" />
