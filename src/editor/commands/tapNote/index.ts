@@ -2,6 +2,7 @@ import type { Command } from '..'
 import { i18n } from '../../../i18n'
 import { showModal } from '../../../modals'
 import { notify } from '../../notification'
+import { isSidebarVisible } from '../../sidebars'
 import { switchToolTo, toolName } from '../../tools'
 import { defaultTapNoteProperties, setDefaultTapNoteProperties } from '../../tools/tapNote'
 import DefaultTapNotePropertiesModal from './DefaultTapNotePropertiesModal.vue'
@@ -15,6 +16,8 @@ export const tapNote: Command = {
 
     async execute() {
         if (toolName.value === 'tapNote') {
+            if (isSidebarVisible.value) return
+
             const properties = await showModal(DefaultTapNotePropertiesModal, {
                 properties: defaultTapNoteProperties,
             })

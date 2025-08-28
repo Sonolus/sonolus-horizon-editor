@@ -2,6 +2,7 @@ import type { Command } from '../..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
+import { isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
 import {
     defaultRotateEventProperties,
@@ -21,6 +22,8 @@ export const rotateEvent: Command = {
 
     async execute() {
         if (toolName.value === 'rotateEvent') {
+            if (isSidebarVisible.value) return
+
             const properties = await showModal(DefaultRotateEventPropertiesModal, {
                 properties: defaultRotateEventProperties,
             })

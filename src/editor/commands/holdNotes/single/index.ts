@@ -2,6 +2,7 @@ import type { Command } from '../..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
+import { isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
 import {
     defaultSingleHoldNoteProperties,
@@ -18,6 +19,8 @@ export const singleHoldNote: Command = {
 
     async execute() {
         if (toolName.value === 'singleHoldNote') {
+            if (isSidebarVisible.value) return
+
             const properties = await showModal(DefaultSingleHoldNotePropertiesModal, {
                 properties: defaultSingleHoldNoteProperties,
             })
