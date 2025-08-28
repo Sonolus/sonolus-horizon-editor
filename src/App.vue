@@ -92,7 +92,7 @@ const onFocus = (event: FocusEvent) => {
             :class="previewPosition === 'left' ? 'flex-row' : 'flex-col'"
         >
             <div
-                class="relative bg-[#111]"
+                class="relative z-10 bg-[#111]"
                 :class="
                     previewPosition === 'left'
                         ? { 'min-w-[20%] max-w-[40%]': settings.showPreview }
@@ -107,7 +107,7 @@ const onFocus = (event: FocusEvent) => {
                 <LevelPreview v-if="settings.showPreview" />
 
                 <button
-                    class="absolute z-10 flex items-center justify-center bg-[#222] transition-colors hover:bg-[#444] active:bg-[#111]"
+                    class="absolute flex items-center justify-center bg-[#222] transition-colors hover:bg-[#444] active:bg-[#111]"
                     :class="
                         previewPosition === 'left'
                             ? 'left-full top-1/2 h-16 w-4 -translate-y-1/2 cursor-col-resize'
@@ -150,14 +150,14 @@ const onFocus = (event: FocusEvent) => {
         <div
             v-if="screenSm"
             ref="sidebar"
-            class="relative bg-[#111]"
+            class="relative z-10 bg-[#111]"
             :class="{ 'min-w-[20%] max-w-[40%]': settings.showSidebar }"
             :style="{ width: (settings.showSidebar ? settings.sidebarWidth : 0) + 'px' }"
         >
             <LevelEditorSidebar v-if="settings.showSidebar" />
 
             <button
-                class="absolute -left-4 top-1/2 z-10 flex h-16 w-4 -translate-y-1/2 cursor-col-resize items-center justify-center bg-[#222] transition-colors hover:bg-[#444] active:bg-[#111]"
+                class="absolute -left-4 top-1/2 flex h-16 w-4 -translate-y-1/2 cursor-col-resize items-center justify-center bg-[#222] transition-colors hover:bg-[#444] active:bg-[#111]"
                 @click="onToggle('sidebar')"
                 @pointerdown="onStartDragging('sidebar')"
                 @focus="onFocus"
