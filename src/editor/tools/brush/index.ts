@@ -1,31 +1,20 @@
 import type { Tool } from '..'
-import type { EventObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
 import { selectedEntities } from '../../../history/selectedEntities'
 import { i18n } from '../../../i18n'
 import type { Entity } from '../../../state/entities'
-import type { EventJointEntity } from '../../../state/entities/events/joints'
-import type { DoubleHoldNoteJointEntity } from '../../../state/entities/holdNotes/joints/double'
-import type { SingleHoldNoteJointEntity } from '../../../state/entities/holdNotes/joints/single'
-import type { TapNoteEntity } from '../../../state/entities/tapNote'
-import type { AddMutation, RemoveMutation } from '../../../state/mutations'
-import { addRotateEventJoint, removeRotateEventJoint } from '../../../state/mutations/events/rotate'
-import { addShiftEventJoint, removeShiftEventJoint } from '../../../state/mutations/events/shift'
-import { addZoomEventJoint, removeZoomEventJoint } from '../../../state/mutations/events/zoom'
-import {
-    addDoubleHoldNoteJoint,
-    removeDoubleHoldNoteJoint,
-} from '../../../state/mutations/holdNotes/double'
-import {
-    addSingleHoldNoteJoint,
-    removeSingleHoldNoteJoint,
-} from '../../../state/mutations/holdNotes/single'
-import { addTapNote, removeTapNote } from '../../../state/mutations/tapNote'
 import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import type { Ease } from '../../ease'
 import { notify } from '../../notification'
+import type { EditableObject } from '../../sidebars/default'
 import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../../view'
+import { editSelectedRotateEventJoint } from '../events/rotate'
+import { editSelectedShiftEventJoint } from '../events/shift'
+import { editSelectedZoomEventJoint } from '../events/zoom'
+import { editSelectedDoubleHoldNoteJoint } from '../holdNotes/double'
+import { editSelectedSingleHoldNoteJoint } from '../holdNotes/single'
+import { editSelectedTapNote } from '../tapNote'
 import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from '../utils'
 import BrushSidebar from './BrushSidebar.vue'
 
@@ -138,77 +127,21 @@ export const brush: Tool = {
     },
 }
 
-type Apply<T> = (transaction: Transaction, entity: T) => Entity[] | undefined
-
-const applyEventJointEntity =
-    <T extends EventJointEntity>(
-        add: AddMutation<EventObject>,
-        remove: RemoveMutation<T>,
-    ): Apply<T> =>
-    (transaction, entity) => {
-        const ease = brushProperties.ease ?? entity.ease
-        if (entity.ease === ease) return
-
-        remove(transaction, entity)
-        return add(transaction, {
-            beat: entity.beat,
-            value: entity.value,
-            ease,
-        })
-    }
-
-const applyTapNote: Apply<TapNoteEntity> = (transaction, entity) => {
-    const color = brushProperties.color ?? entity.color
-    if (entity.color === color) return
-
-    removeTapNote(transaction, entity)
-    return addTapNote(transaction, {
-        beat: entity.beat,
-        color,
-        lane: entity.lane,
-    })
-}
-
-const applySingleHoldNoteJoint: Apply<SingleHoldNoteJointEntity> = (transaction, entity) => {
-    const color = brushProperties.color ?? entity.color
-    const scaleL = brushProperties.scaleL ?? entity.scaleL
-    const scaleR = brushProperties.scaleR ?? entity.scaleR
-    if (entity.color === color && entity.scaleL === scaleL && entity.scaleR === scaleR) return
-
-    removeSingleHoldNoteJoint(transaction, entity)
-    return addSingleHoldNoteJoint(transaction, entity.id, {
-        beat: entity.beat,
-        color,
-        lane: entity.lane,
-        scaleL,
-        scaleR,
-    })
-}
-
-const applyDoubleHoldNoteJoint: Apply<DoubleHoldNoteJointEntity> = (transaction, entity) => {
-    const color = brushProperties.color ?? entity.color
-    if (entity.color === color) return
-
-    removeDoubleHoldNoteJoint(transaction, entity)
-    return addDoubleHoldNoteJoint(transaction, entity.id, {
-        beat: entity.beat,
-        color,
-        laneL: entity.laneL,
-        laneR: entity.laneR,
-    })
-}
-
 const applies: {
-    [T in Entity as T['type']]?: Apply<T>
+    [T in Entity as T['type']]?: (
+        transaction: Transaction,
+        entity: T,
+        object: EditableObject,
+    ) => Entity[]
 } = {
-    rotateEventJoint: applyEventJointEntity(addRotateEventJoint, removeRotateEventJoint),
-    shiftEventJoint: applyEventJointEntity(addShiftEventJoint, removeShiftEventJoint),
-    zoomEventJoint: applyEventJointEntity(addZoomEventJoint, removeZoomEventJoint),
+    rotateEventJoint: editSelectedRotateEventJoint,
+    shiftEventJoint: editSelectedShiftEventJoint,
+    zoomEventJoint: editSelectedZoomEventJoint,
 
-    tapNote: applyTapNote,
+    tapNote: editSelectedTapNote,
 
-    singleHoldNoteJoint: applySingleHoldNoteJoint,
-    doubleHoldNoteJoint: applyDoubleHoldNoteJoint,
+    singleHoldNoteJoint: editSelectedSingleHoldNoteJoint,
+    doubleHoldNoteJoint: editSelectedDoubleHoldNoteJoint,
 }
 
 const apply = (entities: Entity[]) => {
@@ -227,7 +160,8 @@ const apply = (entities: Entity[]) => {
     const transaction = createTransaction(state.value)
 
     const selectedEntities = entities.flatMap(
-        (entity) => applies[entity.type]?.(transaction, entity as never) ?? [entity],
+        (entity) =>
+            applies[entity.type]?.(transaction, entity as never, brushProperties) ?? [entity],
     )
 
     pushState(
