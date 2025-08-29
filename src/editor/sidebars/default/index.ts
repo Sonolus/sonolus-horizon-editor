@@ -72,15 +72,10 @@ export const editSelectedEditableEntities = (object: EditableObject) => {
     } else {
         const transaction = createTransaction(state.value)
 
-        const entities: Entity[] = []
-
-        for (const entity of selectedEntities.value) {
-            entities.push(
-                ...(editSelectedEntity[entity.type]?.(transaction, entity as never, object) ?? [
-                    entity,
-                ]),
-            )
-        }
+        const entities = selectedEntities.value.flatMap(
+            (entity) =>
+                editSelectedEntity[entity.type]?.(transaction, entity as never, object) ?? [entity],
+        )
 
         pushState(
             interpolate(
