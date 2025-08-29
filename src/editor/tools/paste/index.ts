@@ -163,7 +163,7 @@ export const updateClipboard = async () => {
 
     const data = getData(text)
     clipboardEntry = {
-        name: `#${++i} (${data?.entities.length ?? 0})`,
+        name: data ? `#${++i} (${data.entities.length})` : '',
         text,
         data,
     }
