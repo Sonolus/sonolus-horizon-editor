@@ -497,6 +497,7 @@
         "values": {
             "moving": "Moving {0} {1} objects",
             "adding": "Adding {0} {1} objects",
+            "selected": "Added {0} {1} objects",
             "added": "Added {0} {1} objects",
             "edited": "Edited {0} {1} objects",
             "moved": "Moved {0} {1} objects",

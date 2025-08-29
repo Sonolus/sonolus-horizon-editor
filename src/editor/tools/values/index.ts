@@ -11,6 +11,7 @@ import { getInStoreGrid } from '../../../state/store/grid'
 import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
+import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
 
@@ -156,21 +157,33 @@ export const createValueTool = <T extends ValueEntityType>(
             async tap(x, y) {
                 const [entity, beat] = tryFind(x, y)
                 if (entity) {
-                    replaceState({
-                        ...state.value,
-                        selectedEntities: [entity],
-                    })
-                    view.entities = {
-                        hovered: [],
-                        creating: [],
+                    if (
+                        selectedEntities.value.length === 1 &&
+                        selectedEntities.value[0] === entity
+                    ) {
+                        if (isSidebarVisible.value) {
+                            focusDefaultSidebar()
+                            return
+                        }
+
+                        const object = await showPropertiesModal(entity)
+                        if (!object) return
+
+                        editMoveOrReplace(entity, object)
+                        focusViewAtBeat(object.beat)
+                    } else {
+                        replaceState({
+                            ...state.value,
+                            selectedEntities: [entity],
+                        })
+                        view.entities = {
+                            hovered: [],
+                            creating: [],
+                        }
+                        focusViewAtBeat(entity.beat)
+
+                        notify(interpolate(() => i18n.value.tools.values.selected, '1', objectName))
                     }
-                    focusViewAtBeat(entity.beat)
-
-                    const object = await showPropertiesModal(entity)
-                    if (!object) return
-
-                    editMoveOrReplace(entity, object)
-                    focusViewAtBeat(object.beat)
                 } else {
                     replaceState({
                         ...state.value,
