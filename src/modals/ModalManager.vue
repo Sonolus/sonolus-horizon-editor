@@ -18,7 +18,10 @@ const vOpen = {
     mounted(el: HTMLDialogElement) {
         el.showModal()
         setTimeout(() => {
-            el.querySelector('label')?.focus()
+            ;(
+                el.lastElementChild?.querySelector('label') ??
+                el.lastElementChild?.querySelector('button')
+            )?.focus()
         }, 0)
     },
 }
