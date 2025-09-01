@@ -64,17 +64,21 @@ import HelpSection from './HelpSection.vue'
 
         <HelpSection :title="i18n.help.modal.singleHoldNoteTool.title">
             <li>{{ i18n.help.modal.singleHoldNoteTool.edit }}</li>
+            <li>{{ i18n.help.modal.singleHoldNoteTool.toggle }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.move }}</li>
+            <li>{{ i18n.help.modal.singleHoldNoteTool.ctrl }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.doubleHoldNoteTool.title">
             <li>{{ i18n.help.modal.doubleHoldNoteTool.edit }}</li>
+            <li>{{ i18n.help.modal.doubleHoldNoteTool.toggle }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.move }}</li>
+            <li>{{ i18n.help.modal.doubleHoldNoteTool.ctrl }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.properties }}</li>
         </HelpSection>
 

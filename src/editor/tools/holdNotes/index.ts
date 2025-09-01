@@ -22,7 +22,7 @@ import {
     xToValidLane,
     yToValidBeat,
 } from '../../view'
-import { hitEntitiesAtPoint } from '../utils'
+import { hitEntitiesAtPoint, modifyEntities } from '../utils'
 
 export const createHoldNoteTool = <
     T extends HoldNoteJointObject,
@@ -189,11 +189,11 @@ export const createHoldNoteTool = <
         {
             sidebar,
 
-            hover(x, y) {
+            hover(x, y, modifiers) {
                 const [entity, beat, lane] = tryFind(x, y)
                 if (entity) {
                     view.entities = {
-                        hovered: [entity],
+                        hovered: modifyEntities([entity], modifiers),
                         creating: [],
                     }
                 } else {
@@ -209,27 +209,24 @@ export const createHoldNoteTool = <
                 }
             },
 
-            async tap(x, y) {
+            async tap(x, y, modifiers) {
                 const [entity, beat, lane] = tryFind(x, y)
                 if (entity) {
-                    if (
-                        selectedEntities.value.length === 1 &&
-                        selectedEntities.value[0] === entity
-                    ) {
-                        if (isSidebarVisible.value) {
-                            focusDefaultSidebar()
-                            return
-                        }
+                    const entities = modifyEntities([entity], modifiers)
 
-                        const object = await showPropertiesModal(entity)
-                        if (!object) return
+                    if (modifiers.shift) {
+                        const selectedJointEntities: Entity[] =
+                            selectedEntities.value.filter(isJoint)
 
-                        editMoveOrReplaceJoint(entity, object)
-                        focusViewAtBeat(object.beat)
-                    } else {
+                        const targets = entities.every((entity) =>
+                            selectedJointEntities.includes(entity),
+                        )
+                            ? selectedJointEntities.filter((entity) => !entities.includes(entity))
+                            : [...new Set([...selectedJointEntities, ...entities])]
+
                         replaceState({
                             ...state.value,
-                            selectedEntities: [entity],
+                            selectedEntities: targets,
                         })
                         view.entities = {
                             hovered: [],
@@ -238,8 +235,47 @@ export const createHoldNoteTool = <
                         focusViewAtBeat(entity.beat)
 
                         notify(
-                            interpolate(() => i18n.value.tools.holdNotes.selected, '1', objectName),
+                            interpolate(
+                                () => i18n.value.tools.holdNotes.selected,
+                                `${targets.length}`,
+                                objectName,
+                            ),
                         )
+                    } else {
+                        if (
+                            entities.length === 1 &&
+                            selectedEntities.value.length === 1 &&
+                            selectedEntities.value[0] === entity
+                        ) {
+                            if (isSidebarVisible.value) {
+                                focusDefaultSidebar()
+                                return
+                            }
+
+                            const object = await showPropertiesModal(entity)
+                            if (!object) return
+
+                            editMoveOrReplaceJoint(entity, object)
+                            focusViewAtBeat(object.beat)
+                        } else {
+                            replaceState({
+                                ...state.value,
+                                selectedEntities: entities,
+                            })
+                            view.entities = {
+                                hovered: [],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+
+                            notify(
+                                interpolate(
+                                    () => i18n.value.tools.holdNotes.selected,
+                                    `${entities.length}`,
+                                    objectName,
+                                ),
+                            )
+                        }
                     }
                 } else {
                     const object = getObject(beat, lane, getJointFromSelection())

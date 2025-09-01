@@ -276,17 +276,21 @@
             "singleHoldNoteTool": {
                 "title": "Single Hold Note Tool",
                 "edit": "Tap 1 Single Hold Note object to edit.",
+                "toggle": "Tap Single Hold Note objects with Shift key to toggle objects in selection.",
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Single Hold Note object selected to connect.",
                 "move": "Drag 1 Single Hold Note object to move.",
+                "ctrl": "Use Ctrl key to operate on all related Single Hold Note objects.",
                 "properties": "Switch to Single Hold Note Tool again to change default properties."
             },
             "doubleHoldNoteTool": {
                 "title": "Double Hold Note Tool",
                 "edit": "Tap 1 Double Hold Note object to edit.",
+                "toggle": "Tap Double Hold Note objects with Shift key to toggle objects in selection.",
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Double Hold Note object selected to connect.",
                 "move": "Drag 1 Double Hold Note object to move.",
+                "ctrl": "Use Ctrl key to operate on all related Double Hold Note objects.",
                 "properties": "Switch to Double Hold Note Tool again to change default properties."
             },
             "rotateEventTool": {
