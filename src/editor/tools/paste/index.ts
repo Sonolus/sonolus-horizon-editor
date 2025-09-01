@@ -107,23 +107,26 @@ export const paste: Tool = {
 
     async tap(x, y) {
         await updateClipboard()
-        if (!clipboardEntry?.data?.entities.length) return
+        if (!clipboardEntry) return
+
+        const data = getData(clipboardEntry.text)
+        if (!data?.entities.length) return
 
         const transaction = createTransaction(state.value)
 
         const lane = xToLane(x)
-        const beatOffset = yToBeatOffset(y, clipboardEntry.data.beat)
+        const beatOffset = yToBeatOffset(y, data.beat)
 
         const selectedEntities: Entity[] = []
-        for (const entity of clipboardEntry.data.entities) {
+        for (const entity of data.entities) {
             const beat = entity.beat + beatOffset
             if (beat < 0) continue
 
             const result = pastes[entity.type]?.(
                 transaction,
-                clipboardEntry.data.entities,
+                data.entities,
                 entity as never,
-                clipboardEntry.data.lane,
+                data.lane,
                 lane,
                 beat,
             )
