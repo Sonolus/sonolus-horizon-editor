@@ -152,27 +152,21 @@ export const createValueTool = <T extends ValueEntityType>(
                 }
             },
 
-            async tap(x, y) {
+            async tap(x, y, modifiers) {
                 const [entity, beat] = tryFind(x, y)
                 if (entity) {
-                    if (
-                        selectedEntities.value.length === 1 &&
-                        selectedEntities.value[0] === entity
-                    ) {
-                        if (isSidebarVisible.value) {
-                            focusDefaultSidebar()
-                            return
-                        }
+                    if (modifiers.shift) {
+                        const selectedValueEntities: Entity[] = selectedEntities.value.filter(
+                            (entity) => entity.type === type,
+                        )
 
-                        const object = await showPropertiesModal(entity)
-                        if (!object) return
+                        const targets = selectedValueEntities.includes(entity)
+                            ? selectedValueEntities.filter((e) => e !== entity)
+                            : [...selectedValueEntities, entity]
 
-                        editMoveOrReplace(entity, object)
-                        focusViewAtBeat(object.beat)
-                    } else {
                         replaceState({
                             ...state.value,
-                            selectedEntities: [entity],
+                            selectedEntities: targets,
                         })
                         view.entities = {
                             hovered: [],
@@ -180,7 +174,47 @@ export const createValueTool = <T extends ValueEntityType>(
                         }
                         focusViewAtBeat(entity.beat)
 
-                        notify(interpolate(() => i18n.value.tools.values.selected, '1', objectName))
+                        notify(
+                            interpolate(
+                                () => i18n.value.tools.values.selected,
+                                `${targets.length}`,
+                                objectName,
+                            ),
+                        )
+                    } else {
+                        if (
+                            selectedEntities.value.length === 1 &&
+                            selectedEntities.value[0] === entity
+                        ) {
+                            if (isSidebarVisible.value) {
+                                focusDefaultSidebar()
+                                return
+                            }
+
+                            const object = await showPropertiesModal(entity)
+                            if (!object) return
+
+                            editMoveOrReplace(entity, object)
+                            focusViewAtBeat(object.beat)
+                        } else {
+                            replaceState({
+                                ...state.value,
+                                selectedEntities: [entity],
+                            })
+                            view.entities = {
+                                hovered: [],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+
+                            notify(
+                                interpolate(
+                                    () => i18n.value.tools.values.selected,
+                                    '1',
+                                    objectName,
+                                ),
+                            )
+                        }
                     }
                 } else {
                     replaceState({

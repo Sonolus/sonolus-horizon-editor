@@ -181,27 +181,21 @@ export const createEventTool = <T extends EventJointEntityType>(
                 }
             },
 
-            async tap(x, y) {
+            async tap(x, y, modifiers) {
                 const [entity, beat, value] = tryFind(x, y)
                 if (entity) {
-                    if (
-                        selectedEntities.value.length === 1 &&
-                        selectedEntities.value[0] === entity
-                    ) {
-                        if (isSidebarVisible.value) {
-                            focusDefaultSidebar()
-                            return
-                        }
+                    if (modifiers.shift) {
+                        const selectedEventEntities = selectedEntities.value.filter(
+                            (entity) => entity.type === type,
+                        )
 
-                        const object = await showPropertiesModal(entity)
-                        if (!object) return
+                        const targets = selectedEventEntities.includes(entity)
+                            ? selectedEventEntities.filter((e) => e !== entity)
+                            : [...selectedEventEntities, entity]
 
-                        editMoveOrReplace(entity, object)
-                        focusViewAtBeat(object.beat)
-                    } else {
                         replaceState({
                             ...state.value,
-                            selectedEntities: [entity],
+                            selectedEntities: targets,
                         })
                         view.entities = {
                             hovered: [],
@@ -209,7 +203,47 @@ export const createEventTool = <T extends EventJointEntityType>(
                         }
                         focusViewAtBeat(entity.beat)
 
-                        notify(interpolate(() => i18n.value.tools.events.selected, '1', objectName))
+                        notify(
+                            interpolate(
+                                () => i18n.value.tools.events.selected,
+                                `${targets.length}`,
+                                objectName,
+                            ),
+                        )
+                    } else {
+                        if (
+                            selectedEntities.value.length === 1 &&
+                            selectedEntities.value[0] === entity
+                        ) {
+                            if (isSidebarVisible.value) {
+                                focusDefaultSidebar()
+                                return
+                            }
+
+                            const object = await showPropertiesModal(entity)
+                            if (!object) return
+
+                            editMoveOrReplace(entity, object)
+                            focusViewAtBeat(object.beat)
+                        } else {
+                            replaceState({
+                                ...state.value,
+                                selectedEntities: [entity],
+                            })
+                            view.entities = {
+                                hovered: [],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+
+                            notify(
+                                interpolate(
+                                    () => i18n.value.tools.events.selected,
+                                    '1',
+                                    objectName,
+                                ),
+                            )
+                        }
                     }
                 } else {
                     const object: EventObject = {

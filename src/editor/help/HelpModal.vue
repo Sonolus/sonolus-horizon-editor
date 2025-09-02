@@ -56,6 +56,8 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.tapNoteTool.title">
+            <li>{{ i18n.help.modal.tapNoteTool.select }}</li>
+            <li>{{ i18n.help.modal.tapNoteTool.toggle }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.add }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.move }}</li>
@@ -63,8 +65,9 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.singleHoldNoteTool.title">
-            <li>{{ i18n.help.modal.singleHoldNoteTool.edit }}</li>
+            <li>{{ i18n.help.modal.singleHoldNoteTool.select }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.toggle }}</li>
+            <li>{{ i18n.help.modal.singleHoldNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.move }}</li>
@@ -73,8 +76,9 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.doubleHoldNoteTool.title">
-            <li>{{ i18n.help.modal.doubleHoldNoteTool.edit }}</li>
+            <li>{{ i18n.help.modal.doubleHoldNoteTool.select }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.toggle }}</li>
+            <li>{{ i18n.help.modal.doubleHoldNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.move }}</li>
@@ -83,6 +87,8 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.rotateEventTool.title">
+            <li>{{ i18n.help.modal.rotateEventTool.select }}</li>
+            <li>{{ i18n.help.modal.rotateEventTool.toggle }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.edit }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.add }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.move }}</li>
@@ -90,6 +96,8 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.shiftEventTool.title">
+            <li>{{ i18n.help.modal.shiftEventTool.select }}</li>
+            <li>{{ i18n.help.modal.shiftEventTool.toggle }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.edit }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.add }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.move }}</li>
@@ -97,6 +105,8 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.zoomEventTool.title">
+            <li>{{ i18n.help.modal.zoomEventTool.select }}</li>
+            <li>{{ i18n.help.modal.zoomEventTool.toggle }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.edit }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.add }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.move }}</li>
@@ -104,12 +114,16 @@ import HelpSection from './HelpSection.vue'
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.bpmTool.title">
+            <li>{{ i18n.help.modal.bpmTool.select }}</li>
+            <li>{{ i18n.help.modal.bpmTool.toggle }}</li>
             <li>{{ i18n.help.modal.bpmTool.edit }}</li>
             <li>{{ i18n.help.modal.bpmTool.add }}</li>
             <li>{{ i18n.help.modal.bpmTool.move }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.timeScaleTool.title">
+            <li>{{ i18n.help.modal.timeScaleTool.select }}</li>
+            <li>{{ i18n.help.modal.timeScaleTool.toggle }}</li>
             <li>{{ i18n.help.modal.timeScaleTool.edit }}</li>
             <li>{{ i18n.help.modal.timeScaleTool.add }}</li>
             <li>{{ i18n.help.modal.timeScaleTool.move }}</li>

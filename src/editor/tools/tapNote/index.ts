@@ -72,26 +72,21 @@ export const tapNote: Tool = {
         }
     },
 
-    async tap(x, y) {
+    async tap(x, y, modifiers) {
         const [entity, beat, lane] = tryFind(x, y)
         if (entity) {
-            if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
-                if (isSidebarVisible.value) {
-                    focusDefaultSidebar()
-                    return
-                }
+            if (modifiers.shift) {
+                const selectedTapNoteEntities: Entity[] = selectedEntities.value.filter(
+                    (entity) => entity.type === 'tapNote',
+                )
 
-                const object: TapNoteObject | undefined = await showModal(TapNotePropertiesModal, {
-                    object: entity,
-                })
-                if (!object) return
+                const targets = selectedTapNoteEntities.includes(entity)
+                    ? selectedTapNoteEntities.filter((e) => e !== entity)
+                    : [...selectedTapNoteEntities, entity]
 
-                editMoveOrReplace(entity, object)
-                focusViewAtBeat(object.beat)
-            } else {
                 replaceState({
                     ...state.value,
-                    selectedEntities: [entity],
+                    selectedEntities: targets,
                 })
                 view.entities = {
                     hovered: [],
@@ -99,7 +94,37 @@ export const tapNote: Tool = {
                 }
                 focusViewAtBeat(entity.beat)
 
-                notify(interpolate(() => i18n.value.tools.tapNote.selected, '1'))
+                notify(interpolate(() => i18n.value.tools.tapNote.selected, `${targets.length}`))
+            } else {
+                if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
+                    if (isSidebarVisible.value) {
+                        focusDefaultSidebar()
+                        return
+                    }
+
+                    const object: TapNoteObject | undefined = await showModal(
+                        TapNotePropertiesModal,
+                        {
+                            object: entity,
+                        },
+                    )
+                    if (!object) return
+
+                    editMoveOrReplace(entity, object)
+                    focusViewAtBeat(object.beat)
+                } else {
+                    replaceState({
+                        ...state.value,
+                        selectedEntities: [entity],
+                    })
+                    view.entities = {
+                        hovered: [],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+
+                    notify(interpolate(() => i18n.value.tools.tapNote.selected, '1'))
+                }
             }
         } else {
             add({
