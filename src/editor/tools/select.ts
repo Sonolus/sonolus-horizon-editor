@@ -64,7 +64,12 @@ import {
     yToTime,
     yToValidBeat,
 } from '../view'
-import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from './utils'
+import {
+    hitAllEntitiesAtPoint,
+    hitAllEntitiesInSelection,
+    modifyEntities,
+    toSelection,
+} from './utils'
 
 let active:
     | {
@@ -84,7 +89,7 @@ let active:
 
 export const select: Tool = {
     hover(x, y, modifiers) {
-        const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
+        const entities = modifyEntities(hitAllEntitiesAtPoint(x, y), modifiers)
 
         view.entities = {
             hovered: entities,
@@ -94,7 +99,7 @@ export const select: Tool = {
 
     tap(x, y, modifiers) {
         if (modifiers.shift) {
-            const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
+            const entities = modifyEntities(hitAllEntitiesAtPoint(x, y), modifiers)
 
             const [entity] = entities
             if (!entity) return
@@ -115,7 +120,7 @@ export const select: Tool = {
 
             notify(interpolate(() => i18n.value.tools.select.selected, `${targets.length}`))
         } else {
-            const entities = hitEntitiesAtPoint(x, y)
+            const entities = hitAllEntitiesAtPoint(x, y)
 
             const selectedLength = selectedEntities.value.length
             const current = selectedLength ? selectedEntities.value[0] : undefined
@@ -149,7 +154,7 @@ export const select: Tool = {
         const lane = xToLane(x)
         const time = yToTime(y)
 
-        const entities = hitEntitiesAtPoint(x, y)
+        const entities = hitAllEntitiesAtPoint(x, y)
 
         const [focus] = entities.filter((entity) => selectedEntities.value.includes(entity))
         if (focus) {
@@ -240,7 +245,7 @@ export const select: Tool = {
             }
             case 'select': {
                 const selection = toSelection(active.lane, active.time, x, y)
-                const entities = modifyEntities(hitEntitiesInSelection(selection), modifiers)
+                const entities = modifyEntities(hitAllEntitiesInSelection(selection), modifiers)
                 const targets = modifiers.shift
                     ? [...new Set([...active.entities, ...entities])]
                     : entities
@@ -317,7 +322,7 @@ export const select: Tool = {
             }
             case 'select': {
                 const selection = toSelection(active.lane, active.time, x, y)
-                const entities = modifyEntities(hitEntitiesInSelection(selection), modifiers)
+                const entities = modifyEntities(hitAllEntitiesInSelection(selection), modifiers)
                 const targets = modifiers.shift
                     ? [...new Set([...active.entities, ...entities])]
                     : entities

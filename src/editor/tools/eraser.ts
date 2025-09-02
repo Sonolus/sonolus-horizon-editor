@@ -16,7 +16,12 @@ import { createTransaction } from '../../state/transaction'
 import { interpolate } from '../../utils/interpolate'
 import { notify } from '../notification'
 import { focusViewAtBeat, setViewHover, view, xToLane, yToTime, yToValidBeat } from '../view'
-import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from './utils'
+import {
+    hitAllEntitiesAtPoint,
+    hitAllEntitiesInSelection,
+    modifyEntities,
+    toSelection,
+} from './utils'
 
 let active:
     | {
@@ -28,7 +33,7 @@ let active:
 
 export const eraser: Tool = {
     hover(x, y, modifiers) {
-        const entities = hitEntitiesAtPoint(x, y)
+        const entities = hitAllEntitiesAtPoint(x, y)
 
         view.entities = {
             hovered: modifyEntities(
@@ -42,7 +47,7 @@ export const eraser: Tool = {
     },
 
     tap(x, y, modifiers) {
-        const entities = hitEntitiesAtPoint(x, y)
+        const entities = hitAllEntitiesAtPoint(x, y)
 
         if (entities.some((entity) => selectedEntities.value.includes(entity))) {
             focusViewAtBeat(yToValidBeat(y))
@@ -87,7 +92,7 @@ export const eraser: Tool = {
 
         const selection = toSelection(active.lane, active.time, x, y)
         const targets = modifyEntities(
-            hitEntitiesInSelection(selection).filter(canRemove),
+            hitAllEntitiesInSelection(selection).filter(canRemove),
             modifiers,
         )
 
@@ -114,7 +119,7 @@ export const eraser: Tool = {
 
         view.selection = undefined
 
-        remove(modifyEntities(hitEntitiesInSelection(selection), modifiers))
+        remove(modifyEntities(hitAllEntitiesInSelection(selection), modifiers))
 
         active = undefined
     },

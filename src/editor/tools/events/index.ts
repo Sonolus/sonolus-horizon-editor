@@ -14,7 +14,7 @@ import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
 import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
-import { hitEntitiesAtPoint } from '../utils'
+import { hitAllEntitiesAtPoint } from '../utils'
 
 export const createEventTool = <T extends EventJointEntityType>(
     objectName: () => string,
@@ -64,7 +64,7 @@ export const createEventTool = <T extends EventJointEntityType>(
         )
 
     const tryFind = (x: number, y: number): [EntityOfType<T>] | [undefined, number, number] => {
-        const [hit] = hitEntitiesAtPoint(x, y)
+        const [hit] = hitAllEntitiesAtPoint(x, y)
             .filter(isJoint)
             .sort(
                 (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),

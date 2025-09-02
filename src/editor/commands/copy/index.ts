@@ -11,7 +11,7 @@ import { toSingleHoldNoteConnectionEntity } from '../../../state/entities/holdNo
 import type { HoldNoteJointEntityType } from '../../../state/entities/holdNotes/joints'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
-import { hitEntitiesAtPoint } from '../../tools/utils'
+import { hitAllEntitiesAtPoint } from '../../tools/utils'
 import { view, xToLane, yToValidBeat } from '../../view'
 import CopyIcon from './CopyIcon.vue'
 
@@ -29,7 +29,7 @@ export const copy: Command = {
             return
         }
 
-        const [entity] = hitEntitiesAtPoint(view.pointer.x, view.pointer.y).filter((entity) =>
+        const [entity] = hitAllEntitiesAtPoint(view.pointer.x, view.pointer.y).filter((entity) =>
             entities.includes(entity),
         )
 

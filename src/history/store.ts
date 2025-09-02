@@ -9,7 +9,7 @@ import { bpms } from './bpms'
 
 export const store = computed(() => state.value.store)
 
-export const walkEntities = (callback: (entity: Entity) => void) => {
+export const walkAllEntities = (callback: (entity: Entity) => void) => {
     for (const map of Object.values(store.value.grid)) {
         for (const entities of map.values()) {
             entities.forEach(callback)
@@ -53,7 +53,12 @@ export const cullAllEntities = (minKey: number, maxKey: number) => {
     return culled
 }
 
-export const hitEntities = (laneMin: number, laneMax: number, timeMin: number, timeMax: number) => {
+export const hitAllEntities = (
+    laneMin: number,
+    laneMax: number,
+    timeMin: number,
+    timeMax: number,
+) => {
     const spu = view.w / settings.width / settings.pps
 
     const min = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMin - 0.25 * spu)))

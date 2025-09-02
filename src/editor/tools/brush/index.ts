@@ -15,7 +15,12 @@ import { editSelectedZoomEventJoint } from '../events/zoom'
 import { editSelectedDoubleHoldNoteJoint } from '../holdNotes/double'
 import { editSelectedSingleHoldNoteJoint } from '../holdNotes/single'
 import { editSelectedTapNote } from '../tapNote'
-import { hitEntitiesAtPoint, hitEntitiesInSelection, modifyEntities, toSelection } from '../utils'
+import {
+    hitAllEntitiesAtPoint,
+    hitAllEntitiesInSelection,
+    modifyEntities,
+    toSelection,
+} from '../utils'
 import BrushSidebar from './BrushSidebar.vue'
 
 export type BrushProperties = {
@@ -43,7 +48,7 @@ export const brush: Tool = {
     sidebar: BrushSidebar,
 
     hover(x, y, modifiers) {
-        const entities = modifyEntities(hitEntitiesAtPoint(x, y), modifiers)
+        const entities = modifyEntities(hitAllEntitiesAtPoint(x, y), modifiers)
 
         view.entities = {
             hovered: entities,
@@ -52,7 +57,7 @@ export const brush: Tool = {
     },
 
     tap(x, y, modifiers) {
-        const entities = hitEntitiesAtPoint(x, y)
+        const entities = hitAllEntitiesAtPoint(x, y)
 
         if (entities.some((entity) => selectedEntities.value.includes(entity))) {
             apply(modifyEntities(selectedEntities.value, modifiers))
@@ -96,7 +101,7 @@ export const brush: Tool = {
         setViewHover(x, y)
 
         const selection = toSelection(active.lane, active.time, x, y)
-        const targets = modifyEntities(hitEntitiesInSelection(selection), modifiers)
+        const targets = modifyEntities(hitAllEntitiesInSelection(selection), modifiers)
 
         replaceState({
             ...state.value,
@@ -121,7 +126,7 @@ export const brush: Tool = {
 
         view.selection = undefined
 
-        apply(modifyEntities(hitEntitiesInSelection(selection), modifiers))
+        apply(modifyEntities(hitAllEntitiesInSelection(selection), modifiers))
 
         active = undefined
     },

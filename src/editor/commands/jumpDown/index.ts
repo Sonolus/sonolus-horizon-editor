@@ -1,5 +1,5 @@
 import type { Command } from '..'
-import { walkEntities } from '../../../history/store'
+import { walkAllEntities } from '../../../history/store'
 import { i18n } from '../../../i18n'
 import { focusViewAtBeat } from '../../view'
 import JumpDownIcon from './JumpDownIcon.vue'
@@ -12,7 +12,7 @@ export const jumpDown: Command = {
 
     execute() {
         let beat = Number.POSITIVE_INFINITY
-        walkEntities((entity) => {
+        walkAllEntities((entity) => {
             if (entity.beat < beat) beat = entity.beat
         })
 

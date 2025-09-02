@@ -23,7 +23,7 @@ import {
     xToValidLane,
     yToValidBeat,
 } from '../../view'
-import { hitEntitiesAtPoint } from '../utils'
+import { hitAllEntitiesAtPoint } from '../utils'
 import TapNotePropertiesModal from './TapNotePropertiesModal.vue'
 import TapNoteSidebar from './TapNoteSidebar.vue'
 
@@ -262,7 +262,7 @@ const find = (beat: number, lane: number) =>
     )
 
 const tryFind = (x: number, y: number): [TapNoteEntity] | [undefined, number, number] => {
-    const [hit] = hitEntitiesAtPoint(x, y)
+    const [hit] = hitAllEntitiesAtPoint(x, y)
         .filter((entity) => entity.type === 'tapNote')
         .sort((a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a))
     if (hit) return [hit]

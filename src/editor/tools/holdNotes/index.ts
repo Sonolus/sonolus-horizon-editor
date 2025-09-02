@@ -22,7 +22,7 @@ import {
     xToValidLane,
     yToValidBeat,
 } from '../../view'
-import { hitEntitiesAtPoint, modifyEntities } from '../utils'
+import { hitAllEntitiesAtPoint, modifyEntities } from '../utils'
 
 export const createHoldNoteTool = <
     T extends HoldNoteJointObject,
@@ -75,7 +75,7 @@ export const createHoldNoteTool = <
         )
 
     const tryFind = (x: number, y: number): [EntityOfType<U>] | [undefined, number, number] => {
-        const [hit] = hitEntitiesAtPoint(x, y)
+        const [hit] = hitAllEntitiesAtPoint(x, y)
             .filter(isJoint)
             .sort(
                 (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),
