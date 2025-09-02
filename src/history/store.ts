@@ -53,18 +53,37 @@ export const cullAllEntities = (minKey: number, maxKey: number) => {
     return culled
 }
 
+export const hitEntities = <T extends EntityType>(
+    type: T,
+    laneMin: number,
+    laneMax: number,
+    timeMin: number,
+    timeMax: number,
+) =>
+    hitEntitiesByGetter(laneMin, laneMax, timeMin, timeMax, (minKey, maxKey) =>
+        cullEntities(type, minKey, maxKey),
+    )
+
 export const hitAllEntities = (
     laneMin: number,
     laneMax: number,
     timeMin: number,
     timeMax: number,
+) => hitEntitiesByGetter(laneMin, laneMax, timeMin, timeMax, cullAllEntities)
+
+const hitEntitiesByGetter = <T extends Entity>(
+    laneMin: number,
+    laneMax: number,
+    timeMin: number,
+    timeMax: number,
+    getEntities: (minKey: number, maxKey: number) => Set<T>,
 ) => {
     const spu = view.w / settings.width / settings.pps
 
-    const min = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMin - 0.25 * spu)))
-    const max = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMax + 0.25 * spu)))
+    const minKey = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMin - 0.25 * spu)))
+    const maxKey = beatToKey(timeToBeat(bpms.value, Math.max(0, timeMax + 0.25 * spu)))
 
-    return [...cullAllEntities(min, max)].filter(({ hitbox }) => {
+    return [...getEntities(minKey, maxKey)].filter(({ hitbox }) => {
         if (!hitbox) return false
 
         const { lane, w } = hitbox

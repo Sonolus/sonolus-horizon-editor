@@ -13,7 +13,7 @@ import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
 import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
-import { hitAllEntitiesAtPoint } from '../utils'
+import { hitEntitiesAtPoint } from '../utils'
 
 export const createValueTool = <T extends ValueEntityType>(
     objectName: () => string,
@@ -36,11 +36,9 @@ export const createValueTool = <T extends ValueEntityType>(
         getInStoreGrid(store.value.grid, type, beat)?.find((entity) => entity.beat === beat)
 
     const tryFind = (x: number, y: number): [EntityOfType<T>] | [undefined, number] => {
-        const [hit] = hitAllEntitiesAtPoint(x, y)
-            .filter((entity): entity is EntityOfType<T> => entity.type === type)
-            .sort(
-                (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),
-            )
+        const [hit] = hitEntitiesAtPoint(type, x, y).sort(
+            (a, b) => +selectedEntities.value.includes(b) - +selectedEntities.value.includes(a),
+        )
         if (hit) return [hit]
 
         const beat = yToValidBeat(y)
