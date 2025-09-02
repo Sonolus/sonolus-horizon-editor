@@ -16,7 +16,7 @@ const modelValue = defineModel<T | undefined>({ required: true })
             v-model.lazy="modelValue"
             class="w-full appearance-none bg-[#222] px-2 py-1 transition-colors hover:bg-[#444] active:bg-[#111]"
         >
-            <option :value="undefined" />
+            <option :value="undefined" disabled />
             <option v-for="([name, value], index) in options" :key="index" :value>
                 {{ name }}
             </option>
