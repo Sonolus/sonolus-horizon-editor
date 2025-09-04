@@ -19,6 +19,12 @@ watch(
 
 const activeIndex = ref(-1)
 
+const onOverMain = (event: PointerEvent, index: number) => {
+    if (event.pointerType !== 'mouse') return
+
+    activeIndex.value = index
+}
+
 const onClickMain = (index: number, name: CommandName) => {
     if (activeIndex.value === -1 && toolbar.value[index] && toolbar.value[index].length > 1) {
         activeIndex.value = index
@@ -36,6 +42,12 @@ const onClickSub = (index: number, name: CommandName) => {
     activeIndex.value = -1
     activeNames.value[index] = name
 }
+
+const onOverBackdrop = (event: PointerEvent) => {
+    if (event.pointerType !== 'mouse') return
+
+    activeIndex.value = -1
+}
 </script>
 
 <template>
@@ -50,7 +62,11 @@ const onClickSub = (index: number, name: CommandName) => {
             :class="{ 'z-20': activeIndex === i }"
             :inert="activeIndex !== -1 && activeIndex !== i"
         >
-            <LevelEditorToolbarTool :name="activeName" @click="onClickMain(i, activeName)" />
+            <LevelEditorToolbarTool
+                :name="activeName"
+                @pointerover="onOverMain($event, i)"
+                @click="onClickMain(i, activeName)"
+            />
 
             <div v-if="activeIndex === i" class="absolute top-0 -translate-y-full">
                 <LevelEditorToolbarTool
@@ -66,6 +82,7 @@ const onClickSub = (index: number, name: CommandName) => {
     <div
         v-if="activeIndex !== -1"
         class="absolute size-full bg-black/75"
+        @pointerover="onOverBackdrop"
         @click="activeIndex = -1"
     />
 </template>
