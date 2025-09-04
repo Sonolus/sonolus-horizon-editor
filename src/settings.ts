@@ -25,7 +25,7 @@ const settingsProperties = {
 
     previewHeight: Type.Number(),
 
-    previewNoteSpeed: number(5, 1, 15),
+    previewNoteSpeed: number(8, 1, 15),
 
     previewConnectionAlpha: number(50, 10, 100),
 
