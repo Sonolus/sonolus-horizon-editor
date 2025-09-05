@@ -155,7 +155,7 @@ export const createValueTool = <T extends ValueEntityType>(
             async tap(x, y, modifiers) {
                 const [entity, beat] = tryFind(x, y)
                 if (entity) {
-                    if (modifiers.shift) {
+                    if (modifiers.ctrl) {
                         const selectedValueEntities: Entity[] = selectedEntities.value.filter(
                             (entity) => entity.type === type,
                         )

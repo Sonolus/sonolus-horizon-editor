@@ -98,7 +98,7 @@ export const select: Tool = {
     },
 
     tap(x, y, modifiers) {
-        if (modifiers.shift) {
+        if (modifiers.ctrl) {
             const entities = modifyEntities(hitAllEntitiesAtPoint(x, y), modifiers)
 
             const [entity] = entities
@@ -246,7 +246,7 @@ export const select: Tool = {
             case 'select': {
                 const selection = toSelection(active.lane, active.time, x, y)
                 const entities = modifyEntities(hitAllEntitiesInSelection(selection), modifiers)
-                const targets = modifiers.shift
+                const targets = modifiers.ctrl
                     ? [...new Set([...active.entities, ...entities])]
                     : entities
 
@@ -323,7 +323,7 @@ export const select: Tool = {
             case 'select': {
                 const selection = toSelection(active.lane, active.time, x, y)
                 const entities = modifyEntities(hitAllEntitiesInSelection(selection), modifiers)
-                const targets = modifiers.shift
+                const targets = modifiers.ctrl
                     ? [...new Set([...active.entities, ...entities])]
                     : entities
 

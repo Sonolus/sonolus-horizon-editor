@@ -184,7 +184,7 @@ export const createEventTool = <T extends EventJointEntityType>(
             async tap(x, y, modifiers) {
                 const [entity, beat, value] = tryFind(x, y)
                 if (entity) {
-                    if (modifiers.shift) {
+                    if (modifiers.ctrl) {
                         const selectedEventEntities = selectedEntities.value.filter(
                             (entity) => entity.type === type,
                         )

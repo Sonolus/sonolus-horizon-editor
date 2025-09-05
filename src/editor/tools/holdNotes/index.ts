@@ -212,7 +212,7 @@ export const createHoldNoteTool = <
                 if (entity) {
                     const entities = modifyEntities([entity], modifiers)
 
-                    if (modifiers.shift) {
+                    if (modifiers.ctrl) {
                         const selectedJointEntities: Entity[] =
                             selectedEntities.value.filter(isJoint)
 

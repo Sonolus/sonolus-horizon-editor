@@ -23,7 +23,7 @@ export const hitAllEntitiesInSelection = (selection: Selection) =>
     ).filter(isVisible)
 
 export const modifyEntities = (entities: Entity[], modifiers: Modifiers) => {
-    if (!modifiers.ctrl) return entities
+    if (!modifiers.shift) return entities
 
     const allEntities = new Set(entities)
 

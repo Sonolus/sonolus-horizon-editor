@@ -231,7 +231,9 @@
                 "dragPrimary": "Left click and drag to drag with primary tool.",
                 "tapSecondary": "Right click to tap with secondary tool.",
                 "dragSecondary": "Right click and drag to drag with secondary tool.",
-                "scroll": "Wheel scroll to scroll."
+                "scroll": "Wheel scroll to scroll.",
+                "zoomY": "Wheel scroll with Ctrl key to zoom vertically.",
+                "zoomX": "Wheel scroll with Ctrl and Shift key to zoom horizontally."
             },
             "keyboard": {
                 "title": "Keyboard",
@@ -241,26 +243,25 @@
             "selectTool": {
                 "title": "Select Tool",
                 "select": "Tap objects to select 1 object, cycling between overlapped objects.",
-                "toggle": "Tap objects with Shift key to toggle objects in selection.",
                 "deselect": "Tap empty space to deselect all objects.",
                 "move": "Drag objects to move multiple objects.",
                 "selectMultiple": "Drag empty space to select multiple objects.",
-                "selectAdd": "Drag empty space with Shift key to add multiple objects to selection.",
-                "ctrl": "Use Ctrl key to operate on all related hold note objects."
+                "ctrl": "Use Ctrl key to add objects to selection.",
+                "shift": "Use Shift key to operate on all related hold note objects."
             },
             "eraserTool": {
                 "title": "Eraser Tool",
                 "erase": "Tap objects to erase.",
                 "deselect": "Tap empty space to deselect all objects.",
                 "eraseMultiple": "Drag to erase multiple objects.",
-                "ctrl": "Use Ctrl key to operate on all related hold note objects."
+                "shift": "Use Shift key to operate on all related hold note objects."
             },
             "brushTool": {
                 "title": "Brush Tool",
                 "brush": "Tap objects to brush.",
                 "deselect": "Tap empty space to deselect all objects.",
                 "brushMultiple": "Drag to brush multiple objects.",
-                "ctrl": "Use Ctrl key to operate on all related hold note objects."
+                "shift": "Use Shift key to operate on all related hold note objects."
             },
             "pasteTool": {
                 "title": "Paste Tool",
@@ -269,76 +270,76 @@
             "tapNoteTool": {
                 "title": "Tap Note Tool",
                 "select": "Tap Tap Note objects to select 1 object.",
-                "toggle": "Tap Tap Note objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Tap Note object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Tap Note object to move.",
+                "ctrl": "Use Ctrl key to add objects to selection.",
                 "properties": "Switch to Tap Note Tool again to change default properties."
             },
             "singleHoldNoteTool": {
                 "title": "Single Hold Note Tool",
                 "select": "Tap Single Hold Note objects to select 1 object.",
-                "toggle": "Tap Single Hold Note objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Single Hold Note object to edit.",
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Single Hold Note object selected to connect.",
                 "move": "Drag 1 Single Hold Note object to move.",
-                "ctrl": "Use Ctrl key to operate on all related Single Hold Note objects.",
+                "ctrl": "Use Ctrl key to add objects to selection.",
+                "shift": "Use Shift key to operate on all related hold note objects.",
                 "properties": "Switch to Single Hold Note Tool again to change default properties."
             },
             "doubleHoldNoteTool": {
                 "title": "Double Hold Note Tool",
                 "select": "Tap Double Hold Note objects to select 1 object.",
-                "toggle": "Tap Double Hold Note objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Double Hold Note object to edit.",
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Double Hold Note object selected to connect.",
                 "move": "Drag 1 Double Hold Note object to move.",
-                "ctrl": "Use Ctrl key to operate on all related Double Hold Note objects.",
+                "ctrl": "Use Ctrl key to add objects to selection.",
+                "shift": "Use Shift key to operate on all related hold note objects.",
                 "properties": "Switch to Double Hold Note Tool again to change default properties."
             },
             "rotateEventTool": {
                 "title": "Rotate Event Tool",
                 "select": "Tap Rotate Event objects to select 1 object.",
-                "toggle": "Tap Rotate Event objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Rotate Event object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Rotate Event object to move.",
+                "ctrl": "Use Ctrl key to add objects to selection.",
                 "properties": "Switch to Rotate Event Tool again to change default properties."
             },
             "shiftEventTool": {
                 "title": "Shift Event Tool",
                 "select": "Tap Shift Event objects to select 1 object.",
-                "toggle": "Tap Shift Event objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Shift Event object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Shift Event object to move.",
+                "ctrl": "Use Ctrl key to add objects to selection.",
                 "properties": "Switch to Shift Event Tool again to change default properties."
             },
             "zoomEventTool": {
                 "title": "Zoom Event Tool",
                 "select": "Tap Zoom Event objects to select 1 object.",
-                "toggle": "Tap Zoom Event objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Zoom Event object to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Zoom Event object to move.",
+                "ctrl": "Use Ctrl key to add objects to selection.",
                 "properties": "Switch to Zoom Event Tool again to change default properties."
             },
             "bpmTool": {
                 "title": "BPM Tool",
                 "select": "Tap BPM objects to select 1 object.",
-                "toggle": "Tap BPM objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 BPM object to edit.",
                 "add": "Tap empty space to add.",
-                "move": "Drag 1 BPM object to move."
+                "move": "Drag 1 BPM object to move.",
+                "ctrl": "Use Ctrl key to add objects to selection."
             },
             "timeScaleTool": {
                 "title": "Time Scale Tool",
                 "select": "Tap Time Scale objects to select 1 object.",
-                "toggle": "Tap Time Scale objects with Shift key to toggle objects in selection.",
                 "edit": "Tap 1 Time Scale object to edit.",
                 "add": "Tap empty space to add.",
-                "move": "Drag 1 Time Scale object to move."
+                "move": "Drag 1 Time Scale object to move.",
+                "ctrl": "Use Ctrl key to add objects to selection."
             }
         }
     },

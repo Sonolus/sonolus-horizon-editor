@@ -20,6 +20,8 @@ import HelpSection from './HelpSection.vue'
             <li>{{ i18n.help.modal.mouse.tapSecondary }}</li>
             <li>{{ i18n.help.modal.mouse.dragSecondary }}</li>
             <li>{{ i18n.help.modal.mouse.scroll }}</li>
+            <li>{{ i18n.help.modal.mouse.zoomY }}</li>
+            <li>{{ i18n.help.modal.mouse.zoomX }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.keyboard.title">
@@ -29,26 +31,25 @@ import HelpSection from './HelpSection.vue'
 
         <HelpSection :title="i18n.help.modal.selectTool.title">
             <li>{{ i18n.help.modal.selectTool.select }}</li>
-            <li>{{ i18n.help.modal.selectTool.toggle }}</li>
             <li>{{ i18n.help.modal.selectTool.deselect }}</li>
             <li>{{ i18n.help.modal.selectTool.move }}</li>
             <li>{{ i18n.help.modal.selectTool.selectMultiple }}</li>
-            <li>{{ i18n.help.modal.selectTool.selectAdd }}</li>
             <li>{{ i18n.help.modal.selectTool.ctrl }}</li>
+            <li>{{ i18n.help.modal.selectTool.shift }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.eraserTool.title">
             <li>{{ i18n.help.modal.eraserTool.erase }}</li>
             <li>{{ i18n.help.modal.eraserTool.deselect }}</li>
             <li>{{ i18n.help.modal.eraserTool.eraseMultiple }}</li>
-            <li>{{ i18n.help.modal.eraserTool.ctrl }}</li>
+            <li>{{ i18n.help.modal.eraserTool.shift }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.brushTool.title">
             <li>{{ i18n.help.modal.brushTool.brush }}</li>
             <li>{{ i18n.help.modal.brushTool.deselect }}</li>
             <li>{{ i18n.help.modal.brushTool.brushMultiple }}</li>
-            <li>{{ i18n.help.modal.brushTool.ctrl }}</li>
+            <li>{{ i18n.help.modal.brushTool.shift }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.pasteTool.title">
@@ -57,76 +58,76 @@ import HelpSection from './HelpSection.vue'
 
         <HelpSection :title="i18n.help.modal.tapNoteTool.title">
             <li>{{ i18n.help.modal.tapNoteTool.select }}</li>
-            <li>{{ i18n.help.modal.tapNoteTool.toggle }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.add }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.move }}</li>
+            <li>{{ i18n.help.modal.tapNoteTool.ctrl }}</li>
             <li>{{ i18n.help.modal.tapNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.singleHoldNoteTool.title">
             <li>{{ i18n.help.modal.singleHoldNoteTool.select }}</li>
-            <li>{{ i18n.help.modal.singleHoldNoteTool.toggle }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.move }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.ctrl }}</li>
+            <li>{{ i18n.help.modal.singleHoldNoteTool.shift }}</li>
             <li>{{ i18n.help.modal.singleHoldNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.doubleHoldNoteTool.title">
             <li>{{ i18n.help.modal.doubleHoldNoteTool.select }}</li>
-            <li>{{ i18n.help.modal.doubleHoldNoteTool.toggle }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.edit }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.add }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.connect }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.move }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.ctrl }}</li>
+            <li>{{ i18n.help.modal.doubleHoldNoteTool.shift }}</li>
             <li>{{ i18n.help.modal.doubleHoldNoteTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.rotateEventTool.title">
             <li>{{ i18n.help.modal.rotateEventTool.select }}</li>
-            <li>{{ i18n.help.modal.rotateEventTool.toggle }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.edit }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.add }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.move }}</li>
+            <li>{{ i18n.help.modal.rotateEventTool.ctrl }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.shiftEventTool.title">
             <li>{{ i18n.help.modal.shiftEventTool.select }}</li>
-            <li>{{ i18n.help.modal.shiftEventTool.toggle }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.edit }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.add }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.move }}</li>
+            <li>{{ i18n.help.modal.shiftEventTool.ctrl }}</li>
             <li>{{ i18n.help.modal.shiftEventTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.zoomEventTool.title">
             <li>{{ i18n.help.modal.zoomEventTool.select }}</li>
-            <li>{{ i18n.help.modal.zoomEventTool.toggle }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.edit }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.add }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.move }}</li>
+            <li>{{ i18n.help.modal.zoomEventTool.ctrl }}</li>
             <li>{{ i18n.help.modal.zoomEventTool.properties }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.bpmTool.title">
             <li>{{ i18n.help.modal.bpmTool.select }}</li>
-            <li>{{ i18n.help.modal.bpmTool.toggle }}</li>
             <li>{{ i18n.help.modal.bpmTool.edit }}</li>
             <li>{{ i18n.help.modal.bpmTool.add }}</li>
             <li>{{ i18n.help.modal.bpmTool.move }}</li>
+            <li>{{ i18n.help.modal.bpmTool.ctrl }}</li>
         </HelpSection>
 
         <HelpSection :title="i18n.help.modal.timeScaleTool.title">
             <li>{{ i18n.help.modal.timeScaleTool.select }}</li>
-            <li>{{ i18n.help.modal.timeScaleTool.toggle }}</li>
             <li>{{ i18n.help.modal.timeScaleTool.edit }}</li>
             <li>{{ i18n.help.modal.timeScaleTool.add }}</li>
             <li>{{ i18n.help.modal.timeScaleTool.move }}</li>
+            <li>{{ i18n.help.modal.timeScaleTool.ctrl }}</li>
         </HelpSection>
     </BaseModal>
 </template>

@@ -75,7 +75,7 @@ export const tapNote: Tool = {
     async tap(x, y, modifiers) {
         const [entity, beat, lane] = tryFind(x, y)
         if (entity) {
-            if (modifiers.shift) {
+            if (modifiers.ctrl) {
                 const selectedTapNoteEntities: Entity[] = selectedEntities.value.filter(
                     (entity) => entity.type === 'tapNote',
                 )
