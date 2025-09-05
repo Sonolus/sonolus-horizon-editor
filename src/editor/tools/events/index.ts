@@ -12,7 +12,7 @@ import { getInStoreGrid } from '../../../state/store/grid'
 import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
-import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
+import { isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
 
@@ -216,7 +216,17 @@ export const createEventTool = <T extends EventJointEntityType>(
                             selectedEntities.value[0] === entity
                         ) {
                             if (isSidebarVisible.value) {
-                                focusDefaultSidebar()
+                                editMoveOrReplace(entity, {
+                                    beat: entity.beat,
+                                    value: entity.value,
+                                    ease: (
+                                        {
+                                            linear: 'in',
+                                            in: 'out',
+                                            out: 'linear',
+                                        } as const
+                                    )[entity.ease],
+                                })
                                 return
                             }
 

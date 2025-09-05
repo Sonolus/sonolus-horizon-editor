@@ -13,7 +13,7 @@ import { createTransaction, type Transaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { align, mod } from '../../../utils/math'
 import { notify } from '../../notification'
-import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
+import { isSidebarVisible } from '../../sidebars'
 import {
     focusViewAtBeat,
     setViewHover,
@@ -98,7 +98,9 @@ export const tapNote: Tool = {
             } else {
                 if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
                     if (isSidebarVisible.value) {
-                        focusDefaultSidebar()
+                        editTapNote(entity, {
+                            color: (entity.color + 1) % 7,
+                        })
                         return
                     }
 

@@ -77,6 +77,9 @@ export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNot
             laneL: object.laneL ?? entity.laneL,
             laneR: object.laneR ?? entity.laneR,
         }),
+        (entity) => ({
+            color: (entity.color + 1) % 7,
+        }),
 
         'doubleHoldNoteJoint',
         (joint, lane) => lane >= joint.laneL && lane <= joint.laneR,

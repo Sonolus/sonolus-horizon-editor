@@ -12,7 +12,7 @@ import { getInStoreGrid } from '../../../state/store/grid'
 import { type Transaction, createTransaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
-import { focusDefaultSidebar, isSidebarVisible } from '../../sidebars'
+import { isSidebarVisible } from '../../sidebars'
 import {
     focusViewAtBeat,
     setViewHover,
@@ -41,6 +41,7 @@ export const createHoldNoteTool = <
         joint: EntityOfType<U> | undefined,
     ) => T,
     editEntity: (entity: EntityOfType<U>, object: Partial<T>) => T,
+    quickEditEntity: (entity: EntityOfType<U>) => Partial<T>,
 
     jointType: U,
     isInFindLane: (joint: EntityOfType<U>, lane: number) => boolean,
@@ -246,7 +247,10 @@ export const createHoldNoteTool = <
                             selectedEntities.value[0] === entity
                         ) {
                             if (isSidebarVisible.value) {
-                                focusDefaultSidebar()
+                                editMoveOrReplaceJoint(
+                                    entity,
+                                    editEntity(entity, quickEditEntity(entity)),
+                                )
                                 return
                             }
 

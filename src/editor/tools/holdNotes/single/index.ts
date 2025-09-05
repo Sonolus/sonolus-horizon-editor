@@ -56,6 +56,9 @@ export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNot
             scaleL: object.scaleL ?? entity.scaleL,
             scaleR: object.scaleR ?? entity.scaleR,
         }),
+        (entity) => ({
+            color: (entity.color + 1) % 7,
+        }),
 
         'singleHoldNoteJoint',
         (joint, lane) => joint.lane === lane,
