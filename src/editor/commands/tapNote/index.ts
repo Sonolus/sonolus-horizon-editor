@@ -4,7 +4,6 @@ import { showModal } from '../../../modals'
 import { notify } from '../../notification'
 import { focusSidebar, isSidebarVisible } from '../../sidebars'
 import { switchToolTo, toolName } from '../../tools'
-import { defaultTapNoteProperties, setDefaultTapNoteProperties } from '../../tools/tapNote'
 import DefaultTapNotePropertiesModal from './DefaultTapNotePropertiesModal.vue'
 import TapNoteIcon from './TapNoteIcon.vue'
 
@@ -14,19 +13,13 @@ export const tapNote: Command = {
         is: TapNoteIcon,
     },
 
-    async execute() {
+    execute() {
         if (toolName.value === 'tapNote') {
             if (isSidebarVisible.value) {
                 focusSidebar()
-                return
+            } else {
+                void showModal(DefaultTapNotePropertiesModal, {})
             }
-
-            const properties = await showModal(DefaultTapNotePropertiesModal, {
-                properties: defaultTapNoteProperties,
-            })
-            if (!properties) return
-
-            setDefaultTapNoteProperties(properties)
         } else {
             switchToolTo('tapNote')
 

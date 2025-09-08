@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
 import { i18n } from '../../../../i18n'
-import FormModal from '../../../../modals/form/FormModal.vue'
 import OptionalColorField from '../../../../modals/form/OptionalColorField.vue'
 import OptionalSizeField from '../../../../modals/form/OptionalSizeField.vue'
-import type { DefaultDoubleHoldNoteProperties } from '../../../tools/holdNotes/double'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import {
+    defaultDoubleHoldNoteProperties,
+    setDefaultDoubleHoldNoteProperties,
+} from '../../../tools/holdNotes/double'
+import { useProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    properties: DefaultDoubleHoldNoteProperties
-}>()
+const createModel = useProperties(
+    () => defaultDoubleHoldNoteProperties,
+    setDefaultDoubleHoldNoteProperties,
+)
 
-defineEmits<{
-    close: [properties?: DefaultDoubleHoldNoteProperties]
-}>()
-
-const model = shallowReactive({ ...props.properties })
+const color = createModel('color')
+const size = createModel('size')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.commands.doubleHoldNote.modal.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <OptionalColorField v-model="model.color" />
-        <OptionalSizeField v-model="model.size" />
-    </FormModal>
+    <PropertiesModal :title="i18n.commands.doubleHoldNote.modal.title">
+        <OptionalColorField v-model="color" />
+        <OptionalSizeField v-model="size" />
+    </PropertiesModal>
 </template>

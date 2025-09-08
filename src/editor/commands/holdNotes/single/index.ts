@@ -4,10 +4,6 @@ import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { focusSidebar, isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
-import {
-    defaultSingleHoldNoteProperties,
-    setDefaultSingleHoldNoteProperties,
-} from '../../../tools/holdNotes/single'
 import DefaultSingleHoldNotePropertiesModal from './DefaultSingleHoldNotePropertiesModal.vue'
 import SingleHoldNoteIcon from './SingleHoldNoteIcon.vue'
 
@@ -17,19 +13,13 @@ export const singleHoldNote: Command = {
         is: SingleHoldNoteIcon,
     },
 
-    async execute() {
+    execute() {
         if (toolName.value === 'singleHoldNote') {
             if (isSidebarVisible.value) {
                 focusSidebar()
-                return
+            } else {
+                void showModal(DefaultSingleHoldNotePropertiesModal, {})
             }
-
-            const properties = await showModal(DefaultSingleHoldNotePropertiesModal, {
-                properties: defaultSingleHoldNoteProperties,
-            })
-            if (!properties) return
-
-            setDefaultSingleHoldNoteProperties(properties)
         } else {
             switchToolTo('singleHoldNote')
 

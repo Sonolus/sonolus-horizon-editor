@@ -1,33 +1,26 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
 import { i18n } from '../../../i18n'
-import FormModal from '../../../modals/form/FormModal.vue'
 import OptionalColorField from '../../../modals/form/OptionalColorField.vue'
 import OptionalEaseField from '../../../modals/form/OptionalEaseField.vue'
 import OptionalScaleLField from '../../../modals/form/OptionalScaleLField.vue'
 import OptionalScaleRField from '../../../modals/form/OptionalScaleRField.vue'
-import type { BrushProperties } from '../../tools/brush'
+import PropertiesModal from '../../../modals/form/PropertiesModal.vue'
+import { brushProperties, setBrushProperties } from '../../tools/brush'
+import { useProperties } from '../../utils/properties'
 
-const props = defineProps<{
-    properties: BrushProperties
-}>()
+const createModel = useProperties(() => brushProperties, setBrushProperties)
 
-defineEmits<{
-    close: [properties?: BrushProperties]
-}>()
-
-const model = shallowReactive({ ...props.properties })
+const color = createModel('color')
+const scaleL = createModel('scaleL')
+const scaleR = createModel('scaleR')
+const ease = createModel('ease')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.commands.brush.modal.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <OptionalColorField v-model="model.color" />
-        <OptionalScaleLField v-model="model.scaleL" />
-        <OptionalScaleRField v-model="model.scaleR" />
-        <OptionalEaseField v-model="model.ease" />
-    </FormModal>
+    <PropertiesModal :title="i18n.commands.brush.modal.title">
+        <OptionalColorField v-model="color" />
+        <OptionalScaleLField v-model="scaleL" />
+        <OptionalScaleRField v-model="scaleR" />
+        <OptionalEaseField v-model="ease" />
+    </PropertiesModal>
 </template>

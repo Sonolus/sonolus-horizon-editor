@@ -1,27 +1,20 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
 import { i18n } from '../../../../i18n'
-import FormModal from '../../../../modals/form/FormModal.vue'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
-import type { DefaultZoomEventProperties } from '../../../tools/events/zoom'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import {
+    defaultZoomEventProperties,
+    setDefaultZoomEventProperties,
+} from '../../../tools/events/zoom'
+import { useProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    properties: DefaultZoomEventProperties
-}>()
+const createModel = useProperties(() => defaultZoomEventProperties, setDefaultZoomEventProperties)
 
-defineEmits<{
-    close: [properties?: DefaultZoomEventProperties]
-}>()
-
-const model = shallowReactive({ ...props.properties })
+const ease = createModel('ease')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.commands.zoomEvent.modal.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <OptionalEaseField v-model="model.ease" />
-    </FormModal>
+    <PropertiesModal :title="i18n.commands.zoomEvent.modal.title">
+        <OptionalEaseField v-model="ease" />
+    </PropertiesModal>
 </template>

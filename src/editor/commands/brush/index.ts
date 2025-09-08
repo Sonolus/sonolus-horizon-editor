@@ -4,7 +4,6 @@ import { showModal } from '../../../modals'
 import { notify } from '../../notification'
 import { focusSidebar, isSidebarVisible } from '../../sidebars'
 import { switchToolTo } from '../../tools'
-import { brushProperties, setBrushProperties } from '../../tools/brush'
 import BrushIcon from './BrushIcon.vue'
 import BrushPropertiesModal from './BrushPropertiesModal.vue'
 
@@ -14,21 +13,15 @@ export const brush: Command = {
         is: BrushIcon,
     },
 
-    async execute() {
+    execute() {
         switchToolTo('brush')
 
         notify(() => i18n.value.commands.brush.switched)
 
         if (isSidebarVisible.value) {
             focusSidebar()
-            return
+        } else {
+            void showModal(BrushPropertiesModal, {})
         }
-
-        const properties = await showModal(BrushPropertiesModal, {
-            properties: brushProperties,
-        })
-        if (!properties) return
-
-        setBrushProperties(properties)
     },
 }

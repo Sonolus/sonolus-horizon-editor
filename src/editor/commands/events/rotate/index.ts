@@ -4,10 +4,6 @@ import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { focusSidebar, isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
-import {
-    defaultRotateEventProperties,
-    setDefaultRotateEventProperties,
-} from '../../../tools/events/rotate'
 import EventIcon from '../EventIcon.vue'
 import DefaultRotateEventPropertiesModal from './DefaultRotateEventPropertiesModal.vue'
 
@@ -20,19 +16,13 @@ export const rotateEvent: Command = {
         },
     },
 
-    async execute() {
+    execute() {
         if (toolName.value === 'rotateEvent') {
             if (isSidebarVisible.value) {
                 focusSidebar()
-                return
+            } else {
+                void showModal(DefaultRotateEventPropertiesModal, {})
             }
-
-            const properties = await showModal(DefaultRotateEventPropertiesModal, {
-                properties: defaultRotateEventProperties,
-            })
-            if (!properties) return
-
-            setDefaultRotateEventProperties(properties)
         } else {
             switchToolTo('rotateEvent')
 

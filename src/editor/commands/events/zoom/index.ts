@@ -4,10 +4,6 @@ import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { focusSidebar, isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
-import {
-    defaultZoomEventProperties,
-    setDefaultZoomEventProperties,
-} from '../../../tools/events/zoom'
 import EventIcon from '../EventIcon.vue'
 import DefaultZoomEventPropertiesModal from './DefaultZoomEventPropertiesModal.vue'
 
@@ -16,23 +12,17 @@ export const zoomEvent: Command = {
     icon: {
         is: EventIcon,
         props: {
-            fill: '#00f',
+            fill: '#0f0',
         },
     },
 
-    async execute() {
+    execute() {
         if (toolName.value === 'zoomEvent') {
             if (isSidebarVisible.value) {
                 focusSidebar()
-                return
+            } else {
+                void showModal(DefaultZoomEventPropertiesModal, {})
             }
-
-            const properties = await showModal(DefaultZoomEventPropertiesModal, {
-                properties: defaultZoomEventProperties,
-            })
-            if (!properties) return
-
-            setDefaultZoomEventProperties(properties)
         } else {
             switchToolTo('zoomEvent')
 

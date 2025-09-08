@@ -4,10 +4,6 @@ import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
 import { focusSidebar, isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
-import {
-    defaultDoubleHoldNoteProperties,
-    setDefaultDoubleHoldNoteProperties,
-} from '../../../tools/holdNotes/double'
 import DefaultDoubleHoldNotePropertiesModal from './DefaultDoubleHoldNotePropertiesModal.vue'
 import DoubleHoldNoteIcon from './DoubleHoldNoteIcon.vue'
 
@@ -17,19 +13,13 @@ export const doubleHoldNote: Command = {
         is: DoubleHoldNoteIcon,
     },
 
-    async execute() {
+    execute() {
         if (toolName.value === 'doubleHoldNote') {
             if (isSidebarVisible.value) {
                 focusSidebar()
-                return
+            } else {
+                void showModal(DefaultDoubleHoldNotePropertiesModal, {})
             }
-
-            const properties = await showModal(DefaultDoubleHoldNotePropertiesModal, {
-                properties: defaultDoubleHoldNoteProperties,
-            })
-            if (!properties) return
-
-            setDefaultDoubleHoldNoteProperties(properties)
         } else {
             switchToolTo('doubleHoldNote')
 

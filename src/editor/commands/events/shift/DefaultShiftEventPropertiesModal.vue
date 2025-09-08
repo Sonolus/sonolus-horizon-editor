@@ -1,27 +1,20 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
 import { i18n } from '../../../../i18n'
-import FormModal from '../../../../modals/form/FormModal.vue'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
-import type { DefaultShiftEventProperties } from '../../../tools/events/shift'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import {
+    defaultShiftEventProperties,
+    setDefaultShiftEventProperties,
+} from '../../../tools/events/shift'
+import { useProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    properties: DefaultShiftEventProperties
-}>()
+const createModel = useProperties(() => defaultShiftEventProperties, setDefaultShiftEventProperties)
 
-defineEmits<{
-    close: [properties?: DefaultShiftEventProperties]
-}>()
-
-const model = shallowReactive({ ...props.properties })
+const ease = createModel('ease')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.commands.shiftEvent.modal.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <OptionalEaseField v-model="model.ease" />
-    </FormModal>
+    <PropertiesModal :title="i18n.commands.shiftEvent.modal.title">
+        <OptionalEaseField v-model="ease" />
+    </PropertiesModal>
 </template>
