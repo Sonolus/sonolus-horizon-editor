@@ -180,19 +180,26 @@ export const tapNote: Tool = {
 
         switch (active.type) {
             case 'add': {
-                const beat = yToValidBeat(y)
-
-                view.entities = {
-                    hovered: [],
-                    creating: [
-                        toTapNoteEntity({
-                            beat,
-                            lane: xToValidLane(x),
-                            ...getPropertiesFromSelection(),
-                        }),
-                    ],
+                const [entity, beat, lane] = tryFind(x, y)
+                if (entity) {
+                    view.entities = {
+                        hovered: [entity],
+                        creating: [],
+                    }
+                    focusViewAtBeat(entity.beat)
+                } else {
+                    view.entities = {
+                        hovered: [],
+                        creating: [
+                            toTapNoteEntity({
+                                beat,
+                                lane,
+                                ...getPropertiesFromSelection(),
+                            }),
+                        ],
+                    }
+                    focusViewAtBeat(beat)
                 }
-                focusViewAtBeat(beat)
                 break
             }
             case 'move': {

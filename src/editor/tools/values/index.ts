@@ -265,18 +265,25 @@ export const createValueTool = <T extends ValueEntityType>(
 
                 switch (active.type) {
                     case 'add': {
-                        const beat = yToValidBeat(y)
-
-                        view.entities = {
-                            hovered: [],
-                            creating: [
-                                toEntity({
-                                    beat,
-                                    value: defaultValue,
-                                }),
-                            ],
+                        const [entity, beat] = tryFind(x, y)
+                        if (entity) {
+                            view.entities = {
+                                hovered: [entity],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+                        } else {
+                            view.entities = {
+                                hovered: [],
+                                creating: [
+                                    toEntity({
+                                        beat,
+                                        value: defaultValue,
+                                    }),
+                                ],
+                            }
+                            focusViewAtBeat(beat)
                         }
-                        focusViewAtBeat(beat)
                         break
                     }
                     case 'move': {

@@ -307,19 +307,26 @@ export const createEventTool = <T extends EventJointEntityType>(
 
                 switch (active.type) {
                     case 'add': {
-                        const beat = yToValidBeat(y)
-
-                        view.entities = {
-                            hovered: [],
-                            creating: [
-                                toEntity({
-                                    beat,
-                                    value: getValue(beat, x),
-                                    ...getPropertiesFromSelection(),
-                                }),
-                            ],
+                        const [entity, beat, value] = tryFind(x, y)
+                        if (entity) {
+                            view.entities = {
+                                hovered: [entity],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+                        } else {
+                            view.entities = {
+                                hovered: [],
+                                creating: [
+                                    toEntity({
+                                        beat,
+                                        value,
+                                        ...getPropertiesFromSelection(),
+                                    }),
+                                ],
+                            }
+                            focusViewAtBeat(beat)
                         }
-                        focusViewAtBeat(beat)
                         break
                     }
                     case 'move': {

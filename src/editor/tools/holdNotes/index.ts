@@ -337,23 +337,25 @@ export const createHoldNoteTool = <
 
                 switch (active.type) {
                     case 'add': {
-                        const beat = yToValidBeat(y)
-
-                        view.entities = {
-                            hovered: [],
-                            creating: [
-                                toJointEntity(
-                                    createHoldNoteId(),
-                                    addObject(
-                                        beat,
-                                        active.lane,
-                                        xToValidLane(x),
-                                        getJointFromSelection(),
+                        const [entity, beat, lane] = tryFind(x, y)
+                        if (entity) {
+                            view.entities = {
+                                hovered: [entity],
+                                creating: [],
+                            }
+                            focusViewAtBeat(entity.beat)
+                        } else {
+                            view.entities = {
+                                hovered: [],
+                                creating: [
+                                    toJointEntity(
+                                        createHoldNoteId(),
+                                        addObject(beat, active.lane, lane, getJointFromSelection()),
                                     ),
-                                ),
-                            ],
+                                ],
+                            }
+                            focusViewAtBeat(beat)
                         }
-                        focusViewAtBeat(beat)
                         break
                     }
                     case 'move': {
