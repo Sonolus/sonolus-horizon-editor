@@ -25,7 +25,7 @@ export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNot
     createHoldNoteTool(
         () => i18n.value.tools.holdNotes.types.doubleHoldNote,
         DoubleHoldNoteSidebar,
-        (entity) => showModal(DoubleHoldNotePropertiesModal, { object: entity }),
+        () => showModal(DoubleHoldNotePropertiesModal, {}),
 
         (beat, lane, joint) => ({
             beat,

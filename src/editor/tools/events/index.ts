@@ -19,7 +19,7 @@ import { hitEntitiesAtPoint } from '../utils'
 export const createEventTool = <T extends EventJointEntityType>(
     objectName: () => string,
     sidebar: Component,
-    showPropertiesModal: (object: EntityOfType<T>) => Promise<EventObject | undefined>,
+    showPropertiesModal: () => Promise<void>,
 
     isMatch: (value: number, x: number) => boolean,
     getValue: (beat: number, x: number) => number,
@@ -181,7 +181,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                 }
             },
 
-            async tap(x, y, modifiers) {
+            tap(x, y, modifiers) {
                 const [entity, beat, value] = tryFind(x, y)
                 if (entity) {
                     if (modifiers.ctrl) {
@@ -215,6 +215,8 @@ export const createEventTool = <T extends EventJointEntityType>(
                             selectedEntities.value.length === 1 &&
                             selectedEntities.value[0] === entity
                         ) {
+                            focusViewAtBeat(entity.beat)
+
                             if (isSidebarVisible.value) {
                                 editMoveOrReplace(entity, {
                                     beat: entity.beat,
@@ -227,14 +229,9 @@ export const createEventTool = <T extends EventJointEntityType>(
                                         } as const
                                     )[entity.ease],
                                 })
-                                return
+                            } else {
+                                void showPropertiesModal()
                             }
-
-                            const object = await showPropertiesModal(entity)
-                            if (!object) return
-
-                            editMoveOrReplace(entity, object)
-                            focusViewAtBeat(object.beat)
                         } else {
                             replaceState({
                                 ...state.value,
@@ -346,7 +343,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                 }
             },
 
-            async dragEnd(x, y) {
+            dragEnd(x, y) {
                 if (!active) return
 
                 switch (active.type) {
@@ -363,11 +360,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                             }
                             focusViewAtBeat(entity.beat)
 
-                            const object = await showPropertiesModal(entity)
-                            if (!object) return
-
-                            editMoveOrReplace(entity, object)
-                            focusViewAtBeat(object.beat)
+                            void showPropertiesModal()
                         } else {
                             const object: EventObject = {
                                 beat,

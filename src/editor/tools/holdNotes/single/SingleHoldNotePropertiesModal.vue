@@ -1,35 +1,30 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
-import type { SingleHoldNoteJointObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
-import BeatField from '../../../../modals/form/BeatField.vue'
-import ColorField from '../../../../modals/form/ColorField.vue'
-import FormModal from '../../../../modals/form/FormModal.vue'
-import LaneField from '../../../../modals/form/LaneField.vue'
-import ScaleLField from '../../../../modals/form/ScaleLField.vue'
-import ScaleRField from '../../../../modals/form/ScaleRField.vue'
+import MultiBeatField from '../../../../modals/form/MultiBeatField.vue'
+import MultiColorField from '../../../../modals/form/MultiColorField.vue'
+import MultiLaneField from '../../../../modals/form/MultiLaneField.vue'
+import MultiScaleLField from '../../../../modals/form/MultiScaleLField.vue'
+import MultiScaleRField from '../../../../modals/form/MultiScaleRField.vue'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import { useSelectedEntitiesProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    object: SingleHoldNoteJointObject
-}>()
+const { createModel } = useSelectedEntitiesProperties(
+    (entity) => entity.type === 'singleHoldNoteJoint',
+)
 
-defineEmits<{
-    close: [object?: SingleHoldNoteJointObject]
-}>()
-
-const model = shallowReactive({ ...props.object })
+const color = createModel('color')
+const lane = createModel('lane')
+const beat = createModel('beat')
+const scaleL = createModel('scaleL')
+const scaleR = createModel('scaleR')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.tools.holdNotes.modals.singleHoldNote.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <ColorField v-model="model.color" />
-        <LaneField v-model="model.lane" />
-        <BeatField v-model="model.beat" />
-        <ScaleLField v-model="model.scaleL" />
-        <ScaleRField v-model="model.scaleR" />
-    </FormModal>
+    <PropertiesModal :title="i18n.tools.holdNotes.modals.singleHoldNote.title">
+        <MultiColorField v-model="color" />
+        <MultiLaneField v-model="lane" />
+        <MultiBeatField v-model="beat" />
+        <MultiScaleLField v-model="scaleL" />
+        <MultiScaleRField v-model="scaleR" />
+    </PropertiesModal>
 </template>

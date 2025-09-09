@@ -17,9 +17,7 @@ import { hitEntitiesAtPoint } from '../utils'
 
 export const createValueTool = <T extends ValueEntityType>(
     objectName: () => string,
-    showPropertiesModal: (
-        object: ValueObject | EntityOfType<T>,
-    ) => Promise<ValueObject | undefined>,
+    showPropertiesModal: () => Promise<void>,
 
     defaultValue: number,
 
@@ -152,7 +150,7 @@ export const createValueTool = <T extends ValueEntityType>(
                 }
             },
 
-            async tap(x, y, modifiers) {
+            tap(x, y, modifiers) {
                 const [entity, beat] = tryFind(x, y)
                 if (entity) {
                     if (modifiers.ctrl) {
@@ -186,16 +184,13 @@ export const createValueTool = <T extends ValueEntityType>(
                             selectedEntities.value.length === 1 &&
                             selectedEntities.value[0] === entity
                         ) {
+                            focusViewAtBeat(entity.beat)
+
                             if (isSidebarVisible.value) {
                                 focusDefaultSidebar()
-                                return
+                            } else {
+                                void showPropertiesModal()
                             }
-
-                            const object = await showPropertiesModal(entity)
-                            if (!object) return
-
-                            editMoveOrReplace(entity, object)
-                            focusViewAtBeat(object.beat)
                         } else {
                             replaceState({
                                 ...state.value,
@@ -217,26 +212,10 @@ export const createValueTool = <T extends ValueEntityType>(
                         }
                     }
                 } else {
-                    replaceState({
-                        ...state.value,
-                        selectedEntities: [],
-                    })
-                    view.entities = {
-                        hovered: [],
-                        creating: [
-                            toEntity({
-                                beat,
-                                value: defaultValue,
-                            }),
-                        ],
-                    }
-                    focusViewAtBeat(beat)
-
-                    const object = await showPropertiesModal({
+                    const object: ValueObject = {
                         beat,
                         value: defaultValue,
-                    })
-                    if (!object) return
+                    }
 
                     const overlap = find(object.beat)
                     if (overlap) {
@@ -245,6 +224,8 @@ export const createValueTool = <T extends ValueEntityType>(
                         add(object)
                     }
                     focusViewAtBeat(object.beat)
+
+                    void showPropertiesModal()
                 }
             },
 
@@ -319,7 +300,7 @@ export const createValueTool = <T extends ValueEntityType>(
                 }
             },
 
-            async dragEnd(x, y) {
+            dragEnd(x, y) {
                 if (!active) return
 
                 switch (active.type) {
@@ -336,32 +317,12 @@ export const createValueTool = <T extends ValueEntityType>(
                             }
                             focusViewAtBeat(entity.beat)
 
-                            const object = await showPropertiesModal(entity)
-                            if (!object) return
-
-                            editMoveOrReplace(entity, object)
-                            focusViewAtBeat(object.beat)
+                            void showPropertiesModal()
                         } else {
-                            replaceState({
-                                ...state.value,
-                                selectedEntities: [],
-                            })
-                            view.entities = {
-                                hovered: [],
-                                creating: [
-                                    toEntity({
-                                        beat,
-                                        value: defaultValue,
-                                    }),
-                                ],
-                            }
-                            focusViewAtBeat(beat)
-
-                            const object = await showPropertiesModal({
+                            const object: ValueObject = {
                                 beat,
                                 value: defaultValue,
-                            })
-                            if (!object) return
+                            }
 
                             const overlap = find(object.beat)
                             if (overlap) {
@@ -370,6 +331,8 @@ export const createValueTool = <T extends ValueEntityType>(
                                 add(object)
                             }
                             focusViewAtBeat(object.beat)
+
+                            void showPropertiesModal()
                         }
                         break
                     }

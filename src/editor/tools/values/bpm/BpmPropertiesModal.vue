@@ -1,29 +1,19 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
-import type { ValueObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
-import BeatField from '../../../../modals/form/BeatField.vue'
-import BpmField from '../../../../modals/form/BpmField.vue'
-import FormModal from '../../../../modals/form/FormModal.vue'
+import MultiBeatField from '../../../../modals/form/MultiBeatField.vue'
+import MultiBpmField from '../../../../modals/form/MultiBpmField.vue'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import { useSelectedEntitiesProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    object: ValueObject
-}>()
+const { createModel } = useSelectedEntitiesProperties((entity) => entity.type === 'bpm')
 
-defineEmits<{
-    close: [object?: ValueObject]
-}>()
-
-const model = shallowReactive({ ...props.object })
+const value = createModel('value')
+const beat = createModel('beat')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.tools.values.modals.bpm.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <BpmField v-model="model.value" />
-        <BeatField v-model="model.beat" />
-    </FormModal>
+    <PropertiesModal :title="i18n.tools.values.modals.bpm.title">
+        <MultiBpmField v-model="value" />
+        <MultiBeatField v-model="beat" />
+    </PropertiesModal>
 </template>

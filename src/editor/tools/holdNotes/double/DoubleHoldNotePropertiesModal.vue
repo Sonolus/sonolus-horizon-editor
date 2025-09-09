@@ -1,33 +1,27 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
-import type { DoubleHoldNoteJointObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
-import BeatField from '../../../../modals/form/BeatField.vue'
-import ColorField from '../../../../modals/form/ColorField.vue'
-import FormModal from '../../../../modals/form/FormModal.vue'
-import LaneLField from '../../../../modals/form/LaneLField.vue'
-import LaneRField from '../../../../modals/form/LaneRField.vue'
+import MultiBeatField from '../../../../modals/form/MultiBeatField.vue'
+import MultiColorField from '../../../../modals/form/MultiColorField.vue'
+import MultiLaneLField from '../../../../modals/form/MultiLaneLField.vue'
+import MultiLaneRField from '../../../../modals/form/MultiLaneRField.vue'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import { useSelectedEntitiesProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    object: DoubleHoldNoteJointObject
-}>()
+const { createModel } = useSelectedEntitiesProperties(
+    (entity) => entity.type === 'doubleHoldNoteJoint',
+)
 
-defineEmits<{
-    close: [object?: DoubleHoldNoteJointObject]
-}>()
-
-const model = shallowReactive({ ...props.object })
+const color = createModel('color')
+const laneL = createModel('laneL')
+const laneR = createModel('laneR')
+const beat = createModel('beat')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.tools.holdNotes.modals.doubleHoldNote.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <ColorField v-model="model.color" />
-        <LaneLField v-model="model.laneL" />
-        <LaneRField v-model="model.laneR" />
-        <BeatField v-model="model.beat" />
-    </FormModal>
+    <PropertiesModal :title="i18n.tools.holdNotes.modals.doubleHoldNote.title">
+        <MultiColorField v-model="color" />
+        <MultiLaneLField v-model="laneL" />
+        <MultiLaneRField v-model="laneR" />
+        <MultiBeatField v-model="beat" />
+    </PropertiesModal>
 </template>

@@ -66,10 +66,14 @@ export const isEditableEntity = (entity: Entity) =>
 
 export const editSelectedEditableEntities = (object: EditableObject) => {
     if (selectedEntities.value.length === 1) {
+        const editEntity = getEditEntity()
+
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const entity = selectedEntities.value[0]!
         editEntity[entity.type]?.(entity as never, object)
     } else {
+        const editSelectedEntity = getEditSelectedEntity()
+
         const transaction = createTransaction(state.value)
 
         const entities = selectedEntities.value.flatMap(
@@ -101,38 +105,48 @@ export const editSelectedEditableEntities = (object: EditableObject) => {
     }
 }
 
-const editEntity: {
-    [T in Entity as T['type']]?: (entity: T, object: EditableObject) => void
-} = {
-    bpm: editBpm,
-    timeScale: editTimeScale,
+let editEntity:
+    | {
+          [T in Entity as T['type']]?: (entity: T, object: EditableObject) => void
+      }
+    | undefined
 
-    rotateEventJoint: editRotateEventJoint,
-    shiftEventJoint: editShiftEventJoint,
-    zoomEventJoint: editZoomEventJoint,
+const getEditEntity = () =>
+    (editEntity ??= {
+        bpm: editBpm,
+        timeScale: editTimeScale,
 
-    tapNote: editTapNote,
+        rotateEventJoint: editRotateEventJoint,
+        shiftEventJoint: editShiftEventJoint,
+        zoomEventJoint: editZoomEventJoint,
 
-    singleHoldNoteJoint: editSingleHoldNoteJoint,
-    doubleHoldNoteJoint: editDoubleHoldNoteJoint,
-}
+        tapNote: editTapNote,
 
-const editSelectedEntity: {
-    [T in Entity as T['type']]?: (
-        transaction: Transaction,
-        entity: T,
-        object: EditableObject,
-    ) => Entity[]
-} = {
-    bpm: editSelectedBpm,
-    timeScale: editSelectedTimeScale,
+        singleHoldNoteJoint: editSingleHoldNoteJoint,
+        doubleHoldNoteJoint: editDoubleHoldNoteJoint,
+    })
 
-    rotateEventJoint: editSelectedRotateEventJoint,
-    shiftEventJoint: editSelectedShiftEventJoint,
-    zoomEventJoint: editSelectedZoomEventJoint,
+let editSelectedEntity:
+    | {
+          [T in Entity as T['type']]?: (
+              transaction: Transaction,
+              entity: T,
+              object: EditableObject,
+          ) => Entity[]
+      }
+    | undefined
 
-    tapNote: editSelectedTapNote,
+const getEditSelectedEntity = () =>
+    (editSelectedEntity ??= {
+        bpm: editSelectedBpm,
+        timeScale: editSelectedTimeScale,
 
-    singleHoldNoteJoint: editSelectedSingleHoldNoteJoint,
-    doubleHoldNoteJoint: editSelectedDoubleHoldNoteJoint,
-}
+        rotateEventJoint: editSelectedRotateEventJoint,
+        shiftEventJoint: editSelectedShiftEventJoint,
+        zoomEventJoint: editSelectedZoomEventJoint,
+
+        tapNote: editSelectedTapNote,
+
+        singleHoldNoteJoint: editSelectedSingleHoldNoteJoint,
+        doubleHoldNoteJoint: editSelectedDoubleHoldNoteJoint,
+    })

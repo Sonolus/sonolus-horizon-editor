@@ -7,7 +7,7 @@ import BpmPropertiesModal from './BpmPropertiesModal.vue'
 
 export const [bpm, editBpm, editSelectedBpm] = createValueTool(
     () => i18n.value.tools.values.types.bpm,
-    (object) => showModal(BpmPropertiesModal, { object }),
+    () => showModal(BpmPropertiesModal, {}),
 
     60,
 

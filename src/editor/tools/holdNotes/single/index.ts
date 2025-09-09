@@ -26,7 +26,7 @@ export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNot
     createHoldNoteTool(
         () => i18n.value.tools.holdNotes.types.singleHoldNote,
         SingleHoldNoteSidebar,
-        (entity) => showModal(SingleHoldNotePropertiesModal, { object: entity }),
+        () => showModal(SingleHoldNotePropertiesModal, {}),
 
         (beat, lane, joint) => ({
             beat,

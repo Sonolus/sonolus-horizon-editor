@@ -1,31 +1,24 @@
 <script setup lang="ts">
-import { shallowReactive } from 'vue'
-import type { EventObject } from '../../../../chart'
 import { i18n } from '../../../../i18n'
-import BeatField from '../../../../modals/form/BeatField.vue'
-import EaseField from '../../../../modals/form/EaseField.vue'
-import FormModal from '../../../../modals/form/FormModal.vue'
-import RotateValueField from '../../../../modals/form/RotateValueField.vue'
+import MultiBeatField from '../../../../modals/form/MultiBeatField.vue'
+import MultiEaseField from '../../../../modals/form/MultiEaseField.vue'
+import MultiRotateValueField from '../../../../modals/form/MultiRotateValueField.vue'
+import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
+import { useSelectedEntitiesProperties } from '../../../utils/properties'
 
-const props = defineProps<{
-    object: EventObject
-}>()
+const { createModel } = useSelectedEntitiesProperties(
+    (entity) => entity.type === 'rotateEventJoint',
+)
 
-defineEmits<{
-    close: [object?: EventObject]
-}>()
-
-const model = shallowReactive({ ...props.object })
+const value = createModel('value')
+const ease = createModel('ease')
+const beat = createModel('beat')
 </script>
 
 <template>
-    <FormModal
-        :title="i18n.tools.events.modals.rotateEvent.title"
-        @close="$emit('close')"
-        @submit="$emit('close', model)"
-    >
-        <RotateValueField v-model="model.value" />
-        <EaseField v-model="model.ease" />
-        <BeatField v-model="model.beat" />
-    </FormModal>
+    <PropertiesModal :title="i18n.tools.events.modals.rotateEvent.title">
+        <MultiRotateValueField v-model="value" />
+        <MultiEaseField v-model="ease" />
+        <MultiBeatField v-model="beat" />
+    </PropertiesModal>
 </template>

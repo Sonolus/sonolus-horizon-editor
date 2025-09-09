@@ -30,7 +30,7 @@ export const createHoldNoteTool = <
 >(
     objectName: () => string,
     sidebar: Component,
-    showPropertiesModal: (object: EntityOfType<U>) => Promise<T | undefined>,
+    showPropertiesModal: () => Promise<void>,
 
     getObject: (beat: number, lane: number, joint: EntityOfType<U> | undefined) => T,
     shiftObject: (entity: EntityOfType<U>, beat: number, startLane: number, lane: number) => T,
@@ -208,7 +208,7 @@ export const createHoldNoteTool = <
                 }
             },
 
-            async tap(x, y, modifiers) {
+            tap(x, y, modifiers) {
                 const [entity, beat, lane] = tryFind(x, y)
                 if (entity) {
                     const entities = modifyEntities([entity], modifiers)
@@ -246,19 +246,16 @@ export const createHoldNoteTool = <
                             selectedEntities.value.length === 1 &&
                             selectedEntities.value[0] === entity
                         ) {
+                            focusViewAtBeat(entity.beat)
+
                             if (isSidebarVisible.value) {
                                 editMoveOrReplaceJoint(
                                     entity,
                                     editEntity(entity, quickEditEntity(entity)),
                                 )
-                                return
+                            } else {
+                                void showPropertiesModal()
                             }
-
-                            const object = await showPropertiesModal(entity)
-                            if (!object) return
-
-                            editMoveOrReplaceJoint(entity, object)
-                            focusViewAtBeat(object.beat)
                         } else {
                             replaceState({
                                 ...state.value,
@@ -375,7 +372,7 @@ export const createHoldNoteTool = <
                 }
             },
 
-            async dragEnd(x, y) {
+            dragEnd(x, y) {
                 if (!active) return
 
                 switch (active.type) {
@@ -392,11 +389,7 @@ export const createHoldNoteTool = <
                             }
                             focusViewAtBeat(entity.beat)
 
-                            const object = await showPropertiesModal(entity)
-                            if (!object) return
-
-                            editMoveOrReplaceJoint(entity, object)
-                            focusViewAtBeat(object.beat)
+                            void showPropertiesModal()
                         } else {
                             const object = addObject(
                                 beat,

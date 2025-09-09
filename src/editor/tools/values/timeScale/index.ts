@@ -7,7 +7,7 @@ import TimeScalePropertiesModal from './TimeScalePropertiesModal.vue'
 
 export const [timeScale, editTimeScale, editSelectedTimeScale] = createValueTool(
     () => i18n.value.tools.values.types.timeScale,
-    (object) => showModal(TimeScalePropertiesModal, { object }),
+    () => showModal(TimeScalePropertiesModal, {}),
 
     1,
 

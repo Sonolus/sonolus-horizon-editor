@@ -72,7 +72,7 @@ export const tapNote: Tool = {
         }
     },
 
-    async tap(x, y, modifiers) {
+    tap(x, y, modifiers) {
         const [entity, beat, lane] = tryFind(x, y)
         if (entity) {
             if (modifiers.ctrl) {
@@ -97,23 +97,15 @@ export const tapNote: Tool = {
                 notify(interpolate(() => i18n.value.tools.tapNote.selected, `${targets.length}`))
             } else {
                 if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
+                    focusViewAtBeat(entity.beat)
+
                     if (isSidebarVisible.value) {
                         editTapNote(entity, {
                             color: (entity.color + 1) % 7,
                         })
-                        return
+                    } else {
+                        void showModal(TapNotePropertiesModal, {})
                     }
-
-                    const object: TapNoteObject | undefined = await showModal(
-                        TapNotePropertiesModal,
-                        {
-                            object: entity,
-                        },
-                    )
-                    if (!object) return
-
-                    editMoveOrReplace(entity, object)
-                    focusViewAtBeat(object.beat)
                 } else {
                     replaceState({
                         ...state.value,
@@ -212,7 +204,7 @@ export const tapNote: Tool = {
         }
     },
 
-    async dragEnd(x, y) {
+    dragEnd(x, y) {
         if (!active) return
 
         switch (active.type) {
@@ -229,16 +221,7 @@ export const tapNote: Tool = {
                     }
                     focusViewAtBeat(entity.beat)
 
-                    const object: TapNoteObject | undefined = await showModal(
-                        TapNotePropertiesModal,
-                        {
-                            object: entity,
-                        },
-                    )
-                    if (!object) return
-
-                    editMoveOrReplace(entity, object)
-                    focusViewAtBeat(object.beat)
+                    void showModal(TapNotePropertiesModal, {})
                 } else {
                     add({
                         beat,
