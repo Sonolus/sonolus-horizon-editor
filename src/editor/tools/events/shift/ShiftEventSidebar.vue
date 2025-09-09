@@ -1,21 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import {
-    defaultShiftEventProperties,
-    setDefaultShiftEventProperties,
-    type DefaultShiftEventProperties,
-} from '.'
+import { defaultShiftEventProperties, setDefaultShiftEventProperties } from '.'
 import { i18n } from '../../../../i18n'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
 import BaseSidebar from '../../../sidebars/BaseSidebar.vue'
+import { useProperties } from '../../../utils/properties'
 
-const createModel = <K extends keyof DefaultShiftEventProperties>(key: K) =>
-    computed({
-        get: () => defaultShiftEventProperties[key],
-        set: (value) => {
-            setDefaultShiftEventProperties({ ...defaultShiftEventProperties, [key]: value })
-        },
-    })
+const createModel = useProperties(() => defaultShiftEventProperties, setDefaultShiftEventProperties)
 
 const ease = createModel('ease')
 </script>

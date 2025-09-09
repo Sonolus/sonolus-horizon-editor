@@ -1,20 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { brushProperties, setBrushProperties, type BrushProperties } from '.'
+import { brushProperties, setBrushProperties } from '.'
 import { i18n } from '../../../i18n'
 import OptionalColorField from '../../../modals/form/OptionalColorField.vue'
 import OptionalEaseField from '../../../modals/form/OptionalEaseField.vue'
 import OptionalScaleLField from '../../../modals/form/OptionalScaleLField.vue'
 import OptionalScaleRField from '../../../modals/form/OptionalScaleRField.vue'
 import BaseSidebar from '../../sidebars/BaseSidebar.vue'
+import { useProperties } from '../../utils/properties'
 
-const createModel = <K extends keyof BrushProperties>(key: K) =>
-    computed({
-        get: () => brushProperties[key],
-        set: (value) => {
-            setBrushProperties({ ...brushProperties, [key]: value })
-        },
-    })
+const createModel = useProperties(() => brushProperties, setBrushProperties)
 
 const color = createModel('color')
 const scaleL = createModel('scaleL')
