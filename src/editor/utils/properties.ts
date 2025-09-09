@@ -50,6 +50,20 @@ export const useSelectedEntitiesProperties = <T extends Entity>(
     }
 }
 
+export const aggregateProperty = <T, K extends keyof T>(objects: T[], key: K) => {
+    let value: T[K] | undefined
+
+    for (const object of objects) {
+        if (value === undefined) {
+            value = object[key]
+        } else if (value !== object[key]) {
+            return undefined
+        }
+    }
+
+    return value
+}
+
 type DistributedKeyOf<T> = T extends T ? keyof T : never
 
 const aggregate = <T extends object>(aggregate: Partial<T>, object: T) => {

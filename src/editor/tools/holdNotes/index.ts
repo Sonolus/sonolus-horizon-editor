@@ -13,6 +13,8 @@ import { type Transaction, createTransaction } from '../../../state/transaction'
 import { interpolate } from '../../../utils/interpolate'
 import { notify } from '../../notification'
 import { isSidebarVisible } from '../../sidebars'
+import { editSelectedEditableEntities } from '../../sidebars/default'
+import { aggregateProperty } from '../../utils/properties'
 import {
     focusViewAtBeat,
     setViewHover,
@@ -41,7 +43,6 @@ export const createHoldNoteTool = <
         joint: EntityOfType<U> | undefined,
     ) => T,
     editEntity: (entity: EntityOfType<U>, object: Partial<T>) => T,
-    quickEditEntity: (entity: EntityOfType<U>) => Partial<T>,
 
     jointType: U,
     isInFindLane: (joint: EntityOfType<U>, lane: number) => boolean,
@@ -241,18 +242,19 @@ export const createHoldNoteTool = <
                             ),
                         )
                     } else {
-                        if (
-                            entities.length === 1 &&
-                            selectedEntities.value.length === 1 &&
-                            selectedEntities.value[0] === entity
-                        ) {
+                        if (entities.every((entity) => selectedEntities.value.includes(entity))) {
                             focusViewAtBeat(entity.beat)
 
                             if (isSidebarVisible.value) {
-                                editMoveOrReplaceJoint(
-                                    entity,
-                                    editEntity(entity, quickEditEntity(entity)),
-                                )
+                                editSelectedEditableEntities({
+                                    color:
+                                        ((aggregateProperty(
+                                            selectedEntities.value.filter(isJoint),
+                                            'color',
+                                        ) ?? -1) +
+                                            1) %
+                                        7,
+                                })
                             } else {
                                 void showPropertiesModal()
                             }

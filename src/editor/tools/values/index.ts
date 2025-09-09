@@ -180,10 +180,7 @@ export const createValueTool = <T extends ValueEntityType>(
                             ),
                         )
                     } else {
-                        if (
-                            selectedEntities.value.length === 1 &&
-                            selectedEntities.value[0] === entity
-                        ) {
+                        if (selectedEntities.value.includes(entity)) {
                             focusViewAtBeat(entity.beat)
 
                             if (isSidebarVisible.value) {

@@ -35,11 +35,14 @@ export const createEventTool = <T extends EventJointEntityType>(
     (entity: EntityOfType<T>, object: Partial<EventObject>) => void,
     (transaction: Transaction, entity: EntityOfType<T>, object: Partial<EventObject>) => Entity[],
 ] => {
+    const isJoint = (entity: Entity): entity is EntityOfType<T> => entity.type === type
+
     const getEntityFromSelection = () => {
         if (selectedEntities.value.length !== 1) return
 
         const [entity] = selectedEntities.value
-        if (entity?.type !== type) return
+        if (!entity) return
+        if (!isJoint(entity)) return
 
         return entity
     }
@@ -185,9 +188,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                 const [entity, beat, value] = tryFind(x, y)
                 if (entity) {
                     if (modifiers.ctrl) {
-                        const selectedEventEntities = selectedEntities.value.filter(
-                            (entity) => entity.type === type,
-                        )
+                        const selectedEventEntities = selectedEntities.value.filter(isJoint)
 
                         const targets = selectedEventEntities.includes(entity)
                             ? selectedEventEntities.filter((e) => e !== entity)
@@ -211,10 +212,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                             ),
                         )
                     } else {
-                        if (
-                            selectedEntities.value.length === 1 &&
-                            selectedEntities.value[0] === entity
-                        ) {
+                        if (selectedEntities.value.includes(entity)) {
                             focusViewAtBeat(entity.beat)
 
                             if (isSidebarVisible.value) {

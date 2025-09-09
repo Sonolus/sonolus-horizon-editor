@@ -14,6 +14,8 @@ import { interpolate } from '../../../utils/interpolate'
 import { align, mod } from '../../../utils/math'
 import { notify } from '../../notification'
 import { isSidebarVisible } from '../../sidebars'
+import { editSelectedEditableEntities } from '../../sidebars/default'
+import { aggregateProperty } from '../../utils/properties'
 import {
     focusViewAtBeat,
     setViewHover,
@@ -96,12 +98,20 @@ export const tapNote: Tool = {
 
                 notify(interpolate(() => i18n.value.tools.tapNote.selected, `${targets.length}`))
             } else {
-                if (selectedEntities.value.length === 1 && selectedEntities.value[0] === entity) {
+                if (selectedEntities.value.includes(entity)) {
                     focusViewAtBeat(entity.beat)
 
                     if (isSidebarVisible.value) {
-                        editTapNote(entity, {
-                            color: (entity.color + 1) % 7,
+                        editSelectedEditableEntities({
+                            color:
+                                ((aggregateProperty(
+                                    selectedEntities.value.filter(
+                                        (entity) => entity.type === 'tapNote',
+                                    ),
+                                    'color',
+                                ) ?? -1) +
+                                    1) %
+                                7,
                         })
                     } else {
                         void showModal(TapNotePropertiesModal, {})
