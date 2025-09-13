@@ -12,7 +12,7 @@ export const zoomEvent: Command = {
     icon: {
         is: EventIcon,
         props: {
-            fill: '#0f0',
+            fill: '#00f',
         },
     },
 

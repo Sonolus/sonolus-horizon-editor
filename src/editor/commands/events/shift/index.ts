@@ -12,7 +12,7 @@ export const shiftEvent: Command = {
     icon: {
         is: EventIcon,
         props: {
-            fill: '#0f0',
+            fill: '#f00',
         },
     },
 
