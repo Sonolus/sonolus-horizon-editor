@@ -270,7 +270,7 @@
             "tapNoteTool": {
                 "title": "Tap Note Tool",
                 "select": "Tap Tap Note objects to select.",
-                "edit": "Tap Tap Note objects to edit.",
+                "edit": "Tap selected Tap Note objects to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Tap Note object to move.",
                 "ctrl": "Use Ctrl key to add objects to selection.",
@@ -279,7 +279,7 @@
             "singleHoldNoteTool": {
                 "title": "Single Hold Note Tool",
                 "select": "Tap Single Hold Note objects to select.",
-                "edit": "Tap Single Hold Note objects to edit.",
+                "edit": "Tap selected Single Hold Note objects to edit.",
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Single Hold Note object selected to connect.",
                 "move": "Drag 1 Single Hold Note object to move.",
@@ -290,7 +290,7 @@
             "doubleHoldNoteTool": {
                 "title": "Double Hold Note Tool",
                 "select": "Tap Double Hold Note objects to select.",
-                "edit": "Tap Double Hold Note objects to edit.",
+                "edit": "Tap selected Double Hold Note objects to edit.",
                 "add": "Tap empty space to add.",
                 "connect": "Tap empty space with 1 Double Hold Note object selected to connect.",
                 "move": "Drag 1 Double Hold Note object to move.",
@@ -301,7 +301,7 @@
             "rotateEventTool": {
                 "title": "Rotate Event Tool",
                 "select": "Tap Rotate Event objects to select.",
-                "edit": "Tap Rotate Event objects to edit.",
+                "edit": "Tap selected Rotate Event objects to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Rotate Event object to move.",
                 "ctrl": "Use Ctrl key to add objects to selection.",
@@ -310,7 +310,7 @@
             "shiftEventTool": {
                 "title": "Shift Event Tool",
                 "select": "Tap Shift Event objects to select.",
-                "edit": "Tap Shift Event objects to edit.",
+                "edit": "Tap selected Shift Event objects to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Shift Event object to move.",
                 "ctrl": "Use Ctrl key to add objects to selection.",
@@ -319,7 +319,7 @@
             "zoomEventTool": {
                 "title": "Zoom Event Tool",
                 "select": "Tap Zoom Event objects to select.",
-                "edit": "Tap Zoom Event objects to edit.",
+                "edit": "Tap selected Zoom Event objects to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Zoom Event object to move.",
                 "ctrl": "Use Ctrl key to add objects to selection.",
@@ -328,7 +328,7 @@
             "bpmTool": {
                 "title": "BPM Tool",
                 "select": "Tap BPM objects to select.",
-                "edit": "Tap BPM objects to edit.",
+                "edit": "Tap selected BPM objects to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 BPM object to move.",
                 "ctrl": "Use Ctrl key to add objects to selection."
@@ -336,7 +336,7 @@
             "timeScaleTool": {
                 "title": "Time Scale Tool",
                 "select": "Tap Time Scale objects to select.",
-                "edit": "Tap Time Scale objects to edit.",
+                "edit": "Tap selected Time Scale objects to edit.",
                 "add": "Tap empty space to add.",
                 "move": "Drag 1 Time Scale object to move.",
                 "ctrl": "Use Ctrl key to add objects to selection."
