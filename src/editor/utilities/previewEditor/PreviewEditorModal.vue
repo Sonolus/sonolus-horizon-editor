@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Mp3Encoder } from '@breezystack/lamejs'
 import { saveAs } from 'file-saver'
 import { ref } from 'vue'
 import { bgm } from '../../../history/bgm'
@@ -58,6 +57,8 @@ const onGenerate = () => {
             const endSample = Math.floor(buffer.value.sampleRate * end.value)
 
             const buffers: Uint8Array<ArrayBuffer>[] = []
+
+            const { Mp3Encoder } = await import('@breezystack/lamejs')
 
             const encoder = new Mp3Encoder(
                 buffer.value.numberOfChannels,
