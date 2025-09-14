@@ -34,6 +34,7 @@ import { speedUp } from './speedUp'
 import { stop } from './stop'
 import { tapNote } from './tapNote'
 import { undo } from './undo'
+import { utilities } from './utilities'
 import { bpm } from './values/bpm'
 import { timeScale } from './values/timeScale'
 import { bpmVisibility } from './visibilities/bpm'
@@ -64,6 +65,7 @@ export const commands = {
     open,
     save,
     reset,
+    utilities,
 
     play,
     stop,

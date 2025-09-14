@@ -177,6 +177,9 @@
             "title": "Switch to Time Scale tool",
             "switched": "Switched to Time Scale tool"
         },
+        "utilities": {
+            "title": "Utilities"
+        },
         "visibilities": {
             "cycle": {
                 "title": "Cycle Object Visibilities",
@@ -533,6 +536,18 @@
                     "title": "Time Scale Properties"
                 }
             }
+        }
+    },
+    "utilities": {
+        "title": "Utilities",
+        "coverEditor": {
+            "title": "Cover Editor",
+            "cover": "Cover",
+            "size": "Size",
+            "generate": "Generate",
+            "loading": "Loading file...",
+            "decoding": "Decoding image...",
+            "generating": "Generating cover..."
         }
     },
     "notification": {

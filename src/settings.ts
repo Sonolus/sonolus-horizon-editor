@@ -51,7 +51,7 @@ const settingsProperties = {
                 .Encode((values) => values),
             {
                 default: [
-                    ['reset', 'save', 'open'],
+                    ['utilities', 'reset', 'save', 'open'],
                     ['bgm', 'speedUp', 'speedDown', 'stop', 'play'],
                     [
                         'redo',
@@ -127,6 +127,7 @@ const settingsProperties = {
                 open: 'o',
                 save: 'p',
                 reset: 'n',
+                utilities: '.',
                 play: ' ',
                 stop: 'Backspace',
                 bgm: 'm',
