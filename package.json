@@ -11,6 +11,7 @@
     "check-format": "prettier . --check"
   },
   "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
     "@sinclair/typebox": "^0.34.40",
     "@sonolus/core": "~7.14.0",
     "file-saver": "^2.0.5",

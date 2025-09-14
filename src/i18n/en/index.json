@@ -548,6 +548,18 @@
             "loading": "Loading file...",
             "decoding": "Decoding image...",
             "generating": "Generating cover..."
+        },
+        "previewEditor": {
+            "title": "Preview Editor",
+            "bgm": "BGM",
+            "start": "Start",
+            "end": "End",
+            "fadeStart": "Fade Start",
+            "fadeEnd": "Fade End",
+            "generate": "Generate",
+            "loading": "Loading file...",
+            "decoding": "Decoding audio...",
+            "generating": "Generating preview..."
         }
     },
     "notification": {
