@@ -5,7 +5,7 @@ import {
     type RotateEventJointEntity,
 } from '../../../../state/entities/events/joints/rotate'
 import { beatToTime } from '../../../../state/integrals/bpms'
-import { viewBox } from '../../../view'
+import { ups } from '../../../view'
 
 defineProps<RotateEventJointEntity>()
 </script>
@@ -13,7 +13,7 @@ defineProps<RotateEventJointEntity>()
 <template>
     <circle
         :cx="3.5 - rotateEventValueToLane(value)"
-        :cy="beatToTime(bpms, beat) * viewBox.ups"
+        :cy="beatToTime(bpms, beat) * ups"
         r="0.1"
         stroke="#fff"
         fill="#0f0"

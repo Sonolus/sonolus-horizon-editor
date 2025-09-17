@@ -5,7 +5,7 @@ import {
     type ShiftEventJointEntity,
 } from '../../../../state/entities/events/joints/shift'
 import { beatToTime } from '../../../../state/integrals/bpms'
-import { viewBox } from '../../../view'
+import { ups } from '../../../view'
 
 defineProps<ShiftEventJointEntity>()
 </script>
@@ -13,7 +13,7 @@ defineProps<ShiftEventJointEntity>()
 <template>
     <circle
         :cx="3.5 - shiftEventValueToLane(value)"
-        :cy="beatToTime(bpms, beat) * viewBox.ups"
+        :cy="beatToTime(bpms, beat) * ups"
         r="0.1"
         stroke="#fff"
         fill="#f00"

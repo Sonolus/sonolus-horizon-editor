@@ -4,11 +4,11 @@ import { bpms } from '../../../history/bpms'
 import type { BpmEntity } from '../../../state/entities/values/bpm'
 import { beatToTime } from '../../../state/integrals/bpms'
 import { formatBpm } from '../../../utils/format'
-import { viewBox } from '../../view'
+import { ups } from '../../view'
 
 const props = defineProps<BpmEntity>()
 
-const y = computed(() => beatToTime(bpms.value, props.beat) * viewBox.value.ups)
+const y = computed(() => beatToTime(bpms.value, props.beat) * ups.value)
 </script>
 
 <template>

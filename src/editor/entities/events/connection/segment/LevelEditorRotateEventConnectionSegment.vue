@@ -5,7 +5,7 @@ import type { RotateEventConnectionEntity } from '../../../../../state/entities/
 import { rotateEventValueToLane } from '../../../../../state/entities/events/joints/rotate'
 import { lerp, remap } from '../../../../../utils/math'
 import { easeCurve, easeValue } from '../../../../ease'
-import { viewBox } from '../../../../view'
+import { ups } from '../../../../view'
 
 const props = defineProps<{
     entity: RotateEventConnectionEntity
@@ -25,8 +25,8 @@ const paths = computed(() => {
     const x1 = 3.5 - rotateEventValueToLane(value1)
     const x2 = x1 + w
 
-    const y1 = min.time * viewBox.value.ups
-    const y2 = max.time * viewBox.value.ups
+    const y1 = min.time * ups.value
+    const y2 = max.time * ups.value
 
     const d =
         ease === 'linear' || value1 === value2

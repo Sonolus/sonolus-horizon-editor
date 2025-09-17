@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { view, viewBox } from './view'
+import { ups, view } from './view'
 </script>
 
 <template>
     <rect
         v-if="view.selection"
         :x="3.5 - view.selection.laneMax"
-        :y="view.selection.timeMax * viewBox.ups"
+        :y="view.selection.timeMax * ups"
         :width="view.selection.laneMax - view.selection.laneMin"
-        :height="(view.selection.timeMin - view.selection.timeMax) * viewBox.ups"
+        :height="(view.selection.timeMin - view.selection.timeMax) * ups"
         stroke="#fff"
         stroke-opacity="0.5"
         stroke-dasharray="6 4"

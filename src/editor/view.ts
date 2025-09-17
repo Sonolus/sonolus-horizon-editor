@@ -141,6 +141,8 @@ export const viewBox = computed(() => {
     }
 })
 
+export const ups = computed(() => viewBox.value.ups)
+
 export const scrollViewBy = (dy: number, smooth = false) => {
     if (smooth) {
         view.scrolling = {

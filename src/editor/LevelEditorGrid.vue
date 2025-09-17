@@ -5,7 +5,7 @@ import { bpms } from '../history/bpms'
 import { beatToTime } from '../state/integrals/bpms'
 import { formatIntegerBeat, formatIntegerTime } from '../utils/format'
 import { computedRange } from '../utils/range'
-import { view, viewBox } from './view'
+import { ups, view, viewBox } from './view'
 
 const range = computedRange(() => ({
     min: Math.ceil(beats.value.min * view.division),
@@ -14,7 +14,7 @@ const range = computedRange(() => ({
 
 const lines = computed(() =>
     [...Array(range.value.max - range.value.min + 1).keys()].map((i) => ({
-        y: beatToTime(bpms.value, (i + range.value.min) / view.division) * viewBox.value.ups,
+        y: beatToTime(bpms.value, (i + range.value.min) / view.division) * ups.value,
         isBeat: (i + range.value.min) % view.division === 0,
     })),
 )
@@ -26,7 +26,7 @@ const beatNumberRange = computedRange(() => ({
 
 const beatNumbers = computed(() =>
     [...Array(beatNumberRange.value.max - beatNumberRange.value.min + 1).keys()].map((i) => ({
-        y: beatToTime(bpms.value, i + beatNumberRange.value.min) * viewBox.value.ups,
+        y: beatToTime(bpms.value, i + beatNumberRange.value.min) * ups.value,
         beat: formatIntegerBeat(i + beatNumberRange.value.min),
     })),
 )
@@ -38,7 +38,7 @@ const timeNumberRange = computedRange(() => ({
 
 const timeNumbers = computed(() =>
     [...Array(timeNumberRange.value.max - timeNumberRange.value.min + 1).keys()].map((i) => ({
-        y: (i + timeNumberRange.value.min) * viewBox.value.ups,
+        y: (i + timeNumberRange.value.min) * ups.value,
         time: formatIntegerTime(i + timeNumberRange.value.min),
     })),
 )

@@ -4,13 +4,13 @@ import { bpms } from '../../../../history/bpms'
 import type { DoubleHoldNoteConnectionEntity } from '../../../../state/entities/holdNotes/connections/double'
 import { beatToTime } from '../../../../state/integrals/bpms'
 import { computedRange } from '../../../../utils/range'
-import { viewBox } from '../../../view'
+import { ups } from '../../../view'
 
 const props = defineProps<DoubleHoldNoteConnectionEntity>()
 
 const y = computedRange(() => ({
-    min: beatToTime(bpms.value, props.min.beat) * viewBox.value.ups,
-    max: beatToTime(bpms.value, props.max.beat) * viewBox.value.ups,
+    min: beatToTime(bpms.value, props.min.beat) * ups.value,
+    max: beatToTime(bpms.value, props.max.beat) * ups.value,
 }))
 </script>
 

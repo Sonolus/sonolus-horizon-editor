@@ -5,7 +5,7 @@ import type { ZoomEventConnectionEntity } from '../../../../../state/entities/ev
 import { zoomEventValueToLane } from '../../../../../state/entities/events/joints/zoom'
 import { lerp } from '../../../../../utils/math'
 import { easeCurve, easeValue } from '../../../../ease'
-import { viewBox } from '../../../../view'
+import { ups } from '../../../../view'
 
 const props = defineProps<{
     entity: ZoomEventConnectionEntity
@@ -22,8 +22,8 @@ const d = computed(() => {
     const x1 = sToX(easeValue(min.s, ease))
     const x2 = sToX(easeValue(max.s, ease))
 
-    const y1 = min.time * viewBox.value.ups
-    const y2 = max.time * viewBox.value.ups
+    const y1 = min.time * ups.value
+    const y2 = max.time * ups.value
 
     return ease === 'linear'
         ? `M ${x1} ${y1} L ${x2} ${y2}`

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { view, viewBox } from './view'
+import { ups, view } from './view'
 </script>
 
 <template>
     <line
-        :transform="`translate(0, ${view.hoverTime * viewBox.ups})`"
+        :transform="`translate(0, ${view.hoverTime * ups})`"
         :x1="-4"
         :x2="4"
         y1="0"

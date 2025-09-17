@@ -5,7 +5,7 @@ import {
     type ZoomEventJointEntity,
 } from '../../../../state/entities/events/joints/zoom'
 import { beatToTime } from '../../../../state/integrals/bpms'
-import { viewBox } from '../../../view'
+import { ups } from '../../../view'
 
 defineProps<ZoomEventJointEntity>()
 </script>
@@ -13,7 +13,7 @@ defineProps<ZoomEventJointEntity>()
 <template>
     <circle
         :cx="3.5 - zoomEventValueToLane(value)"
-        :cy="beatToTime(bpms, beat) * viewBox.ups"
+        :cy="beatToTime(bpms, beat) * ups"
         r="0.1"
         stroke="#fff"
         fill="#00f"

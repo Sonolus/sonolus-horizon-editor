@@ -5,7 +5,7 @@ import { bgm } from '../history/bgm'
 import { settings } from '../settings'
 import { computedRange } from '../utils/range'
 import { waveformDuration } from '../waveform'
-import { viewBox } from './view'
+import { ups } from './view'
 
 const indexes = computedRange(() => ({
     min: Math.floor(times.value.min / waveformDuration),
@@ -42,7 +42,7 @@ const images = computed(() => {
 <template>
     <g
         opacity="0.25"
-        :transform="`translate(0, ${bgm.offset * -viewBox.ups}) scale(4, ${waveformDuration * -viewBox.ups})`"
+        :transform="`translate(0, ${bgm.offset * -ups}) scale(4, ${waveformDuration * -ups})`"
     >
         <template v-for="{ href, y, style } in images" :key="href">
             <image :href :y width="1" height="1" preserveAspectRatio="none" :style />

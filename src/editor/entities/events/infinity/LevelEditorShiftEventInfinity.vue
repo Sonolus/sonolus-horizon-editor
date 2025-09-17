@@ -4,7 +4,7 @@ import { bpms } from '../../../../history/bpms'
 import { store } from '../../../../history/store'
 import { shiftEventValueToLane } from '../../../../state/entities/events/joints/shift'
 import { beatToTime } from '../../../../state/integrals/bpms'
-import { viewBox } from '../../../view'
+import { ups, viewBox } from '../../../view'
 
 const range = computed(() => store.value.eventRanges.shiftEventJoint)
 </script>
@@ -16,12 +16,12 @@ const range = computed(() => store.value.eventRanges.shiftEventJoint)
                 :x1="3.5 - shiftEventValueToLane(range.min.value)"
                 :x2="3.5 - shiftEventValueToLane(range.min.value)"
                 :y1="0"
-                :y2="beatToTime(bpms, range.min.beat) * viewBox.ups"
+                :y2="beatToTime(bpms, range.min.beat) * ups"
             />
             <line
                 :x1="3.5 - shiftEventValueToLane(range.max.value)"
                 :x2="3.5 - shiftEventValueToLane(range.max.value)"
-                :y1="beatToTime(bpms, range.max.beat) * viewBox.ups"
+                :y1="beatToTime(bpms, range.max.beat) * ups"
                 :y2="viewBox.t"
             />
         </template>

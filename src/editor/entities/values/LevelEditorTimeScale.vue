@@ -4,11 +4,11 @@ import { bpms } from '../../../history/bpms'
 import type { TimeScaleEntity } from '../../../state/entities/values/timeScale'
 import { beatToTime } from '../../../state/integrals/bpms'
 import { formatTimeScale } from '../../../utils/format'
-import { viewBox } from '../../view'
+import { ups } from '../../view'
 
 const props = defineProps<TimeScaleEntity>()
 
-const y = computed(() => beatToTime(bpms.value, props.beat) * viewBox.value.ups)
+const y = computed(() => beatToTime(bpms.value, props.beat) * ups.value)
 </script>
 
 <template>

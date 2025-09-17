@@ -3,7 +3,7 @@ import { colors } from '../../colors'
 import { bpms } from '../../history/bpms'
 import type { TapNoteEntity } from '../../state/entities/tapNote'
 import { beatToTime } from '../../state/integrals/bpms'
-import { viewBox } from '../view'
+import { ups } from '../view'
 
 defineProps<TapNoteEntity>()
 </script>
@@ -11,7 +11,7 @@ defineProps<TapNoteEntity>()
 <template>
     <rect
         :x="3 - lane"
-        :y="beatToTime(bpms, beat) * viewBox.ups - 0.25"
+        :y="beatToTime(bpms, beat) * ups - 0.25"
         width="1"
         height="0.5"
         class="scale-stroke"
