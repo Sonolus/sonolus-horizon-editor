@@ -7,42 +7,43 @@ import { beatToTime } from '../../../../state/integrals/bpms'
 import { timeToScaledTime } from '../../../../state/integrals/timeScales'
 import { unlerp } from '../../../../utils/math'
 import { bisect } from '../../../../utils/ordered'
+import { computedRange } from '../../../../utils/range'
 import type { Segment, SegmentJoint } from './segment'
 
 const props = defineProps<EventConnectionEntity>()
 
+const times = computedRange(() => ({
+    min: beatToTime(bpms.value, props.min.beat),
+    max: beatToTime(bpms.value, props.max.beat),
+}))
+
+const scaledTimes = computedRange(() => ({
+    min: timeToScaledTime(timeScales.value, times.value.min),
+    max: timeToScaledTime(timeScales.value, times.value.max),
+}))
+
 const segments = computed(() => {
-    const times = {
-        min: beatToTime(bpms.value, props.min.beat),
-        max: beatToTime(bpms.value, props.max.beat),
-    }
-
-    const scaledTimes = {
-        min: timeToScaledTime(timeScales.value, times.min),
-        max: timeToScaledTime(timeScales.value, times.max),
-    }
-
     const scaledTimeToS = (scaledTime: number) =>
-        unlerp(scaledTimes.min, scaledTimes.max, scaledTime)
+        unlerp(scaledTimes.value.min, scaledTimes.value.max, scaledTime)
 
     const segments: Segment[] = []
 
     let max: SegmentJoint | undefined
 
-    for (let i = bisect(timeScales.value, 'x', times.max) - 1; i >= 0; i--) {
+    for (let i = bisect(timeScales.value, 'x', times.value.max) - 1; i >= 0; i--) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const { x, y, s } = timeScales.value[i]!
 
         max ??= {
-            time: times.max,
-            s: scaledTimeToS(y + (times.max - x) * s),
+            time: times.value.max,
+            s: scaledTimeToS(y + (times.value.max - x) * s),
         }
 
         const min: SegmentJoint =
-            times.min > x
+            times.value.min > x
                 ? {
-                      time: times.min,
-                      s: scaledTimeToS(y + (times.min - x) * s),
+                      time: times.value.min,
+                      s: scaledTimeToS(y + (times.value.min - x) * s),
                   }
                 : {
                       time: x,
@@ -54,7 +55,7 @@ const segments = computed(() => {
             max,
         })
 
-        if (times.min >= x) break
+        if (times.value.min >= x) break
 
         max = min
     }

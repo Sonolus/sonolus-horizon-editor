@@ -8,7 +8,9 @@ import { ups } from '../../view'
 
 const props = defineProps<BpmEntity>()
 
-const y = computed(() => beatToTime(bpms.value, props.beat) * ups.value)
+const time = computed(() => beatToTime(bpms.value, props.beat))
+
+const y = computed(() => time.value * ups.value)
 </script>
 
 <template>

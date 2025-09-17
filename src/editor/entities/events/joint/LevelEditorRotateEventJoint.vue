@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { bpms } from '../../../../history/bpms'
 import {
     rotateEventValueToLane,
@@ -7,13 +8,15 @@ import {
 import { beatToTime } from '../../../../state/integrals/bpms'
 import { ups } from '../../../view'
 
-defineProps<RotateEventJointEntity>()
+const props = defineProps<RotateEventJointEntity>()
+
+const time = computed(() => beatToTime(bpms.value, props.beat))
 </script>
 
 <template>
     <circle
         :cx="3.5 - rotateEventValueToLane(value)"
-        :cy="beatToTime(bpms, beat) * ups"
+        :cy="time * ups"
         r="0.1"
         stroke="#fff"
         fill="#0f0"

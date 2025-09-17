@@ -8,11 +8,13 @@ import { ups } from '../../../view'
 
 const props = defineProps<DoubleHoldNoteJointEntity>()
 
+const time = computed(() => beatToTime(bpms.value, props.beat))
+
 const points = computed(() => {
     const x1 = 3 - Math.max(props.laneL, props.laneR)
     const x2 = 4 - Math.min(props.laneL, props.laneR)
 
-    const y2 = beatToTime(bpms.value, props.beat) * ups.value
+    const y2 = time.value * ups.value
     const y1 = y2 - 0.25
 
     return `${x1} ${y2} ${x1 + 0.5} ${y1} ${x2 - 0.5} ${y1} ${x2} ${y2}`

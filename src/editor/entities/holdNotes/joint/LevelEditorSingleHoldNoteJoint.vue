@@ -9,11 +9,13 @@ import { ups } from '../../../view'
 
 const props = defineProps<SingleHoldNoteJointEntity>()
 
+const time = computed(() => beatToTime(bpms.value, props.beat))
+
 const points = computed(() => {
     const x1 = 3 - props.lane
     const x2 = 4 - props.lane
 
-    const y2 = beatToTime(bpms.value, props.beat) * ups.value
+    const y2 = time.value * ups.value
     const y1 = y2 - 0.25
 
     return `${x1} ${y2} ${x1} ${lerp(y1, y2, props.scaleL)} ${x2} ${lerp(y1, y2, props.scaleR)} ${x2} ${y2}`

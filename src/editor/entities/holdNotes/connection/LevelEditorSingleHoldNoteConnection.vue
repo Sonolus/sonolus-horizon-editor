@@ -8,9 +8,14 @@ import { ups } from '../../../view'
 
 const props = defineProps<SingleHoldNoteConnectionEntity>()
 
+const time = computedRange(() => ({
+    min: beatToTime(bpms.value, props.min.beat),
+    max: beatToTime(bpms.value, props.max.beat),
+}))
+
 const y = computedRange(() => ({
-    min: beatToTime(bpms.value, props.min.beat) * ups.value,
-    max: beatToTime(bpms.value, props.max.beat) * ups.value,
+    min: time.value.min * ups.value,
+    max: time.value.max * ups.value,
 }))
 </script>
 
