@@ -3,14 +3,16 @@ import type { HoldNoteEntity } from './holdNotes'
 import type { TapNoteEntity } from './tapNote'
 import type { ValueEntity } from './values'
 
+export type EntityHitbox = {
+    lane: number
+    beat: number
+    w: number
+    t: number
+    b: number
+}
+
 export type BaseEntity = {
-    hitbox?: {
-        lane: number
-        beat: number
-        w: number
-        t: number
-        b: number
-    }
+    hitbox?: EntityHitbox
 
     beat: number
 }
