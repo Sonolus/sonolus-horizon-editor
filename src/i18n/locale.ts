@@ -7,8 +7,9 @@ export const defaultLocale = (() => {
         case 'ja':
         case 'ko':
         case 'pt':
-        case 'zh':
             return main
+        case 'zh':
+            return 'zhs'
         default:
             return 'en'
     }
