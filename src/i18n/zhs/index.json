@@ -2,10 +2,10 @@
   "title": "中文 (Chinese)",
   "commands": {
     "bgm": {
-      "title": "背景音乐.",
+      "title": "背景音乐",
       "changed": "已更改背景音乐",
       "modal": {
-        "file": "文件.",
+        "file": "文件",
         "offset": "偏移 (毫秒)",
         "loading": "正在载入文件...",
         "decoding": "正在解码音频...",
@@ -20,7 +20,7 @@
       }
     },
     "copy": {
-      "title": "复制.",
+      "title": "复制",
       "noSelected": "未选择要复制的对象",
       "copied": "已复制 {0} 个对象"
     },
@@ -650,7 +650,7 @@
       "ok": "好的"
     },
     "loading": {
-      "loading": "加载中 ..."
+      "loading": "加载中..."
     }
   }
 }
