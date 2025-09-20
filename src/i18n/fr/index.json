@@ -50,15 +50,24 @@
     },
     "rotateEvent": {
       "title": "Passer à l'outil Événement Rotation",
-      "switched": "Outil Événement Rotation activé"
+      "switched": "Outil Événement Rotation activé",
+      "modal": {
+        "title": "Propriétés par Défaut des Évènements Rotations"
+      }
     },
     "shiftEvent": {
       "title": "Passer à l'outil Événement Décalage",
-      "switched": "Outil Événement Décalage activé"
+      "switched": "Outil Événement Décalage activé",
+      "modal": {
+        "title": "Propriétés par Défaut des Évènements Décalages"
+      }
     },
     "zoomEvent": {
       "title": "Passer à l'outil Événement Zoom",
-      "switched": "Outil Événement Zoom activé"
+      "switched": "Outil Événement Zoom activé",
+      "modal": {
+        "title": "Propriétés par Défaut des Évènements Zooms"
+      }
     },
     "flip": {
       "title": "Retourner",
@@ -70,11 +79,17 @@
     },
     "doubleHoldNote": {
       "title": "Passer à l'outil Note Maintenue Double",
-      "switched": "Outil Note Maintenue Double"
+      "switched": "Outil Note Maintenue Double",
+      "modal": {
+        "title": "Propriétés par Défaut des Notes Maintenues Doubles"
+      }
     },
     "singleHoldNote": {
       "title": "Passer à l'outil Note Maintenue Simple activé",
-      "switched": "Outil Note Maintenue Simple activé"
+      "switched": "Outil Note Maintenue Simple activé",
+      "modal": {
+        "title": "Propriétés par Défaut des Notes Maintenues Simples"
+      }
     },
     "jumpDown": {
       "title": "Aller en Bas"
@@ -144,7 +159,10 @@
     },
     "tapNote": {
       "title": "Passer à l'outil Note Tapée",
-      "switched": "Outil Note Tapée activé"
+      "switched": "Outil Note Tapée activé",
+      "modal": {
+        "title": "Propriétés par Défaut des Notes Tapées"
+      }
     },
     "undo": {
       "title": "Défaire",
@@ -158,6 +176,9 @@
     "timeScale": {
       "title": "Passer à l'outil Échelle de Temps",
       "switched": "Outil Échelle de Temps activé"
+    },
+    "utilities": {
+      "title": "Utilitaires"
     },
     "visibilities": {
       "cycle": {
@@ -213,7 +234,9 @@
         "dragPrimary": "Clic gauche et glisser pour faire glisser avec l'outil principal.",
         "tapSecondary": "Clic droit pour appuyer avec l'outil secondaire.",
         "dragSecondary": "Clic droit et glisser pour faire glisser avec l'outil secondaire.",
-        "scroll": "Utilisez la molette pour faire défiler."
+        "scroll": "Utilisez la molette pour faire défiler.",
+        "zoomY": "Défilez la molette avec la touche Ctrl pour zoomer verticalement.",
+        "zoomX": "Défilez la molette avec les touches Ctrl et Maj pour zoomer horizontalement."
       },
       "keyboard": {
         "title": "Clavier",
@@ -223,23 +246,25 @@
       "selectTool": {
         "title": "Outil Sélection",
         "select": "Appuyez sur un objet pour le sélectionner. Réappuyez pour sélectionner le suivant si les objets sont superposés.",
-        "toggle": "Appuyez sur les objets avec la touche Maj pour inverser la sélection.",
         "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
         "move": "Glissez les objets pour déplacer tous les objets sélectionnés.",
         "selectMultiple": "Glissez sur une zone vide pour sélectionner plusieurs objets.",
-        "selectAdd": "Glissez sur une zone vide avec la touche Maj pour ajouter plusieurs objets à la sélection."
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "shift": "Utilisez la touche Maj pour agir sur tous les objets notes maintenus associés."
       },
       "eraserTool": {
         "title": "Outil Gomme",
         "erase": "Appuyez sur les objets pour les effacer.",
         "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
-        "eraseMultiple": "Glissez pour effacer plusieurs objets."
+        "eraseMultiple": "Glissez pour effacer plusieurs objets.",
+        "shift": "Utilisez la touche Maj pour agir sur tous les objets notes maintenus associés."
       },
       "brushTool": {
         "title": "Outil Pinceau",
         "brush": "Appuyez sur les objets pour les peindre.",
         "deselect": "Appuyez sur une zone vide pour désélectionner tous les objets.",
-        "brushMultiple": "Glissez pour peindre plusieurs objets."
+        "brushMultiple": "Glissez pour peindre plusieurs objets.",
+        "shift": "Utilisez la touche Maj pour agir sur tous les objets notes maintenus associés."
       },
       "pasteTool": {
         "title": "Outil Coller",
@@ -247,53 +272,77 @@
       },
       "tapNoteTool": {
         "title": "Outil Note Tapée",
-        "edit": "Appuyez sur une Note Tapée pour la modifier.",
+        "select": "Appuyez sur une Note Tapée pour la sélectionner.",
+        "edit": "Appuyez sur une Note Tapée sélectionnée pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez une Note Tapée pour la déplacer."
+        "move": "Glissez une Note Tapée pour la déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "properties": "Revenez à l’outil Note Tapée pour modifier les propriétés par défaut."
       },
       "singleHoldNoteTool": {
         "title": "Outil Note Maintenue Simple ",
-        "edit": "Appuyez sur une Note Maintenue Simple pour la modifier.",
+        "select": "Appuyez sur une Note Maintenue Simple pour la sélectionner.",
+        "edit": "Appuyez sur une Note Maintenue Simple sélectionnée pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
         "connect": "Appuyez sur une zone vide avec une Note Maintenue Simple sélectionnée pour ajouter une connexion.",
-        "move": "Glissez une Note Maintenue Simple pour la déplacér."
+        "move": "Glissez une Note Maintenue Simple pour la déplacér.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "shift": "Utilisez la touche Maj pour agir sur tous les objets notes maintenus associés.",
+        "properties": "Revenez à l’outil Note Maintenue Simple pour modifier les propriétés par défaut."
       },
       "doubleHoldNoteTool": {
         "title": "Outil Note Maintenue Double",
-        "edit": "Appuyez sur une Note Maintenue Double pour la modifier.",
+        "select": "Appuyez sur une Note Maintenue Double pour la sélectionner.",
+        "edit": "Appuyez sur une Note Maintenue Double sélectionnée pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
         "connect": "Appuyez sur une zone vide avec une Note Maintenue Double sélectionnée pour ajouter une connexion.",
-        "move": "Glissez une Note Maintenue Double pour la déplacer."
+        "move": "Glissez une Note Maintenue Double pour la déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "shift": "Utilisez la touche Maj pour agir sur tous les objets notes maintenus associés.",
+        "properties": "Revenez à l’outil Note Maintenue Double pour modifier les propriétés par défaut."
       },
       "rotateEventTool": {
         "title": "Outil Événement Rotation",
-        "edit": "Appuyez sur un Évènement Rotation pour le modifier.",
+        "select": "Appuyez sur un Évènement Rotation pour le sélectioner.",
+        "edit": "Appuyez sur un Évènement Rotation sélectionné pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez un Événement Rotation pour le déplacer."
+        "move": "Glissez un Événement Rotation pour le déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "properties": "Revenez à l’outil Événement Rotation pour modifier les propriétés par défaut."
       },
       "shiftEventTool": {
         "title": "Outil Événement Décalage",
-        "edit": "Appuyez sur un Évènement Décalage pour le modifier.",
+        "select": "Appuyez sur un Évènement Décalage pour le sélectionner.",
+        "edit": "Appuyez sur un Évènement Décalage sélectionné pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez un Événement Décalage pour le déplacer."
+        "move": "Glissez un Événement Décalage pour le déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "properties": "Revenez à l’outil Événement Décalage pour modifier les propriétés par défaut."
       },
       "zoomEventTool": {
         "title": "Outil Événement Zoom",
-        "edit": "Appuyez sur un Événement Zoom pour le modifier.",
+        "select": "Appuyez sur un Évènement Zoom pour le sélectionner.",
+        "edit": "Appuyez sur un Évènement Zoom sélectionné pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez un Événement Zoom pour le déplacer."
+        "move": "Glissez un Événement Zoom pour le déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection.",
+        "properties": "Revenez à l’outil Événement Zoom pour modifier les propriétés par défaut."
       },
       "bpmTool": {
         "title": "Outil BPM",
-        "edit": "Appuyez sur un objet BPM pour le modifier.",
+        "select": "Appuyez sur un objets BPM pour le sélectionner.",
+        "edit": "Appuyez sur un objet BPM sélectionné pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez un objet BPM pour le déplacer."
+        "move": "Glissez un objet BPM pour le déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection."
       },
       "timeScaleTool": {
         "title": "Outil Échelle de Temps",
-        "edit": "Appuyez sur un objet Échelle de Temps pour le modifier.",
+        "select": "Appuyez sur un objet Échelle de Temps pour le sélectionner.",
+        "edit": "Appuyez sur un objet Échelle de Temps sélectionné pour les modifier.",
         "add": "Appuyez sur une zone vide pour en ajouter.",
-        "move": "Glissez un objet Échelle de temps pour le déplacer."
+        "move": "Glissez un objet Échelle de temps pour le déplacer.",
+        "ctrl": "Utilisez la touche Ctrl pour ajouter des objets à la sélection."
       }
     }
   },
@@ -335,6 +384,7 @@
       "title": "Aperçu",
       "position": {
         "title": "Position",
+        "auto": "Auto",
         "top": "Haut",
         "left": "Gauche"
       },
@@ -352,11 +402,21 @@
       "scrollInertia": "Inertie de défilement"
     }
   },
+  "sidebar": {
+    "default": {
+      "title": "Propriétés de l'Objet",
+      "none": "Aucun objet sélectionné",
+      "edited": "{0} objets modifiés"
+    }
+  },
   "tools": {
     "brush": {
       "deselected": "Objets Désélectionnés",
       "brushing": "Peinture de {0} objets",
-      "brushed": "{0} objets peints"
+      "brushed": "{0} objets peints",
+      "sidebar": {
+        "title": "Propriétés du Pinceau"
+      }
     },
     "eraser": {
       "deselected": "Objets Désélectionnés",
@@ -366,6 +426,7 @@
     "events": {
       "moving": "Déplacement de {0} objets {1}",
       "adding": "Ajout de {0} objets {1}",
+      "selected": "{0} objets {1} sélectionnés",
       "added": "{0} objets {1} ajoutés",
       "edited": "{0} objets {1} modifiés",
       "moved": "{0} objets {1} déplacés",
@@ -385,11 +446,23 @@
         "zoomEvent": {
           "title": "Propriétés de l'Événement Zoom"
         }
+      },
+      "sidebars": {
+        "rotateEvent": {
+          "title": "Propriétés par Défaut des Évènements Rotations"
+        },
+        "shiftEvent": {
+          "title": "Propriétés par Défaut des Évènements Décalages"
+        },
+        "zoomEvent": {
+          "title": "Propriétés par Défaut des Évènements Zoom"
+        }
       }
     },
     "holdNotes": {
       "moving": "Déplacement de {0} objets {1}",
       "adding": "Ajout de {0} objets {1}",
+      "selected": "{0} objets {1} sélectionnés",
       "added": "{0} objets {1} ajoutés",
       "edited": "{0} objets {1} modifiés",
       "moved": "{0} objets {1} remplacés",
@@ -405,10 +478,21 @@
         "doubleHoldNote": {
           "title": "Propriétés de la Note Maintenue Double"
         }
+      },
+      "sidebars": {
+        "singleHoldNote": {
+          "title": "Propriétés par Défaut des Notes Maintenues Simples"
+        },
+        "doubleHoldNote": {
+          "title": "Propriétés par Défaut des Notes Maintenues Doubles"
+        }
       }
     },
     "paste": {
-      "pasted": "{0} objets collés"
+      "pasted": "{0} objets collés",
+      "sidebar": {
+        "title": "Historique du Presse-papiers"
+      }
     },
     "select": {
       "deselected": "Objets Désélectionnés",
@@ -420,17 +504,22 @@
     "tapNote": {
       "moving": "Déplacement de {0} objets Note Tapée",
       "adding": "Ajout de {0} objets Note Tapée",
+      "selected": "{0} objets Note Tapée sélectionnés",
       "added": "{0} objets Note Tapée ajoutés",
       "edited": " {0} objets Note Tapée modifiés",
       "moved": "{0} objets Note Tapée déplacés ",
       "replaced": "{0} objets Note Tapée remplacés",
       "modal": {
         "title": "Propriétés de la Note Tapée"
+      },
+      "sidebar": {
+        "title": "Propriétés par défaut des Notes Tapées"
       }
     },
     "values": {
       "moving": "Déplacement de {0} objets {1}",
       "adding": "Ajout de {0} objets {1}",
+      "selected": "{0} objets {1} sélectionnés",
       "added": "{0} objets {1} ajoutés",
       "edited": "{0} objets {1} modifiés",
       "moved": "{0} objets {1} déplacés",
@@ -447,6 +536,30 @@
           "title": "Propriétés de l'Échelle de Temps"
         }
       }
+    }
+  },
+  "utilities": {
+    "title": "Utilitaires",
+    "coverEditor": {
+      "title": "Éditeur de Miniature",
+      "cover": "Miniature",
+      "size": "Taille",
+      "generate": "Générer",
+      "loading": "Chargement du fichier…",
+      "decoding": "Décodage de l'image…",
+      "generating": "Génération de la miniature…"
+    },
+    "previewEditor": {
+      "title": "Éditeur d'Aperçu",
+      "bgm": "Musique",
+      "start": "Début",
+      "end": "Fin",
+      "fadeStart": "Fondu Entrant",
+      "fadeEnd": "Fondu Sortant",
+      "generate": "Générer",
+      "loading": "Chargement du fichier…",
+      "decoding": "Décodage audio…",
+      "generating": "Génération de l'aperçu…"
     }
   },
   "notification": {
@@ -514,6 +627,9 @@
       },
       "scaleR": {
         "label": "Échelle Droite"
+      },
+      "size": {
+        "label": "Taille"
       },
       "timeScale": {
         "label": "Échelle de Temps"
