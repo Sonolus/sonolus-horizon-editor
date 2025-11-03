@@ -26,7 +26,7 @@ let state:
     | {
           speed: number
           time: number
-          cursorTime: number
+          bgmTime: number
           contextTime: number
 
           lastTime: number
@@ -46,8 +46,8 @@ watch(time, ({ now }) => {
     }
 
     const beats = {
-        min: timeToBeat(bpms.value, (state.lastTime - state.time) * state.speed + state.cursorTime),
-        max: timeToBeat(bpms.value, (now - state.time) * state.speed + state.cursorTime),
+        min: timeToBeat(bpms.value, (state.lastTime - state.time) * state.speed + state.bgmTime),
+        max: timeToBeat(bpms.value, (now - state.time) * state.speed + state.bgmTime),
     }
 
     for (const entity of cullAllEntities(beatToKey(beats.min), beatToKey(beats.max))) {
@@ -75,7 +75,7 @@ watch(time, ({ now }) => {
                 state.nodes,
                 sfxBuffers[type],
                 settings.playSfxVolume,
-                (beatToTime(bpms.value, beat) - state.cursorTime) / state.speed +
+                (beatToTime(bpms.value, beat) - state.bgmTime) / state.speed +
                     state.contextTime +
                     delay,
             )
@@ -87,15 +87,14 @@ watch(time, ({ now }) => {
 
 export const loadBgm = (data: ArrayBuffer) => context.decodeAudioData(data)
 
-export const startPlayer = (speed: number) => {
+export const startPlayer = (bgmTime: number, speed: number) => {
     const time = performance.now() / 1000
-    const cursorTime = view.cursorTime
     const contextTime = context.currentTime
 
     state = {
         speed,
         time,
-        cursorTime,
+        bgmTime,
         contextTime,
 
         lastTime: time,
@@ -110,7 +109,7 @@ export const startPlayer = (speed: number) => {
             bgm.value.buffer,
             settings.playBgmVolume,
             contextTime + delay,
-            cursorTime + bgm.value.offset,
+            bgmTime + bgm.value.offset,
             speed,
         )
 
