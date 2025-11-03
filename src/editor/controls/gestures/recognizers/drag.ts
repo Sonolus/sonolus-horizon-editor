@@ -1,4 +1,5 @@
 import { ref, watch } from 'vue'
+import { settings } from '../../../../settings'
 import { time } from '../../../../time'
 import { unlerp } from '../../../../utils/math'
 import { tool } from '../../../tools'
@@ -8,9 +9,19 @@ import type { Recognizer } from './recognizer'
 
 export const isDragging = ref(0)
 
-export const drag = (): Recognizer<1> => {
+export const drag = (quickScroll: boolean): Recognizer<1> => {
+    const updates: {
+        t: number
+        dy: number
+    }[] = []
     let active:
         | {
+              type: 'drag'
+              id: number
+          }
+        | {
+              type: 'scroll'
+              sy: number
               id: number
           }
         | undefined
@@ -46,19 +57,30 @@ export const drag = (): Recognizer<1> => {
             if (!isActive) return false
             if (Math.hypot(x - sx, y - sy) <= 20) return false
 
-            if (!tool.value.dragStart?.(sx, sy, modifiers)) return true
+            const p = (x - view.x) / view.w
+            if (!quickScroll || p < 1 - settings.touchQuickScrollZone / 100) {
+                if (!tool.value.dragStart?.(sx, sy, modifiers)) return true
 
-            isDragging.value++
+                isDragging.value++
 
-            active = {
-                id,
+                active = {
+                    type: 'drag',
+                    id,
+                }
+                update = {
+                    x,
+                    y,
+                    modifiers,
+                }
+                return true
+            } else {
+                active = {
+                    type: 'scroll',
+                    sy,
+                    id,
+                }
+                return true
             }
-            update = {
-                x,
-                y,
-                modifiers,
-            }
-            return true
         },
 
         update(pointers) {
@@ -67,20 +89,43 @@ export const drag = (): Recognizer<1> => {
             const p = pointers.get(active.id)
             if (!p) return
 
-            if (p.isActive) {
-                update = {
-                    x: p.x,
-                    y: p.y,
-                    modifiers: p.modifiers,
+            if (active.type === 'drag') {
+                if (p.isActive) {
+                    update = {
+                        x: p.x,
+                        y: p.y,
+                        modifiers: p.modifiers,
+                    }
+                } else {
+                    isDragging.value--
+
+                    void tool.value.dragEnd?.(p.x, p.y, p.modifiers)
                 }
             } else {
-                isDragging.value--
+                const dy = p.y - active.sy
 
-                void tool.value.dragEnd?.(p.x, p.y, p.modifiers)
+                scrollViewBy(dy)
+
+                updates.push({
+                    t: time.value.now,
+                    dy,
+                })
+                active.sy = p.y
             }
         },
 
         reset() {
+            if (active?.type === 'scroll' && settings.touchScrollInertia) {
+                const dy = updates
+                    .filter(({ t }) => time.value.now - t <= 0.1)
+                    .reduce((sum, { dy }) => sum + dy, 0)
+                view.scrolling = {
+                    type: 'inertia',
+                    value: dy / 0.1,
+                }
+            }
+
+            updates.length = 0
             active = undefined
             update = undefined
         },
