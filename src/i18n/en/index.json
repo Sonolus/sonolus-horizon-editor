@@ -224,6 +224,7 @@
                 "title": "Touchscreen",
                 "tap": "One finger tap to tap.",
                 "drag": "One finger drag to drag.",
+                "quickScroll": "One finger drag in quick scroll zone to scroll.",
                 "scroll": "Two finger pan vertically to scroll.",
                 "zoomY": "Two finger pinch vertically to zoom Y.",
                 "zoomX": "Two finger pinch horizontally to zoom X."
