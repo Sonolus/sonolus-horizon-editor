@@ -7,7 +7,7 @@ import { i18n } from '../../../i18n'
 import { parseLevelData } from '../../../levelData/parse'
 import { showModal } from '../../../modals'
 import LoadingModal from '../../../modals/LoadingModal.vue'
-import { getFilename, pickFile } from '../../../utils/file'
+import { getFilename, pickFileForOpen } from '../../../utils/file'
 import { timeout } from '../../../utils/promise'
 import { notify } from '../../notification'
 import OpenIcon from './OpenIcon.vue'
@@ -21,7 +21,7 @@ export const open: Command = {
     async execute() {
         if (!(await checkState())) return
 
-        const file = await pickFile()
+        const { file, handle } = await pickFileForOpen('levelData')
         if (!file) return
 
         await showModal(LoadingModal, {
@@ -41,7 +41,7 @@ export const open: Command = {
                 const chart = parseChart(levelData.entities)
                 validateChart(chart)
 
-                resetState(chart, levelData.bgmOffset, getFilename(file))
+                resetState(chart, levelData.bgmOffset, getFilename(file), handle)
 
                 notify(() => i18n.value.commands.open.opened)
             },
