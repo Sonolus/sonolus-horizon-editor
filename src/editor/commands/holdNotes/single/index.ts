@@ -2,7 +2,7 @@ import type { Command } from '../..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import { notify } from '../../../notification'
-import { focusSidebar, isSidebarVisible } from '../../../sidebars'
+import { isSidebarVisible } from '../../../sidebars'
 import { switchToolTo, toolName } from '../../../tools'
 import DefaultSingleHoldNotePropertiesModal from './DefaultSingleHoldNotePropertiesModal.vue'
 import SingleHoldNoteIcon from './SingleHoldNoteIcon.vue'
@@ -15,9 +15,7 @@ export const singleHoldNote: Command = {
 
     execute() {
         if (toolName.value === 'singleHoldNote') {
-            if (isSidebarVisible.value) {
-                focusSidebar()
-            } else {
+            if (!isSidebarVisible.value) {
                 void showModal(DefaultSingleHoldNotePropertiesModal, {})
             }
         } else {
