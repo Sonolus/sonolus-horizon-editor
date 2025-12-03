@@ -11,6 +11,7 @@ import { rotateEvent } from './events/rotate'
 import { shiftEvent } from './events/shift'
 import { zoomEvent } from './events/zoom'
 import { flip } from './flip'
+import { fullscreen } from './fullscreen'
 import { help } from './help'
 import { doubleHoldNote } from './holdNotes/double'
 import { singleHoldNote } from './holdNotes/single'
@@ -130,6 +131,7 @@ export const commands = {
 
     help,
     settings,
+    fullscreen,
 }
 
 export type CommandName = keyof typeof commands
