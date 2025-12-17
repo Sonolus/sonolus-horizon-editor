@@ -29,13 +29,8 @@ export const copy: Command = {
             return
         }
 
-        const [entity] = hitAllEntitiesAtPoint(view.pointer.x, view.pointer.y).filter((entity) =>
-            entities.includes(entity),
-        )
-
         const data: ClipboardData = {
-            lane: xToLane(view.pointer.x),
-            beat: entity?.beat ?? yToValidBeat(view.pointer.y),
+            ...getAnchor(entities, view.pointer.x, view.pointer.y),
             entities: serializeLevelDataEntities(
                 getEntities(entities, 'bpm'),
                 getEntities(entities, 'timeScale'),
@@ -67,6 +62,40 @@ export const copy: Command = {
 
         notify(interpolate(() => i18n.value.commands.copy.copied, `${entities.length}`))
     },
+}
+
+const getAnchor = (entities: Entity[], x: number, y: number) => {
+    const hitEntities = hitAllEntitiesAtPoint(x, y)
+        .filter((entity) => entities.includes(entity))
+        .sort((a, b) => a.beat - b.beat)
+    const sortedEntities = [...entities].sort((a, b) => a.beat - b.beat)
+
+    const hit =
+        hitEntities.find(
+            (entity) =>
+                entity.type === 'rotateEventJoint' ||
+                entity.type === 'tapNote' ||
+                entity.type === 'singleHoldNoteJoint' ||
+                entity.type === 'doubleHoldNoteJoint',
+        ) ??
+        sortedEntities.find(
+            (entity) =>
+                entity.type === 'rotateEventJoint' ||
+                entity.type === 'tapNote' ||
+                entity.type === 'singleHoldNoteJoint' ||
+                entity.type === 'doubleHoldNoteJoint',
+        )
+    if (hit)
+        return {
+            lane: hit.hitbox?.lane ?? xToLane(x),
+            beat: hit.beat,
+        }
+
+    const entity = hitEntities[0] ?? sortedEntities[0]
+    return {
+        lane: xToLane(x),
+        beat: entity?.beat ?? yToValidBeat(y),
+    }
 }
 
 const getEntities = <T extends EntityType>(entities: Entity[], type: T) =>
