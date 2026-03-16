@@ -29,7 +29,7 @@ const paths = computed(() => {
     const y2 = max.time * ups.value
 
     const d =
-        ease === 'linear' || value1 === value2
+        (ease !== 'in' && ease !== 'out') || value1 === value2
             ? `M ${x1} ${y1} L ${x2} ${y2}`
             : `M ${x1} ${y1} Q ${remap(value1, value2, x1, x2, sToValue(easeCurve(min.s, max.s, ease)))} ${(y1 + y2) / 2} ${x2} ${y2}`
 

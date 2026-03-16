@@ -25,7 +25,7 @@ const d = computed(() => {
     const y1 = min.time * ups.value
     const y2 = max.time * ups.value
 
-    return ease === 'linear'
+    return ease !== 'in' && ease !== 'out'
         ? `M ${x1} ${y1} L ${x2} ${y2}`
         : `M ${x1} ${y1} Q ${sToX(easeCurve(min.s, max.s, ease))} ${(y1 + y2) / 2} ${x2} ${y2}`
 })

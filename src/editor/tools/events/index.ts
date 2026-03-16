@@ -223,7 +223,9 @@ export const createEventTool = <T extends EventJointEntityType>(
                                         {
                                             linear: 'in',
                                             in: 'out',
-                                            out: 'linear',
+                                            out: 'zero',
+                                            zero: 'one',
+                                            one: 'linear',
                                         } as const
                                     )[entity.ease],
                                 })

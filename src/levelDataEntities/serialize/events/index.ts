@@ -25,9 +25,11 @@ export const serializeLevelDataEventEntities = (
                 {
                     name: 'ease',
                     value: {
+                        one: -2,
                         out: -1,
                         linear: 0,
                         in: 1,
+                        zero: 2,
                     }[joint.ease],
                 },
             ],
