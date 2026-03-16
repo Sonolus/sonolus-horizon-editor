@@ -32,6 +32,10 @@ export const serializeLevelDataEventEntities = (
                         zero: 2,
                     }[joint.ease],
                 },
+                {
+                    name: 'ignoreTimeScale',
+                    value: +joint.ignoreTimeScale,
+                },
             ],
         })
     }

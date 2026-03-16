@@ -28,6 +28,7 @@ export type BrushProperties = {
     scaleL?: number
     scaleR?: number
     ease?: Ease
+    ignoreTimeScale?: boolean
 }
 
 export let brushProperties: BrushProperties = {}

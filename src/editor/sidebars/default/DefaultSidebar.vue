@@ -5,6 +5,7 @@ import MultiBeatField from '../../../modals/form/MultiBeatField.vue'
 import MultiBpmField from '../../../modals/form/MultiBpmField.vue'
 import MultiColorField from '../../../modals/form/MultiColorField.vue'
 import MultiEaseField from '../../../modals/form/MultiEaseField.vue'
+import MultiIgnoreTimeScaleField from '../../../modals/form/MultiIgnoreTimeScaleField.vue'
 import MultiLaneField from '../../../modals/form/MultiLaneField.vue'
 import MultiLaneLField from '../../../modals/form/MultiLaneLField.vue'
 import MultiLaneRField from '../../../modals/form/MultiLaneRField.vue'
@@ -21,6 +22,7 @@ const { entities, types, createModel } = useSelectedEntitiesProperties(isEditabl
 const beat = createModel('beat')
 const value = createModel('value')
 const ease = createModel('ease')
+const ignoreTimeScale = createModel('ignoreTimeScale')
 const color = createModel('color')
 const lane = createModel('lane')
 const scaleL = createModel('scaleL')
@@ -40,6 +42,10 @@ const laneR = createModel('laneR')
             <MultiEaseField
                 v-if="types.rotateEventJoint || types.shiftEventJoint || types.zoomEventJoint"
                 v-model="ease"
+            />
+            <MultiIgnoreTimeScaleField
+                v-if="types.rotateEventJoint || types.shiftEventJoint || types.zoomEventJoint"
+                v-model="ignoreTimeScale"
             />
             <MultiColorField
                 v-if="types.tapNote || types.singleHoldNoteJoint || types.doubleHoldNoteJoint"

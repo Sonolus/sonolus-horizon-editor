@@ -11,6 +11,7 @@ export type EventJointEntityType = EventJointEntity['type']
 export type BaseEventJointEntity = BaseEntity & {
     value: number
     ease: Ease
+    ignoreTimeScale: boolean
 }
 
 export const toEventJointEntity = (object: EventObject, hitboxLane: number) => ({
@@ -25,4 +26,5 @@ export const toEventJointEntity = (object: EventObject, hitboxLane: number) => (
     beat: object.beat,
     value: object.value,
     ease: object.ease,
+    ignoreTimeScale: object.ignoreTimeScale,
 })

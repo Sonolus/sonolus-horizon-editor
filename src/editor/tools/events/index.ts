@@ -25,6 +25,7 @@ export const createEventTool = <T extends EventJointEntityType>(
     getValue: (beat: number, x: number) => number,
     shiftValue: (value: number, sx: number, x: number) => number,
     getEase: () => Ease | undefined,
+    getIgnoreTimeScale: () => boolean | undefined,
 
     type: T,
     toEntity: (object: EventObject) => EntityOfType<T>,
@@ -52,6 +53,7 @@ export const createEventTool = <T extends EventJointEntityType>(
 
         return {
             ease: getEase() ?? entity?.ease ?? 'linear',
+            ignoreTimeScale: getIgnoreTimeScale() ?? entity?.ignoreTimeScale ?? false,
         }
     }
 
@@ -228,6 +230,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                                             one: 'linear',
                                         } as const
                                     )[entity.ease],
+                                    ignoreTimeScale: entity.ignoreTimeScale,
                                 })
                             } else {
                                 void showPropertiesModal()
@@ -341,6 +344,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                                     beat,
                                     value: shiftValue(active.entity.value, active.x, x),
                                     ease: active.entity.ease,
+                                    ignoreTimeScale: active.entity.ignoreTimeScale,
                                 }),
                             ],
                         }
@@ -392,6 +396,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                             beat,
                             value: shiftValue(active.entity.value, active.x, x),
                             ease: active.entity.ease,
+                            ignoreTimeScale: active.entity.ignoreTimeScale,
                         })
                         focusViewAtBeat(beat)
                         break
@@ -407,6 +412,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                 beat: object.beat ?? entity.beat,
                 value: object.value ?? entity.value,
                 ease: object.ease ?? entity.ease,
+                ignoreTimeScale: object.ignoreTimeScale ?? entity.ignoreTimeScale,
             })
         },
 
@@ -416,6 +422,7 @@ export const createEventTool = <T extends EventJointEntityType>(
                 beat: object.beat ?? entity.beat,
                 value: object.value ?? entity.value,
                 ease: object.ease ?? entity.ease,
+                ignoreTimeScale: object.ignoreTimeScale ?? entity.ignoreTimeScale,
             })
         },
     ]

@@ -16,6 +16,7 @@ import RotateEventSidebar from './RotateEventSidebar.vue'
 
 export type DefaultRotateEventProperties = {
     ease?: Ease
+    ignoreTimeScale?: boolean
 }
 
 export let defaultRotateEventProperties: DefaultRotateEventProperties = {}
@@ -52,6 +53,7 @@ export const [rotateEvent, editRotateEventJoint, editSelectedRotateEventJoint] =
     },
     (value, sx, x) => value - align(xToLane(x), 2) + align(xToLane(sx), 2),
     () => defaultRotateEventProperties.ease,
+    () => defaultRotateEventProperties.ignoreTimeScale,
 
     'rotateEventJoint',
     toRotateEventJointEntity,

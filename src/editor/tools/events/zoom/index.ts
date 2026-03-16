@@ -14,6 +14,7 @@ import ZoomEventSidebar from './ZoomEventSidebar.vue'
 
 export type DefaultZoomEventProperties = {
     ease?: Ease
+    ignoreTimeScale?: boolean
 }
 
 export let defaultZoomEventProperties: DefaultZoomEventProperties = {}
@@ -33,6 +34,7 @@ export const [zoomEvent, editZoomEventJoint, editSelectedZoomEventJoint] = creat
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
     () => defaultZoomEventProperties.ease,
+    () => defaultZoomEventProperties.ignoreTimeScale,
 
     'zoomEventJoint',
     toZoomEventJointEntity,

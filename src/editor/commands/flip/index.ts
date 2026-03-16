@@ -80,6 +80,7 @@ const flips: {
             beat: entity.beat,
             value,
             ease: entity.ease,
+            ignoreTimeScale: entity.ignoreTimeScale,
         })
     },
 
