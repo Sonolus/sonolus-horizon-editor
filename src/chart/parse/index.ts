@@ -53,6 +53,19 @@ export const getValue = <T extends TSchema>(
     return data.value
 }
 
+export const getOptionalValue = <T extends TSchema>(
+    entity: LevelDataEntity,
+    name: string,
+    schema: T,
+): Static<T> | undefined => {
+    const data = entity.data.find((data) => data.name === name)
+    if (!data) return
+    if (!('value' in data)) return
+
+    Value.Assert(schema, data.value)
+    return data.value
+}
+
 export const getRef = (entity: LevelDataEntity, name: string) => {
     const data = entity.data.find((data) => data.name === name)
     if (!data) throw new Error(`Invalid level: ${name} not found`)

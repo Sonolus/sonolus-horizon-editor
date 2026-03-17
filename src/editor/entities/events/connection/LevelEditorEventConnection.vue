@@ -12,6 +12,8 @@ import type { Segment, SegmentJoint } from './segment'
 
 const props = defineProps<EventConnectionEntity>()
 
+const ignoreTimeScale = computed(() => props.min.ignoreTimeScale)
+
 const times = computedRange(() => ({
     min: beatToTime(bpms.value, props.min.beat),
     max: beatToTime(bpms.value, props.max.beat),
@@ -23,6 +25,20 @@ const scaledTimes = computedRange(() => ({
 }))
 
 const segments = computed(() => {
+    if (ignoreTimeScale.value)
+        return [
+            {
+                min: {
+                    time: times.value.min,
+                    s: 0,
+                },
+                max: {
+                    time: times.value.max,
+                    s: 1,
+                },
+            },
+        ]
+
     const scaledTimeToS = (scaledTime: number) =>
         unlerp(scaledTimes.value.min, scaledTimes.value.max, scaledTime)
 

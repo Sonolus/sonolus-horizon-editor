@@ -21,6 +21,7 @@ export type EventObject = {
     beat: number
     value: number
     ease: Ease
+    ignoreTimeScale: boolean
 }
 
 export type Ease = 'one' | 'out' | 'linear' | 'in' | 'zero'

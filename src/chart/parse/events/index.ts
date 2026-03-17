@@ -1,6 +1,6 @@
 import { Type, type TNumber } from '@sinclair/typebox'
 import { EngineArchetypeDataName, type LevelDataEntity } from '@sonolus/core'
-import { getValue } from '..'
+import { getOptionalValue, getValue } from '..'
 import type { EventObject } from '../..'
 import { beatSchema } from '../schemas'
 
@@ -20,6 +20,8 @@ const easeSchema = Type.Union([
     Type.Literal(2),
 ])
 
+const ignoreTimeScaleSchema = Type.Union([Type.Literal(0), Type.Literal(1)])
+
 export const parseChartEventObjects = (
     objects: EventObject[],
     entities: LevelDataEntity[],
@@ -33,6 +35,7 @@ export const parseChartEventObjects = (
             beat: getValue(entity, EngineArchetypeDataName.Beat, beatSchema),
             value: getValue(entity, 'value', schema),
             ease: ease[getValue(entity, 'ease', easeSchema)],
+            ignoreTimeScale: !!getOptionalValue(entity, 'ignoreTimeScale', ignoreTimeScaleSchema),
         })
     }
 }

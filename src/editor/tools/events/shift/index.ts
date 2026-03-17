@@ -14,6 +14,7 @@ import ShiftEventSidebar from './ShiftEventSidebar.vue'
 
 export type DefaultShiftEventProperties = {
     ease?: Ease
+    ignoreTimeScale?: boolean
 }
 
 export let defaultShiftEventProperties: DefaultShiftEventProperties = {}
@@ -33,6 +34,7 @@ export const [shiftEvent, editShiftEventJoint, editSelectedShiftEventJoint] = cr
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
     () => defaultShiftEventProperties.ease,
+    () => defaultShiftEventProperties.ignoreTimeScale,
 
     'shiftEventJoint',
     toShiftEventJointEntity,

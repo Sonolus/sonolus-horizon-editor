@@ -247,6 +247,7 @@ const toMovedEventObject = <T extends EventJointEntityType>(
         ? entity.value
         : clamp(entity.value + align(laneToValue(lane), 10) - align(laneToValue(startLane), 10)),
     ease: entity.ease,
+    ignoreTimeScale: entity.ignoreTimeScale,
 })
 
 const toMovedRotateEventObject = (
@@ -267,6 +268,7 @@ const toMovedRotateEventObject = (
         beat,
         value: entity.value - align(lane, division) + align(startLane, division),
         ease: entity.ease,
+        ignoreTimeScale: entity.ignoreTimeScale,
     }
 }
 
