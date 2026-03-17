@@ -1,4 +1,5 @@
 import { createEventTool } from '..'
+import type { Ease } from '../../../../chart'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import {
@@ -7,7 +8,6 @@ import {
 } from '../../../../state/entities/events/joints/zoom'
 import { addZoomEventJoint, removeZoomEventJoint } from '../../../../state/mutations/events/zoom'
 import { align, clamp } from '../../../../utils/math'
-import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import ZoomEventPropertiesModal from './ZoomEventPropertiesModal.vue'
 import ZoomEventSidebar from './ZoomEventSidebar.vue'

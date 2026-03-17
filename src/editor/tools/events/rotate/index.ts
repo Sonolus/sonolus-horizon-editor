@@ -1,4 +1,5 @@
 import { createEventTool } from '..'
+import type { Ease } from '../../../../chart'
 import { store } from '../../../../history/store'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -9,7 +10,6 @@ import {
 } from '../../../../state/mutations/events/rotate'
 import { getInStoreGrid } from '../../../../state/store/grid'
 import { align, clamp } from '../../../../utils/math'
-import type { Ease } from '../../../ease'
 import { xToLane } from '../../../view'
 import RotateEventPropertiesModal from './RotateEventPropertiesModal.vue'
 import RotateEventSidebar from './RotateEventSidebar.vue'

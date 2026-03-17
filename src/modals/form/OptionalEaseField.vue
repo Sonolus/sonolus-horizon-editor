@@ -11,9 +11,11 @@ const modelValue = defineModel<Ease | undefined>({ required: true })
         v-model="modelValue"
         :label="i18n.modals.form.ease.label"
         :options="[
-            [i18n.modals.form.ease.out, 'out'],
             [i18n.modals.form.ease.linear, 'linear'],
             [i18n.modals.form.ease.in, 'in'],
+            [i18n.modals.form.ease.out, 'out'],
+            [i18n.modals.form.ease.zero, 'zero'],
+            [i18n.modals.form.ease.one, 'one'],
         ]"
     />
 </template>

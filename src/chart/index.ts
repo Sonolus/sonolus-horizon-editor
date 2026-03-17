@@ -23,7 +23,7 @@ export type EventObject = {
     ease: Ease
 }
 
-export type Ease = 'out' | 'linear' | 'in'
+export type Ease = 'one' | 'out' | 'linear' | 'in' | 'zero'
 
 export type TapNoteObject = {
     beat: number

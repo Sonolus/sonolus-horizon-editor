@@ -614,9 +614,11 @@
             },
             "ease": {
                 "label": "Ease",
+                "one": "One",
                 "out": "Out",
                 "linear": "Linear",
-                "in": "In"
+                "in": "In",
+                "zero": "Zero"
             },
             "file": {
                 "select": "Select File..."
