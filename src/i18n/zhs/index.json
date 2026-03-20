@@ -74,6 +74,11 @@
       "noSelected": "未选择要翻转的对象",
       "flipped": "已翻转 {0} 个对象"
     },
+    "fullscreen": {
+      "title": "全屏",
+      "toggled": "切换全屏",
+      "unsupported": "您的设备不支持全屏模式"
+    },
     "help": {
       "title": "帮助"
     },
@@ -224,6 +229,7 @@
         "title": "触控屏",
         "tap": "单指轻触即可点击。",
         "drag": "单指拖曳即可拖动。",
+        "quickScroll": "单指在快速滑动区域中拖拽即可纵向滚动。",
         "scroll": "双指垂直平移即可纵向滚动。",
         "zoomY": "双指垂直捏合可纵向缩放。",
         "zoomX": "双指水平捏合可横向缩放。"
@@ -377,6 +383,11 @@
       "title": "播放",
       "bgmVolume": "背景音乐音量",
       "sfxVolume": "音效音量",
+      "startPosition": {
+        "title": "起始位置",
+        "view": "视图",
+        "cursor": "光标"
+      },
       "follow": "跟随",
       "followPosition": "跟随位置"
     },
@@ -399,6 +410,7 @@
     },
     "touch": {
       "title": "触控",
+      "quickScrollZone": "快速滑动区域",
       "scrollInertia": "滚动惯性"
     }
   },
@@ -602,12 +614,15 @@
       },
       "ease": {
         "label": "缓动",
-        "out": "緩出",
+        "out": "缓出",
         "linear": "线性",
-        "in": "緩入"
+        "in": "缓入"
       },
       "file": {
         "select": "选择文件..."
+      },
+      "ignoreTimeScale": {
+        "label": "无视TS效果"
       },
       "lane": {
         "label": "轨道"
