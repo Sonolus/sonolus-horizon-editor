@@ -614,12 +614,17 @@
       },
       "ease": {
         "label": "加減速",
+        "one": "イチ",
         "out": "減速",
         "linear": "直線",
-        "in": "加速"
+        "in": "加速",
+        "zero": "ゼロ"
       },
       "file": {
         "select": "ファイルを選択してください..."
+      },
+      "ignoreTimeScale": {
+        "label": "ハイスピード設定を無視"
       },
       "lane": {
         "label": "レーン"
