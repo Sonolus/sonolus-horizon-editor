@@ -74,6 +74,11 @@
       "noSelected": "Aucun objet sélectionné à retourner",
       "flipped": "{0} objets retournés"
     },
+    "fullscreen": {
+      "title": "Plein écran",
+      "toggled": "Passage en plein écran",
+      "unsupported": "Le mode plein écran n'est pas pris en charge sur votre appareil"
+    },
     "help": {
       "title": "Aide"
     },
@@ -224,6 +229,7 @@
         "title": "Écran Tactile",
         "tap": "Appuyez d'un seul doigt pour appuyer.",
         "drag": "Glissez d'un seul doigt pour faire glisser.",
+        "quickScroll": "Glissez d'un seul doigt dans la zone de défilement rapide pour faire défiler.",
         "scroll": "Glissez deux doigts verticalement pour faire défiler.",
         "zoomY": "Pincez verticalement avec deux doigts pour zoomer l'axe Y.",
         "zoomX": "Pincez horizontalement avec deux doigts pour zoomer l'axe X."
@@ -377,6 +383,11 @@
       "title": "Jouer",
       "bgmVolume": "Volume de la Musique",
       "sfxVolume": "Volume des Effets Sonores",
+      "startPosition": {
+        "title": "Position de Départ",
+        "view": "Vue",
+        "cursor": "Curseur"
+      },
       "follow": "Suivre",
       "followPosition": "Suivre la Position"
     },
@@ -399,6 +410,7 @@
     },
     "touch": {
       "title": "Touche",
+      "quickScrollZone": "Zone de Défilement Rapide",
       "scrollInertia": "Inertie de défilement"
     }
   },
@@ -602,12 +614,17 @@
       },
       "ease": {
         "label": "Accélération",
+        "one": "Un",
         "out": "Out",
         "linear": "Linéaire",
-        "in": "In"
+        "in": "In",
+        "zero": "Zéro"
       },
       "file": {
         "select": "Sélectionner un Fichier…"
+      },
+      "ignoreTimeScale": {
+        "label": "Ignorer l'Échelle de Temps"
       },
       "lane": {
         "label": "Voie"
