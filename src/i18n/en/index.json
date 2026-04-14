@@ -102,6 +102,10 @@
         "jumpUp": {
             "title": "Jump Up"
         },
+        "offset": {
+            "title": "Switch to Offset tool",
+            "switched": "Switched to Offset tool"
+        },
         "open": {
             "title": "Open",
             "loading": "Loading file...",
@@ -501,6 +505,9 @@
                     "title": "Default Double Hold Note Properties"
                 }
             }
+        },
+        "offset": {
+            "changed": "Changed BGM offset"
         },
         "paste": {
             "pasted": "Pasted {0} objects",

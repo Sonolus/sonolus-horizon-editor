@@ -8,6 +8,7 @@ import { shiftEvent } from './events/shift'
 import { zoomEvent } from './events/zoom'
 import { doubleHoldNote } from './holdNotes/double'
 import { singleHoldNote } from './holdNotes/single'
+import { offset } from './offset'
 import { paste } from './paste'
 import { select } from './select'
 import { tapNote } from './tapNote'
@@ -42,6 +43,8 @@ export const tools = {
 
     bpm,
     timeScale,
+
+    offset,
 }
 
 export type ToolName = keyof typeof tools
