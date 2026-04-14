@@ -1,5 +1,5 @@
-import { createEventTool } from '..'
-import type { Ease } from '../../../../chart'
+import { ref } from 'vue'
+import { createEventTool, type DefaultEventProperties } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import {
@@ -12,16 +12,9 @@ import { xToLane } from '../../../view'
 import ShiftEventPropertiesModal from './ShiftEventPropertiesModal.vue'
 import ShiftEventSidebar from './ShiftEventSidebar.vue'
 
-export type DefaultShiftEventProperties = {
-    ease?: Ease
-    ignoreTimeScale?: boolean
-}
-
-export let defaultShiftEventProperties: DefaultShiftEventProperties = {}
-
-export const setDefaultShiftEventProperties = (properties: DefaultShiftEventProperties) => {
-    defaultShiftEventProperties = properties
-}
+export const defaultShiftEventProperties = ref<DefaultEventProperties>({
+    copyProperties: true,
+})
 
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
 
@@ -29,12 +22,11 @@ export const [shiftEvent, editShiftEventJoint, editSelectedShiftEventJoint] = cr
     () => i18n.value.tools.events.types.shiftEvent,
     ShiftEventSidebar,
     () => showModal(ShiftEventPropertiesModal, {}),
+    defaultShiftEventProperties,
 
     (value, x) => value === toValue(x),
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
-    () => defaultShiftEventProperties.ease,
-    () => defaultShiftEventProperties.ignoreTimeScale,
 
     'shiftEventJoint',
     toShiftEventJointEntity,

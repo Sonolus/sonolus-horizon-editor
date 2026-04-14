@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { createHoldNoteTool } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -14,26 +15,26 @@ export type DefaultSingleHoldNoteProperties = {
     color?: number
     scaleL?: number
     scaleR?: number
+    copyProperties: boolean
 }
 
-export let defaultSingleHoldNoteProperties: DefaultSingleHoldNoteProperties = {}
-
-export const setDefaultSingleHoldNoteProperties = (properties: DefaultSingleHoldNoteProperties) => {
-    defaultSingleHoldNoteProperties = properties
-}
+export const defaultSingleHoldNoteProperties = ref<DefaultSingleHoldNoteProperties>({
+    copyProperties: true,
+})
 
 export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNoteJoint] =
     createHoldNoteTool(
         () => i18n.value.tools.holdNotes.types.singleHoldNote,
         SingleHoldNoteSidebar,
         () => showModal(SingleHoldNotePropertiesModal, {}),
+        defaultSingleHoldNoteProperties,
 
         (beat, lane, joint) => ({
             beat,
-            color: defaultSingleHoldNoteProperties.color ?? joint?.color ?? 0,
+            color: defaultSingleHoldNoteProperties.value.color ?? joint?.color ?? 0,
             lane,
-            scaleL: defaultSingleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
-            scaleR: defaultSingleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
+            scaleL: defaultSingleHoldNoteProperties.value.scaleL ?? joint?.scaleL ?? 0,
+            scaleR: defaultSingleHoldNoteProperties.value.scaleR ?? joint?.scaleR ?? 0,
         }),
         (entity, beat, startLane, lane) => ({
             beat,
@@ -44,10 +45,10 @@ export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNot
         }),
         (beat, startLane, lane, joint) => ({
             beat,
-            color: defaultSingleHoldNoteProperties.color ?? joint?.color ?? 0,
+            color: defaultSingleHoldNoteProperties.value.color ?? joint?.color ?? 0,
             lane,
-            scaleL: defaultSingleHoldNoteProperties.scaleL ?? joint?.scaleL ?? 0,
-            scaleR: defaultSingleHoldNoteProperties.scaleR ?? joint?.scaleR ?? 0,
+            scaleL: defaultSingleHoldNoteProperties.value.scaleL ?? joint?.scaleL ?? 0,
+            scaleR: defaultSingleHoldNoteProperties.value.scaleR ?? joint?.scaleR ?? 0,
         }),
         (entity, object) => ({
             beat: object.beat ?? entity.beat,

@@ -1,16 +1,16 @@
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
 import { selectedEntities } from '../../history/selectedEntities'
 import type { Entity, EntityType } from '../../state/entities'
 import { entries } from '../../utils/object'
 import { editSelectedEditableEntities, type EditableObject } from '../sidebars/default'
 
 export const useProperties =
-    <T>(get: () => T, set: (properties: T) => void) =>
+    <T>(ref: Ref<T>) =>
     <K extends keyof T>(key: K) =>
         computed({
-            get: () => get()[key],
+            get: () => ref.value[key],
             set: (value) => {
-                set({ ...get(), [key]: value })
+                ref.value = { ...ref.value, [key]: value }
             },
         })
 

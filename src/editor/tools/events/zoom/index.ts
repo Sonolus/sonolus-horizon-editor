@@ -1,5 +1,5 @@
-import { createEventTool } from '..'
-import type { Ease } from '../../../../chart'
+import { ref } from 'vue'
+import { createEventTool, type DefaultEventProperties } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import {
@@ -12,16 +12,9 @@ import { xToLane } from '../../../view'
 import ZoomEventPropertiesModal from './ZoomEventPropertiesModal.vue'
 import ZoomEventSidebar from './ZoomEventSidebar.vue'
 
-export type DefaultZoomEventProperties = {
-    ease?: Ease
-    ignoreTimeScale?: boolean
-}
-
-export let defaultZoomEventProperties: DefaultZoomEventProperties = {}
-
-export const setDefaultZoomEventProperties = (properties: DefaultZoomEventProperties) => {
-    defaultZoomEventProperties = properties
-}
+export const defaultZoomEventProperties = ref<DefaultEventProperties>({
+    copyProperties: true,
+})
 
 const toValue = (x: number) => clamp(align(laneToZoomEventValue(xToLane(x)), 10))
 
@@ -29,12 +22,11 @@ export const [zoomEvent, editZoomEventJoint, editSelectedZoomEventJoint] = creat
     () => i18n.value.tools.events.types.zoomEvent,
     ZoomEventSidebar,
     () => showModal(ZoomEventPropertiesModal, {}),
+    defaultZoomEventProperties,
 
     (value, x) => value === toValue(x),
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
-    () => defaultZoomEventProperties.ease,
-    () => defaultZoomEventProperties.ignoreTimeScale,
 
     'zoomEventJoint',
     toZoomEventJointEntity,

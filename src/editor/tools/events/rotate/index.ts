@@ -1,5 +1,5 @@
-import { createEventTool } from '..'
-import type { Ease } from '../../../../chart'
+import { ref } from 'vue'
+import { createEventTool, type DefaultEventProperties } from '..'
 import { store } from '../../../../history/store'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -14,16 +14,9 @@ import { xToLane } from '../../../view'
 import RotateEventPropertiesModal from './RotateEventPropertiesModal.vue'
 import RotateEventSidebar from './RotateEventSidebar.vue'
 
-export type DefaultRotateEventProperties = {
-    ease?: Ease
-    ignoreTimeScale?: boolean
-}
-
-export let defaultRotateEventProperties: DefaultRotateEventProperties = {}
-
-export const setDefaultRotateEventProperties = (properties: DefaultRotateEventProperties) => {
-    defaultRotateEventProperties = properties
-}
+export const defaultRotateEventProperties = ref<DefaultEventProperties>({
+    copyProperties: true,
+})
 
 const toValue = (x: number) => -clamp(align(xToLane(x), 2), -0.5, 7.5)
 
@@ -41,6 +34,7 @@ export const [rotateEvent, editRotateEventJoint, editSelectedRotateEventJoint] =
     () => i18n.value.tools.events.types.rotateEvent,
     RotateEventSidebar,
     () => showModal(RotateEventPropertiesModal, {}),
+    defaultRotateEventProperties,
 
     (value, x) => (value - toValue(x)) % 8 === 0,
     (beat, x) => {
@@ -52,8 +46,6 @@ export const [rotateEvent, editRotateEventJoint, editSelectedRotateEventJoint] =
         return value - Math.floor((0.5 - prev.value) / 8) * 8
     },
     (value, sx, x) => value - align(xToLane(x), 2) + align(xToLane(sx), 2),
-    () => defaultRotateEventProperties.ease,
-    () => defaultRotateEventProperties.ignoreTimeScale,
 
     'rotateEventJoint',
     toRotateEventJointEntity,

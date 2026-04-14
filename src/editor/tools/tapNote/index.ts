@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Tool } from '..'
 import type { TapNoteObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
@@ -31,13 +32,12 @@ import TapNoteSidebar from './TapNoteSidebar.vue'
 
 export type DefaultTapNoteProperties = {
     color?: number
+    copyProperties: boolean
 }
 
-export let defaultTapNoteProperties: DefaultTapNoteProperties = {}
-
-export const setDefaultTapNoteProperties = (properties: DefaultTapNoteProperties) => {
-    defaultTapNoteProperties = properties
-}
+export const defaultTapNoteProperties = ref<DefaultTapNoteProperties>({
+    copyProperties: true,
+})
 
 let active:
     | {
@@ -267,6 +267,8 @@ export const tapNote: Tool = {
 }
 
 const getTapNoteFromSelection = () => {
+    if (!defaultTapNoteProperties.value.copyProperties) return
+
     if (selectedEntities.value.length !== 1) return
 
     const [entity] = selectedEntities.value
@@ -279,7 +281,7 @@ const getPropertiesFromSelection = () => {
     const tapNote = getTapNoteFromSelection()
 
     return {
-        color: defaultTapNoteProperties.color ?? tapNote?.color ?? 0,
+        color: defaultTapNoteProperties.value.color ?? tapNote?.color ?? 0,
     }
 }
 
