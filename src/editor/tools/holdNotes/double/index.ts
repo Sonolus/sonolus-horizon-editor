@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { createHoldNoteTool } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -15,11 +16,7 @@ export type DefaultDoubleHoldNoteProperties = {
     size?: number
 }
 
-export let defaultDoubleHoldNoteProperties: DefaultDoubleHoldNoteProperties = {}
-
-export const setDefaultDoubleHoldNoteProperties = (properties: DefaultDoubleHoldNoteProperties) => {
-    defaultDoubleHoldNoteProperties = properties
-}
+export const defaultDoubleHoldNoteProperties = ref<DefaultDoubleHoldNoteProperties>({})
 
 export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNoteJoint] =
     createHoldNoteTool(
@@ -29,10 +26,10 @@ export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNot
 
         (beat, lane, joint) => ({
             beat,
-            color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
+            color: defaultDoubleHoldNoteProperties.value.color ?? joint?.color ?? 0,
             laneL: mod(
                 lane -
-                    (defaultDoubleHoldNoteProperties.size ??
+                    (defaultDoubleHoldNoteProperties.value.size ??
                         (joint ? Math.abs(joint.laneL - joint.laneR) : 1)),
                 8,
             ),
@@ -67,7 +64,7 @@ export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNot
         },
         (beat, startLane, lane, joint) => ({
             beat,
-            color: defaultDoubleHoldNoteProperties.color ?? joint?.color ?? 0,
+            color: defaultDoubleHoldNoteProperties.value.color ?? joint?.color ?? 0,
             laneL: startLane,
             laneR: lane,
         }),

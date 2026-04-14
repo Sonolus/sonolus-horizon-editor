@@ -3,13 +3,10 @@ import { i18n } from '../../../../i18n'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
 import OptionalIgnoreTimeScaleField from '../../../../modals/form/OptionalIgnoreTimeScaleField.vue'
 import PropertiesModal from '../../../../modals/form/PropertiesModal.vue'
-import {
-    defaultZoomEventProperties,
-    setDefaultZoomEventProperties,
-} from '../../../tools/events/zoom'
+import { defaultZoomEventProperties } from '../../../tools/events/zoom'
 import { useProperties } from '../../../utils/properties'
 
-const createModel = useProperties(() => defaultZoomEventProperties, setDefaultZoomEventProperties)
+const createModel = useProperties(defaultZoomEventProperties)
 
 const ease = createModel('ease')
 const ignoreTimeScale = createModel('ignoreTimeScale')

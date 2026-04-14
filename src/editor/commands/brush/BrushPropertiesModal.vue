@@ -6,10 +6,10 @@ import OptionalIgnoreTimeScaleField from '../../../modals/form/OptionalIgnoreTim
 import OptionalScaleLField from '../../../modals/form/OptionalScaleLField.vue'
 import OptionalScaleRField from '../../../modals/form/OptionalScaleRField.vue'
 import PropertiesModal from '../../../modals/form/PropertiesModal.vue'
-import { brushProperties, setBrushProperties } from '../../tools/brush'
+import { brushProperties } from '../../tools/brush'
 import { useProperties } from '../../utils/properties'
 
-const createModel = useProperties(() => brushProperties, setBrushProperties)
+const createModel = useProperties(brushProperties)
 
 const color = createModel('color')
 const scaleL = createModel('scaleL')

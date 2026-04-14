@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { createEventTool } from '..'
 import type { Ease } from '../../../../chart'
 import { store } from '../../../../history/store'
@@ -19,11 +20,7 @@ export type DefaultRotateEventProperties = {
     ignoreTimeScale?: boolean
 }
 
-export let defaultRotateEventProperties: DefaultRotateEventProperties = {}
-
-export const setDefaultRotateEventProperties = (properties: DefaultRotateEventProperties) => {
-    defaultRotateEventProperties = properties
-}
+export const defaultRotateEventProperties = ref<DefaultRotateEventProperties>({})
 
 const toValue = (x: number) => -clamp(align(xToLane(x), 2), -0.5, 7.5)
 
@@ -52,8 +49,8 @@ export const [rotateEvent, editRotateEventJoint, editSelectedRotateEventJoint] =
         return value - Math.floor((0.5 - prev.value) / 8) * 8
     },
     (value, sx, x) => value - align(xToLane(x), 2) + align(xToLane(sx), 2),
-    () => defaultRotateEventProperties.ease,
-    () => defaultRotateEventProperties.ignoreTimeScale,
+    () => defaultRotateEventProperties.value.ease,
+    () => defaultRotateEventProperties.value.ignoreTimeScale,
 
     'rotateEventJoint',
     toRotateEventJointEntity,

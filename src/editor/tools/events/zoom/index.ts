@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { createEventTool } from '..'
 import type { Ease } from '../../../../chart'
 import { i18n } from '../../../../i18n'
@@ -17,11 +18,7 @@ export type DefaultZoomEventProperties = {
     ignoreTimeScale?: boolean
 }
 
-export let defaultZoomEventProperties: DefaultZoomEventProperties = {}
-
-export const setDefaultZoomEventProperties = (properties: DefaultZoomEventProperties) => {
-    defaultZoomEventProperties = properties
-}
+export const defaultZoomEventProperties = ref<DefaultZoomEventProperties>({})
 
 const toValue = (x: number) => clamp(align(laneToZoomEventValue(xToLane(x)), 10))
 
@@ -33,8 +30,8 @@ export const [zoomEvent, editZoomEventJoint, editSelectedZoomEventJoint] = creat
     (value, x) => value === toValue(x),
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
-    () => defaultZoomEventProperties.ease,
-    () => defaultZoomEventProperties.ignoreTimeScale,
+    () => defaultZoomEventProperties.value.ease,
+    () => defaultZoomEventProperties.value.ignoreTimeScale,
 
     'zoomEventJoint',
     toZoomEventJointEntity,

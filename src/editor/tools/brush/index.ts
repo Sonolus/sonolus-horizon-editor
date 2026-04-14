@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Tool } from '..'
 import type { Ease } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
@@ -31,11 +32,7 @@ export type BrushProperties = {
     ignoreTimeScale?: boolean
 }
 
-export let brushProperties: BrushProperties = {}
-
-export const setBrushProperties = (properties: BrushProperties) => {
-    brushProperties = properties
-}
+export const brushProperties = ref<BrushProperties>({})
 
 let active:
     | {
@@ -167,7 +164,7 @@ const apply = (entities: Entity[]) => {
 
     const selectedEntities = entities.flatMap(
         (entity) =>
-            applies[entity.type]?.(transaction, entity as never, brushProperties) ?? [entity],
+            applies[entity.type]?.(transaction, entity as never, brushProperties.value) ?? [entity],
     )
 
     pushState(

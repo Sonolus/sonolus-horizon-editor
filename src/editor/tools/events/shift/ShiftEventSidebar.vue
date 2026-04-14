@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { defaultShiftEventProperties, setDefaultShiftEventProperties } from '.'
+import { defaultShiftEventProperties } from '.'
 import { i18n } from '../../../../i18n'
 import OptionalEaseField from '../../../../modals/form/OptionalEaseField.vue'
 import OptionalIgnoreTimeScaleField from '../../../../modals/form/OptionalIgnoreTimeScaleField.vue'
 import BaseSidebar from '../../../sidebars/BaseSidebar.vue'
 import { useProperties } from '../../../utils/properties'
 
-const createModel = useProperties(() => defaultShiftEventProperties, setDefaultShiftEventProperties)
+const createModel = useProperties(defaultShiftEventProperties)
 
 const ease = createModel('ease')
 const ignoreTimeScale = createModel('ignoreTimeScale')

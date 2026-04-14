@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Tool } from '..'
 import type { TapNoteObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
@@ -33,11 +34,7 @@ export type DefaultTapNoteProperties = {
     color?: number
 }
 
-export let defaultTapNoteProperties: DefaultTapNoteProperties = {}
-
-export const setDefaultTapNoteProperties = (properties: DefaultTapNoteProperties) => {
-    defaultTapNoteProperties = properties
-}
+export const defaultTapNoteProperties = ref<DefaultTapNoteProperties>({})
 
 let active:
     | {
@@ -279,7 +276,7 @@ const getPropertiesFromSelection = () => {
     const tapNote = getTapNoteFromSelection()
 
     return {
-        color: defaultTapNoteProperties.color ?? tapNote?.color ?? 0,
+        color: defaultTapNoteProperties.value.color ?? tapNote?.color ?? 0,
     }
 }
 

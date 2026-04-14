@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { createEventTool } from '..'
 import type { Ease } from '../../../../chart'
 import { i18n } from '../../../../i18n'
@@ -17,11 +18,7 @@ export type DefaultShiftEventProperties = {
     ignoreTimeScale?: boolean
 }
 
-export let defaultShiftEventProperties: DefaultShiftEventProperties = {}
-
-export const setDefaultShiftEventProperties = (properties: DefaultShiftEventProperties) => {
-    defaultShiftEventProperties = properties
-}
+export const defaultShiftEventProperties = ref<DefaultShiftEventProperties>({})
 
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
 
@@ -33,8 +30,8 @@ export const [shiftEvent, editShiftEventJoint, editSelectedShiftEventJoint] = cr
     (value, x) => value === toValue(x),
     (beat, x) => toValue(x),
     (beat, sx, x) => toValue(x),
-    () => defaultShiftEventProperties.ease,
-    () => defaultShiftEventProperties.ignoreTimeScale,
+    () => defaultShiftEventProperties.value.ease,
+    () => defaultShiftEventProperties.value.ignoreTimeScale,
 
     'shiftEventJoint',
     toShiftEventJointEntity,

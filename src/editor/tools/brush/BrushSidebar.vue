@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { brushProperties, setBrushProperties } from '.'
+import { brushProperties } from '.'
 import { i18n } from '../../../i18n'
 import OptionalColorField from '../../../modals/form/OptionalColorField.vue'
 import OptionalEaseField from '../../../modals/form/OptionalEaseField.vue'
@@ -9,7 +9,7 @@ import OptionalScaleRField from '../../../modals/form/OptionalScaleRField.vue'
 import BaseSidebar from '../../sidebars/BaseSidebar.vue'
 import { useProperties } from '../../utils/properties'
 
-const createModel = useProperties(() => brushProperties, setBrushProperties)
+const createModel = useProperties(brushProperties)
 
 const color = createModel('color')
 const scaleL = createModel('scaleL')
