@@ -41,7 +41,7 @@ export const open: Command = {
                 const chart = parseChart(levelData.entities)
                 validateChart(chart)
 
-                resetState(chart, levelData.bgmOffset, getFilename(file), handle)
+                resetState(false, chart, levelData.bgmOffset, getFilename(file), handle)
 
                 notify(() => i18n.value.commands.open.opened)
             },
