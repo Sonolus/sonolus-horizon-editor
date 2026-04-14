@@ -1,4 +1,4 @@
-import type { Component } from 'vue'
+import type { Component, Ref } from 'vue'
 import type { Tool } from '..'
 import type { HoldNoteJointObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
@@ -33,6 +33,7 @@ export const createHoldNoteTool = <
     objectName: () => string,
     sidebar: Component,
     showPropertiesModal: () => Promise<void>,
+    defaultProperties: Ref<{ copyProperties: boolean }>,
 
     getObject: (beat: number, lane: number, joint: EntityOfType<U> | undefined) => T,
     shiftObject: (entity: EntityOfType<U>, beat: number, startLane: number, lane: number) => T,
@@ -57,6 +58,8 @@ export const createHoldNoteTool = <
     const isJoint = (entity: Entity): entity is EntityOfType<U> => entity.type === jointType
 
     const getJointFromSelection = () => {
+        if (!defaultProperties.value.copyProperties) return
+
         if (selectedEntities.value.length !== 1) return
 
         const [entity] = selectedEntities.value

@@ -32,9 +32,12 @@ import TapNoteSidebar from './TapNoteSidebar.vue'
 
 export type DefaultTapNoteProperties = {
     color?: number
+    copyProperties: boolean
 }
 
-export const defaultTapNoteProperties = ref<DefaultTapNoteProperties>({})
+export const defaultTapNoteProperties = ref<DefaultTapNoteProperties>({
+    copyProperties: true,
+})
 
 let active:
     | {
@@ -264,6 +267,8 @@ export const tapNote: Tool = {
 }
 
 const getTapNoteFromSelection = () => {
+    if (!defaultTapNoteProperties.value.copyProperties) return
+
     if (selectedEntities.value.length !== 1) return
 
     const [entity] = selectedEntities.value

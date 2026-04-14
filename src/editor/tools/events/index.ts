@@ -1,4 +1,4 @@
-import type { Component } from 'vue'
+import type { Component, Ref } from 'vue'
 import type { Tool } from '..'
 import type { Ease, EventObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
@@ -16,16 +16,21 @@ import { isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
 
+export type DefaultEventProperties = {
+    ease?: Ease
+    ignoreTimeScale?: boolean
+    copyProperties: boolean
+}
+
 export const createEventTool = <T extends EventJointEntityType>(
     objectName: () => string,
     sidebar: Component,
     showPropertiesModal: () => Promise<void>,
+    defaultProperties: Ref<DefaultEventProperties>,
 
     isMatch: (value: number, x: number) => boolean,
     getValue: (beat: number, x: number) => number,
     shiftValue: (value: number, sx: number, x: number) => number,
-    getEase: () => Ease | undefined,
-    getIgnoreTimeScale: () => boolean | undefined,
 
     type: T,
     toEntity: (object: EventObject) => EntityOfType<T>,
@@ -39,6 +44,8 @@ export const createEventTool = <T extends EventJointEntityType>(
     const isJoint = (entity: Entity): entity is EntityOfType<T> => entity.type === type
 
     const getEntityFromSelection = () => {
+        if (!defaultProperties.value.copyProperties) return
+
         if (selectedEntities.value.length !== 1) return
 
         const [entity] = selectedEntities.value
@@ -52,8 +59,9 @@ export const createEventTool = <T extends EventJointEntityType>(
         const entity = getEntityFromSelection()
 
         return {
-            ease: getEase() ?? entity?.ease ?? 'linear',
-            ignoreTimeScale: getIgnoreTimeScale() ?? entity?.ignoreTimeScale ?? false,
+            ease: defaultProperties.value.ease ?? entity?.ease ?? 'linear',
+            ignoreTimeScale:
+                defaultProperties.value.ignoreTimeScale ?? entity?.ignoreTimeScale ?? false,
         }
     }
 

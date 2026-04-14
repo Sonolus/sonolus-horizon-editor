@@ -14,15 +14,19 @@ import DoubleHoldNoteSidebar from './DoubleHoldNoteSidebar.vue'
 export type DefaultDoubleHoldNoteProperties = {
     color?: number
     size?: number
+    copyProperties: boolean
 }
 
-export const defaultDoubleHoldNoteProperties = ref<DefaultDoubleHoldNoteProperties>({})
+export const defaultDoubleHoldNoteProperties = ref<DefaultDoubleHoldNoteProperties>({
+    copyProperties: true,
+})
 
 export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNoteJoint] =
     createHoldNoteTool(
         () => i18n.value.tools.holdNotes.types.doubleHoldNote,
         DoubleHoldNoteSidebar,
         () => showModal(DoubleHoldNotePropertiesModal, {}),
+        defaultDoubleHoldNoteProperties,
 
         (beat, lane, joint) => ({
             beat,

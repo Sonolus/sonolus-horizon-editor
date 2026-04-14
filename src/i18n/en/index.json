@@ -622,6 +622,9 @@
                 "purple": "Purple",
                 "cyan": "Cyan"
             },
+            "copyProperties": {
+                "label": "Copy Properties"
+            },
             "ease": {
                 "label": "Ease",
                 "one": "One",

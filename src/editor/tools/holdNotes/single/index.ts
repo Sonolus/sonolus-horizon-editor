@@ -15,15 +15,19 @@ export type DefaultSingleHoldNoteProperties = {
     color?: number
     scaleL?: number
     scaleR?: number
+    copyProperties: boolean
 }
 
-export const defaultSingleHoldNoteProperties = ref<DefaultSingleHoldNoteProperties>({})
+export const defaultSingleHoldNoteProperties = ref<DefaultSingleHoldNoteProperties>({
+    copyProperties: true,
+})
 
 export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNoteJoint] =
     createHoldNoteTool(
         () => i18n.value.tools.holdNotes.types.singleHoldNote,
         SingleHoldNoteSidebar,
         () => showModal(SingleHoldNotePropertiesModal, {}),
+        defaultSingleHoldNoteProperties,
 
         (beat, lane, joint) => ({
             beat,
