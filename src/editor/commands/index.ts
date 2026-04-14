@@ -17,6 +17,7 @@ import { doubleHoldNote } from './holdNotes/double'
 import { singleHoldNote } from './holdNotes/single'
 import { jumpDown } from './jumpDown'
 import { jumpUp } from './jumpUp'
+import { offset } from './offset'
 import { open } from './open'
 import { paste } from './paste'
 import { play } from './play'
@@ -73,6 +74,7 @@ export const commands = {
     speedUp,
     speedDown,
     bgm,
+    offset,
 
     select,
     deselect,
