@@ -142,9 +142,7 @@ const onFocus = (event: FocusEvent) => {
                 </button>
             </div>
 
-            <div class="flex-grow">
-                <LevelEditor />
-            </div>
+            <LevelEditor class="flex-grow" />
         </div>
 
         <div

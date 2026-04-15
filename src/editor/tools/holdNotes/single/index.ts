@@ -24,6 +24,7 @@ export const defaultSingleHoldNoteProperties = ref<DefaultSingleHoldNoteProperti
 
 export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNoteJoint] =
     createHoldNoteTool(
+        () => i18n.value.tools.holdNotes.titles.singleHoldNote,
         () => i18n.value.tools.holdNotes.types.singleHoldNote,
         SingleHoldNoteSidebar,
         () => showModal(SingleHoldNotePropertiesModal, {}),

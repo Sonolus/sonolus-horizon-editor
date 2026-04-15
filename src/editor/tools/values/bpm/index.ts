@@ -6,6 +6,7 @@ import { addBpm, removeBpm } from '../../../../state/mutations/values/bpm'
 import BpmPropertiesModal from './BpmPropertiesModal.vue'
 
 export const [bpm, editBpm, editSelectedBpm] = createValueTool(
+    () => i18n.value.tools.values.titles.bpm,
     () => i18n.value.tools.values.types.bpm,
     () => showModal(BpmPropertiesModal, {}),
 

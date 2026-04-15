@@ -16,6 +16,7 @@ import { bpm } from './values/bpm'
 import { timeScale } from './values/timeScale'
 
 export type Tool = {
+    title: () => string
     sidebar?: Component
 
     hover?: (x: number, y: number, modifiers: Modifiers) => void | Promise<void>

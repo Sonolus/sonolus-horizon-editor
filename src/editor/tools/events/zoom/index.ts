@@ -19,6 +19,7 @@ export const defaultZoomEventProperties = ref<DefaultEventProperties>({
 const toValue = (x: number) => clamp(align(laneToZoomEventValue(xToLane(x)), 10))
 
 export const [zoomEvent, editZoomEventJoint, editSelectedZoomEventJoint] = createEventTool(
+    () => i18n.value.tools.events.titles.zoomEvent,
     () => i18n.value.tools.events.types.zoomEvent,
     ZoomEventSidebar,
     () => showModal(ZoomEventPropertiesModal, {}),

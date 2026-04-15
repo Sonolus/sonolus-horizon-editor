@@ -430,6 +430,7 @@
     },
     "tools": {
         "brush": {
+            "title": "Brush",
             "deselected": "Deselected all objects",
             "brushing": "Brushing {0} objects",
             "brushed": "Brushed {0} objects",
@@ -438,11 +439,17 @@
             }
         },
         "eraser": {
+            "title": "Eraser",
             "deselected": "Deselected all objects",
             "erasing": "Erasing {0} objects",
             "erased": "Erased {0} objects"
         },
         "events": {
+            "titles": {
+                "rotateEvent": "Rotate Event",
+                "shiftEvent": "Shift Event",
+                "zoomEvent": "Zoom Event"
+            },
             "moving": "Moving {0} {1} objects",
             "adding": "Adding {0} {1} objects",
             "selected": "Selected {0} {1} objects",
@@ -479,6 +486,10 @@
             }
         },
         "holdNotes": {
+            "titles": {
+                "singleHoldNote": "Single Hold Note",
+                "doubleHoldNote": "Double Hold Note"
+            },
             "moving": "Moving {0} {1} objects",
             "adding": "Adding {0} {1} objects",
             "selected": "Selected {0} {1} objects",
@@ -508,15 +519,18 @@
             }
         },
         "offset": {
+            "title": "Offset",
             "changed": "Changed BGM offset"
         },
         "paste": {
+            "title": "Paste",
             "pasted": "Pasted {0} objects",
             "sidebar": {
                 "title": "Clipboard History"
             }
         },
         "select": {
+            "title": "Select",
             "deselected": "Deselected all objects",
             "selecting": "Selecting {0} objects",
             "selected": "Selected {0} objects",
@@ -524,6 +538,7 @@
             "moved": "Moved {0} objects"
         },
         "tapNote": {
+            "title": "Tap Note",
             "moving": "Moving {0} Tap Note objects",
             "adding": "Adding {0} Tap Note objects",
             "selected": "Selected {0} Tap Note objects",
@@ -539,6 +554,10 @@
             }
         },
         "values": {
+            "titles": {
+                "bpm": "BPM",
+                "timeScale": "Time Scale"
+            },
             "moving": "Moving {0} {1} objects",
             "adding": "Adding {0} {1} objects",
             "selected": "Selected {0} {1} objects",

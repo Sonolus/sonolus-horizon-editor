@@ -18,6 +18,7 @@ import LevelEditorSelectedEntities from './LevelEditorSelectedEntities.vue'
 import LevelEditorSelection from './LevelEditorSelection.vue'
 import LevelEditorWaveform from './LevelEditorWaveform.vue'
 import LevelEditorToolbar from './toolbar/LevelEditorToolbar.vue'
+import { tool } from './tools'
 import { view, viewBox } from './view'
 
 useFocusControl()
@@ -39,48 +40,54 @@ watch(time, () => {
 </script>
 
 <template>
-    <div
-        ref="container"
-        class="relative size-full select-none overflow-hidden"
-        tabindex="-1"
-        @pointerdown="container?.focus()"
-    >
-        <template v-if="view.w && view.h">
-            <LevelEditorRangeMarkers />
-            <LevelEditorHoverMarkers />
+    <div class="flex flex-col">
+        <div
+            ref="container"
+            class="relative flex-grow select-none overflow-hidden"
+            tabindex="-1"
+            @pointerdown="container?.focus()"
+        >
+            <template v-if="view.w && view.h">
+                <LevelEditorRangeMarkers />
+                <LevelEditorHoverMarkers />
 
-            <LevelEditorNotification />
+                <LevelEditorNotification />
 
-            <svg
-                class="editor absolute size-full"
-                :viewBox="`${viewBox.l} ${viewBox.t} ${viewBox.w} ${viewBox.h}`"
-                font-size="0.5"
-                stroke="none"
-                stroke-width="2"
-                fill="none"
-                v-on="controlListeners"
-            >
-                <animate
-                    attributeName="stroke-dashoffset"
-                    from="10"
-                    to="0"
-                    dur="1s"
-                    repeatCount="indefinite"
-                />
+                <svg
+                    class="editor absolute size-full"
+                    :viewBox="`${viewBox.l} ${viewBox.t} ${viewBox.w} ${viewBox.h}`"
+                    font-size="0.5"
+                    stroke="none"
+                    stroke-width="2"
+                    fill="none"
+                    v-on="controlListeners"
+                >
+                    <animate
+                        attributeName="stroke-dashoffset"
+                        from="10"
+                        to="0"
+                        dur="1s"
+                        repeatCount="indefinite"
+                    />
 
-                <LevelEditorWaveform />
-                <LevelEditorGrid />
-                <LevelEditorCursor />
-                <LevelEditorEntities />
-                <LevelEditorCreatingEntities />
-                <LevelEditorHoveredEntities />
-                <LevelEditorSelectedEntities />
-                <LevelEditorSelection />
-                <LevelEditorHover />
-            </svg>
-        </template>
+                    <LevelEditorWaveform />
+                    <LevelEditorGrid />
+                    <LevelEditorCursor />
+                    <LevelEditorEntities />
+                    <LevelEditorCreatingEntities />
+                    <LevelEditorHoveredEntities />
+                    <LevelEditorSelectedEntities />
+                    <LevelEditorSelection />
+                    <LevelEditorHover />
+                </svg>
+            </template>
 
-        <LevelEditorToolbar />
+            <LevelEditorToolbar />
+        </div>
+        <div class="z-10 flex gap-4 bg-[#111] px-2 py-1 text-xs text-white/50">
+            <span class="flex-grow">{{ tool.title() }}</span>
+            <span>1/{{ view.division }}</span>
+        </div>
     </div>
 </template>
 
