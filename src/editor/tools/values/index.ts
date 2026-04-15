@@ -16,6 +16,7 @@ import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '
 import { hitEntitiesAtPoint } from '../utils'
 
 export const createValueTool = <T extends ValueEntityType>(
+    title: () => string,
     objectName: () => string,
     showPropertiesModal: () => Promise<void>,
 
@@ -130,6 +131,8 @@ export const createValueTool = <T extends ValueEntityType>(
 
     return [
         {
+            title,
+
             hover(x, y) {
                 const [entity, beat] = tryFind(x, y)
                 if (entity) {

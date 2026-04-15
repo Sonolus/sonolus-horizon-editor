@@ -23,6 +23,7 @@ export type DefaultEventProperties = {
 }
 
 export const createEventTool = <T extends EventJointEntityType>(
+    title: () => string,
     objectName: () => string,
     sidebar: Component,
     showPropertiesModal: () => Promise<void>,
@@ -171,6 +172,7 @@ export const createEventTool = <T extends EventJointEntityType>(
 
     return [
         {
+            title,
             sidebar,
 
             hover(x, y) {

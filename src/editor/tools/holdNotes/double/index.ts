@@ -23,6 +23,7 @@ export const defaultDoubleHoldNoteProperties = ref<DefaultDoubleHoldNoteProperti
 
 export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNoteJoint] =
     createHoldNoteTool(
+        () => i18n.value.tools.holdNotes.titles.doubleHoldNote,
         () => i18n.value.tools.holdNotes.types.doubleHoldNote,
         DoubleHoldNoteSidebar,
         () => showModal(DoubleHoldNotePropertiesModal, {}),

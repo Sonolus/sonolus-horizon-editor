@@ -30,6 +30,7 @@ export const createHoldNoteTool = <
     T extends HoldNoteJointObject,
     U extends HoldNoteJointEntityType,
 >(
+    title: () => string,
     objectName: () => string,
     sidebar: Component,
     showPropertiesModal: () => Promise<void>,
@@ -190,6 +191,7 @@ export const createHoldNoteTool = <
 
     return [
         {
+            title,
             sidebar,
 
             hover(x, y, modifiers) {

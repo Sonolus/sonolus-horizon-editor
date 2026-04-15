@@ -19,6 +19,7 @@ export const defaultShiftEventProperties = ref<DefaultEventProperties>({
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
 
 export const [shiftEvent, editShiftEventJoint, editSelectedShiftEventJoint] = createEventTool(
+    () => i18n.value.tools.events.titles.shiftEvent,
     () => i18n.value.tools.events.types.shiftEvent,
     ShiftEventSidebar,
     () => showModal(ShiftEventPropertiesModal, {}),

@@ -31,6 +31,7 @@ const getPrev = (beat: number) => {
 }
 
 export const [rotateEvent, editRotateEventJoint, editSelectedRotateEventJoint] = createEventTool(
+    () => i18n.value.tools.events.titles.rotateEvent,
     () => i18n.value.tools.events.types.rotateEvent,
     RotateEventSidebar,
     () => showModal(RotateEventPropertiesModal, {}),

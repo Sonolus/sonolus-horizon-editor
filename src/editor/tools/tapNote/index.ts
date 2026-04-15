@@ -51,6 +51,7 @@ let active:
     | undefined
 
 export const tapNote: Tool = {
+    title: () => i18n.value.tools.tapNote.title,
     sidebar: TapNoteSidebar,
 
     hover(x, y) {
