@@ -11,3 +11,6 @@ export const formatBeat = (beat: number) => beat.toFixed(3)
 export const formatBpm = (value: number) => `${value}`
 
 export const formatTimeScale = (value: number) => `${value}x`
+
+export const formatShortcut = (shortcut: string | undefined) =>
+    shortcut === ' ' ? 'Space' : shortcut
