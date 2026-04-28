@@ -4,6 +4,8 @@ import BaseField from './BaseField.vue'
 
 defineProps<{
     label: string
+    disabled?: string
+    enabled?: string
 }>()
 
 const modelValue = defineModel<boolean>({ required: true })
@@ -14,7 +16,11 @@ const modelValue = defineModel<boolean>({ required: true })
         <input
             class="w-full bg-[#222] px-2 py-1 text-left transition-colors hover:bg-[#444] active:bg-[#111]"
             type="button"
-            :value="modelValue ? i18n.modals.form.toggle.enabled : i18n.modals.form.toggle.disabled"
+            :value="
+                modelValue
+                    ? (enabled ?? i18n.modals.form.toggle.enabled)
+                    : (disabled ?? i18n.modals.form.toggle.disabled)
+            "
             @click="modelValue = !modelValue"
         />
     </BaseField>
