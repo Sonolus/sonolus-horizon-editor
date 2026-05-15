@@ -22,6 +22,9 @@ const sfxBuffers = {
     double: optional<AudioBuffer>(),
 }
 
+let bgmVolumeMultiplier = 1
+let sfxVolumeMultiplier = 1
+
 let state:
     | {
           speed: number
@@ -30,7 +33,8 @@ let state:
           contextTime: number
 
           lastTime: number
-          nodes: Set<AudioNode>
+          bgmNodes: Set<GainNode>
+          sfxNodes: Set<GainNode>
       }
     | undefined
 
@@ -72,9 +76,9 @@ watch(time, ({ now }) => {
 
         for (const beat of targets[type]) {
             schedule(
-                state.nodes,
+                state.sfxNodes,
                 sfxBuffers[type],
-                settings.playSfxVolume,
+                settings.playSfxVolume * sfxVolumeMultiplier,
                 (beatToTime(bpms.value, beat) - state.bgmTime) / state.speed +
                     state.contextTime +
                     delay,
@@ -98,16 +102,17 @@ export const startPlayer = (bgmTime: number, speed: number) => {
         contextTime,
 
         lastTime: time,
-        nodes: new Set(),
+        bgmNodes: new Set(),
+        sfxNodes: new Set(),
     }
 
     startContext()
 
     if (bgm.value.buffer)
         schedule(
-            state.nodes,
+            state.bgmNodes,
             bgm.value.buffer,
-            settings.playBgmVolume,
+            settings.playBgmVolume * bgmVolumeMultiplier,
             contextTime + delay,
             bgmTime + bgm.value.offset,
             speed,
@@ -119,7 +124,10 @@ export const startPlayer = (bgmTime: number, speed: number) => {
 export const stopPlayer = () => {
     if (!state) return
 
-    for (const node of state.nodes) {
+    for (const node of state.bgmNodes) {
+        node.disconnect()
+    }
+    for (const node of state.sfxNodes) {
         node.disconnect()
     }
 
@@ -152,6 +160,26 @@ export const previewPlayer = () => {
     const time = context.currentTime
     gain.gain.linearRampToValueAtTime(0, time + duration)
     source.start(time, offset, duration)
+}
+
+export const togglePlayerBgmVolume = () => {
+    bgmVolumeMultiplier = 1 - bgmVolumeMultiplier
+
+    if (!state) return
+
+    for (const node of state.bgmNodes) {
+        node.gain.value = (settings.playBgmVolume * bgmVolumeMultiplier) / 100
+    }
+}
+
+export const togglePlayerSfxVolume = () => {
+    sfxVolumeMultiplier = 1 - sfxVolumeMultiplier
+
+    if (!state) return
+
+    for (const node of state.sfxNodes) {
+        node.gain.value = (settings.playSfxVolume * sfxVolumeMultiplier) / 100
+    }
 }
 
 const startContext = () => {

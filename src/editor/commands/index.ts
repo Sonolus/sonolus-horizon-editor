@@ -35,6 +35,8 @@ import { speedDown } from './speedDown'
 import { speedUp } from './speedUp'
 import { stop } from './stop'
 import { tapNote } from './tapNote'
+import { toggleBgmVolume } from './toggleVolume/bgm'
+import { toggleSfxVolume } from './toggleVolume/sfx'
 import { undo } from './undo'
 import { utilities } from './utilities'
 import { bpm } from './values/bpm'
@@ -73,6 +75,8 @@ export const commands = {
     stop,
     speedUp,
     speedDown,
+    toggleBgmVolume,
+    toggleSfxVolume,
     bgm,
     offset,
 

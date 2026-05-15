@@ -173,6 +173,14 @@
                 "title": "Default Tap Note Properties"
             }
         },
+        "toggleVolume": {
+            "title": "Toggle {0} Volume",
+            "toggled": "Toggled {0} volume",
+            "type": {
+                "bgm": "BGM",
+                "sfx": "SFX"
+            }
+        },
         "undo": {
             "title": "Undo",
             "noState": "Nothing to undo",
