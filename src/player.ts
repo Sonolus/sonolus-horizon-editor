@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import doubleUrl from './assets/double.mp3?url'
 import perfectUrl from './assets/perfect.mp3?url'
 import singleUrl from './assets/single.mp3?url'
@@ -22,37 +22,36 @@ const sfxBuffers = {
     double: optional<AudioBuffer>(),
 }
 
-let state:
-    | {
-          speed: number
-          time: number
-          bgmTime: number
-          contextTime: number
+const state = ref<{
+    speed: number
+    time: number
+    bgmTime: number
+    contextTime: number
 
-          lastTime: number
-          bgmNodes: Set<GainNode>
-          sfxNodes: Set<GainNode>
-      }
-    | undefined
+    lastTime: number
+    bgmNodes: Set<GainNode>
+    sfxNodes: Set<GainNode>
+}>()
+export const isPlaying = computed(() => !!state.value)
 
 export const isBgmEnabled = ref(true)
 watch(isBgmEnabled, () => {
-    if (!state) return
+    if (!state.value) return
 
     const value = isBgmEnabled.value ? settings.playBgmVolume / 100 : 0
 
-    for (const node of state.bgmNodes) {
+    for (const node of state.value.bgmNodes) {
         node.gain.value = value
     }
 })
 
 export const isSfxEnabled = ref(true)
 watch(isSfxEnabled, () => {
-    if (!state) return
+    if (!state.value) return
 
     const value = isSfxEnabled.value ? settings.playSfxVolume / 100 : 0
 
-    for (const node of state.sfxNodes) {
+    for (const node of state.value.sfxNodes) {
         node.gain.value = value
     }
 })
@@ -60,7 +59,7 @@ watch(isSfxEnabled, () => {
 let preview: AudioNode | undefined
 
 watch(time, ({ now }) => {
-    if (!state) return
+    if (!state.value) return
 
     const targets = {
         perfect: new Set<number>(),
@@ -69,8 +68,14 @@ watch(time, ({ now }) => {
     }
 
     const beats = {
-        min: timeToBeat(bpms.value, (state.lastTime - state.time) * state.speed + state.bgmTime),
-        max: timeToBeat(bpms.value, (now - state.time) * state.speed + state.bgmTime),
+        min: timeToBeat(
+            bpms.value,
+            (state.value.lastTime - state.value.time) * state.value.speed + state.value.bgmTime,
+        ),
+        max: timeToBeat(
+            bpms.value,
+            (now - state.value.time) * state.value.speed + state.value.bgmTime,
+        ),
     }
 
     for (const entity of cullAllEntities(beatToKey(beats.min), beatToKey(beats.max))) {
@@ -95,17 +100,17 @@ watch(time, ({ now }) => {
 
         for (const beat of targets[type]) {
             schedule(
-                state.sfxNodes,
+                state.value.sfxNodes,
                 sfxBuffers[type],
                 isSfxEnabled.value ? settings.playSfxVolume : 0,
-                (beatToTime(bpms.value, beat) - state.bgmTime) / state.speed +
-                    state.contextTime +
+                (beatToTime(bpms.value, beat) - state.value.bgmTime) / state.value.speed +
+                    state.value.contextTime +
                     delay,
             )
         }
     }
 
-    state.lastTime = now
+    state.value.lastTime = now
 })
 
 export const loadBgm = (data: ArrayBuffer) => context.decodeAudioData(data)
@@ -114,7 +119,7 @@ export const startPlayer = (bgmTime: number, speed: number) => {
     const time = performance.now() / 1000
     const contextTime = context.currentTime
 
-    state = {
+    state.value = {
         speed,
         time,
         bgmTime,
@@ -129,7 +134,7 @@ export const startPlayer = (bgmTime: number, speed: number) => {
 
     if (bgm.value.buffer)
         schedule(
-            state.bgmNodes,
+            state.value.bgmNodes,
             bgm.value.buffer,
             isBgmEnabled.value ? settings.playBgmVolume : 0,
             contextTime + delay,
@@ -141,16 +146,16 @@ export const startPlayer = (bgmTime: number, speed: number) => {
 }
 
 export const stopPlayer = () => {
-    if (!state) return
+    if (!state.value) return
 
-    for (const node of state.bgmNodes) {
+    for (const node of state.value.bgmNodes) {
         node.disconnect()
     }
-    for (const node of state.sfxNodes) {
+    for (const node of state.value.sfxNodes) {
         node.disconnect()
     }
 
-    state = undefined
+    state.value = undefined
 }
 
 export const previewPlayer = () => {
