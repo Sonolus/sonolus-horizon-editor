@@ -24,15 +24,20 @@ export const createVisibility = (key: keyof typeof visibilityTypes, props: objec
     ),
     icon: {
         is: VisibilityIcon,
-        props,
+        props: {
+            ...props,
+            get state() {
+                return getIsVisible(key)
+            },
+        },
     },
 
     execute() {
         const visibilities = { ...view.visibilities }
 
-        const isVisible = visibilityTypes[key].some((type) => !visibilities[type])
+        const visibility = !getIsVisible(key)
         for (const type of visibilityTypes[key]) {
-            visibilities[type] = isVisible
+            visibilities[type] = visibility
         }
 
         view.visibilities = visibilities
@@ -45,3 +50,6 @@ export const createVisibility = (key: keyof typeof visibilityTypes, props: objec
         )
     },
 })
+
+const getIsVisible = (key: keyof typeof visibilityTypes) =>
+    visibilityTypes[key].some((type) => view.visibilities[type])
