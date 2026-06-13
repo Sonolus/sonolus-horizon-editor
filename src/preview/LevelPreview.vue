@@ -60,5 +60,11 @@ const transform = computed(() => `scale(1, -1) ${getTransform(zoom.value)}`)
             stroke="#fff"
             stroke-opacity="0.55"
         />
+
+        <g fill="#fff" fill-opacity="0.13">
+            <rect :x="-minAspectRatio + 0.05" y="-0.95" width="0.75" height="0.15" />
+            <rect :x="minAspectRatio - 0.8" y="-0.95" width="0.55" height="0.15" />
+            <rect :x="minAspectRatio - 0.2" y="-0.95" width="0.15" height="0.15" />
+        </g>
     </svg>
 </template>
