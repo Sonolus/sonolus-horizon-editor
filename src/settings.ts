@@ -1,4 +1,4 @@
-import { Type, type StaticDecode, type TSchema, type TString } from '@sinclair/typebox'
+import { Type, type Static, type StaticDecode, type TSchema, type TString } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import { shallowRef, watch } from 'vue'
 import { isCommandName, type CommandName } from './editor/commands'
@@ -11,6 +11,68 @@ const number = (def: number, min: number, max: number) =>
     Type.Transform(Type.Number({ default: def }))
         .Decode((value) => clamp(value, min, max))
         .Encode((value) => value)
+
+const defaultTapNotePropertiesSchema = Type.Intersect([
+    Type.Partial(
+        Type.Object({
+            color: Type.Number({ minimum: 0, maximum: 6, multipleOf: 1 }),
+        }),
+    ),
+    Type.Object({
+        copyProperties: Type.Boolean({ default: true }),
+    }),
+])
+
+export type DefaultTapNoteProperties = Static<typeof defaultTapNotePropertiesSchema>
+
+const defaultSingleHoldNotePropertiesSchema = Type.Intersect([
+    Type.Partial(
+        Type.Object({
+            color: Type.Number({ minimum: 0, maximum: 6, multipleOf: 1 }),
+            scaleL: Type.Number({ minimum: 0, maximum: 1 }),
+            scaleR: Type.Number({ minimum: 0, maximum: 1 }),
+        }),
+    ),
+    Type.Object({
+        copyProperties: Type.Boolean({ default: true }),
+    }),
+])
+
+export type DefaultSingleHoldNoteProperties = Static<typeof defaultSingleHoldNotePropertiesSchema>
+
+const defaultDoubleHoldNotePropertiesSchema = Type.Intersect([
+    Type.Partial(
+        Type.Object({
+            color: Type.Number({ minimum: 0, maximum: 6, multipleOf: 1 }),
+            size: Type.Number({ minimum: 0, maximum: 7, multipleOf: 1 }),
+        }),
+    ),
+    Type.Object({
+        copyProperties: Type.Boolean({ default: true }),
+    }),
+])
+
+export type DefaultDoubleHoldNoteProperties = Static<typeof defaultDoubleHoldNotePropertiesSchema>
+
+const defaultEventPropertiesSchema = Type.Intersect([
+    Type.Partial(
+        Type.Object({
+            ease: Type.Union([
+                Type.Literal('one'),
+                Type.Literal('out'),
+                Type.Literal('linear'),
+                Type.Literal('in'),
+                Type.Literal('zero'),
+            ]),
+            ignoreTimeScale: Type.Boolean(),
+        }),
+    ),
+    Type.Object({
+        copyProperties: Type.Boolean({ default: true }),
+    }),
+])
+
+export type DefaultEventProperties = Static<typeof defaultEventPropertiesSchema>
 
 const settingsProperties = {
     showSidebar: Type.Boolean({ default: true }),
@@ -189,6 +251,18 @@ const settingsProperties = {
                 ) as Partial<Record<CommandName, string>>,
         )
         .Encode((values) => values),
+
+    defaultTapNoteProperties: defaultTapNotePropertiesSchema,
+
+    defaultSingleHoldNoteProperties: defaultSingleHoldNotePropertiesSchema,
+
+    defaultDoubleHoldNoteProperties: defaultDoubleHoldNotePropertiesSchema,
+
+    defaultRotateEventProperties: defaultEventPropertiesSchema,
+
+    defaultShiftEventProperties: defaultEventPropertiesSchema,
+
+    defaultZoomEventProperties: defaultEventPropertiesSchema,
 }
 
 const normalize = <T extends TSchema>(schema: T, value: unknown) =>

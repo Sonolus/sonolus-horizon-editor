@@ -1,5 +1,4 @@
-import { ref } from 'vue'
-import { createEventTool, type DefaultEventProperties } from '..'
+import { createEventTool } from '..'
 import { store } from '../../../../history/store'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -11,12 +10,11 @@ import {
 import { getInStoreGrid } from '../../../../state/store/grid'
 import { align, clamp } from '../../../../utils/math'
 import { xToLane } from '../../../view'
+import { getSettingsRef } from '../../utils.ts'
 import RotateEventPropertiesModal from './RotateEventPropertiesModal.vue'
 import RotateEventSidebar from './RotateEventSidebar.vue'
 
-export const defaultRotateEventProperties = ref<DefaultEventProperties>({
-    copyProperties: true,
-})
+export const defaultRotateEventProperties = getSettingsRef('defaultRotateEventProperties')
 
 const toValue = (x: number) => -clamp(align(xToLane(x), 2), -0.5, 7.5)
 

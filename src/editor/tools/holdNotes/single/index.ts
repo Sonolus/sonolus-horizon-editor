@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { createHoldNoteTool } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -8,19 +7,11 @@ import {
     removeSingleHoldNoteJoint,
 } from '../../../../state/mutations/holdNotes/single'
 import { align, mod } from '../../../../utils/math'
+import { getSettingsRef } from '../../utils.ts'
 import SingleHoldNotePropertiesModal from './SingleHoldNotePropertiesModal.vue'
 import SingleHoldNoteSidebar from './SingleHoldNoteSidebar.vue'
 
-export type DefaultSingleHoldNoteProperties = {
-    color?: number
-    scaleL?: number
-    scaleR?: number
-    copyProperties: boolean
-}
-
-export const defaultSingleHoldNoteProperties = ref<DefaultSingleHoldNoteProperties>({
-    copyProperties: true,
-})
+export const defaultSingleHoldNoteProperties = getSettingsRef('defaultSingleHoldNoteProperties')
 
 export const [singleHoldNote, editSingleHoldNoteJoint, editSelectedSingleHoldNoteJoint] =
     createHoldNoteTool(

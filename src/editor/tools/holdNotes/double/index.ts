@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { createHoldNoteTool } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
@@ -8,18 +7,11 @@ import {
     removeDoubleHoldNoteJoint,
 } from '../../../../state/mutations/holdNotes/double'
 import { align, mod } from '../../../../utils/math'
+import { getSettingsRef } from '../../utils.ts'
 import DoubleHoldNotePropertiesModal from './DoubleHoldNotePropertiesModal.vue'
 import DoubleHoldNoteSidebar from './DoubleHoldNoteSidebar.vue'
 
-export type DefaultDoubleHoldNoteProperties = {
-    color?: number
-    size?: number
-    copyProperties: boolean
-}
-
-export const defaultDoubleHoldNoteProperties = ref<DefaultDoubleHoldNoteProperties>({
-    copyProperties: true,
-})
+export const defaultDoubleHoldNoteProperties = getSettingsRef('defaultDoubleHoldNoteProperties')
 
 export const [doubleHoldNote, editDoubleHoldNoteJoint, editSelectedDoubleHoldNoteJoint] =
     createHoldNoteTool(
