@@ -1,5 +1,4 @@
-import { ref } from 'vue'
-import { createEventTool, type DefaultEventProperties } from '..'
+import { createEventTool } from '..'
 import { i18n } from '../../../../i18n'
 import { showModal } from '../../../../modals'
 import {
@@ -9,12 +8,11 @@ import {
 import { addShiftEventJoint, removeShiftEventJoint } from '../../../../state/mutations/events/shift'
 import { align, clamp } from '../../../../utils/math'
 import { xToLane } from '../../../view'
+import { getSettingsRef } from '../../utils.ts'
 import ShiftEventPropertiesModal from './ShiftEventPropertiesModal.vue'
 import ShiftEventSidebar from './ShiftEventSidebar.vue'
 
-export const defaultShiftEventProperties = ref<DefaultEventProperties>({
-    copyProperties: true,
-})
+export const defaultShiftEventProperties = getSettingsRef('defaultShiftEventProperties')
 
 const toValue = (x: number) => clamp(align(laneToShiftEventValue(xToLane(x)), 10))
 

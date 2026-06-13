@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import type { Tool } from '..'
 import type { TapNoteObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
@@ -26,18 +25,11 @@ import {
     xToValidLane,
     yToValidBeat,
 } from '../../view'
-import { hitEntitiesAtPoint } from '../utils'
+import { getSettingsRef, hitEntitiesAtPoint } from '../utils'
 import TapNotePropertiesModal from './TapNotePropertiesModal.vue'
 import TapNoteSidebar from './TapNoteSidebar.vue'
 
-export type DefaultTapNoteProperties = {
-    color?: number
-    copyProperties: boolean
-}
-
-export const defaultTapNoteProperties = ref<DefaultTapNoteProperties>({
-    copyProperties: true,
-})
+export const defaultTapNoteProperties = getSettingsRef('defaultTapNoteProperties')
 
 let active:
     | {

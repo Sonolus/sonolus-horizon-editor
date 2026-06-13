@@ -1,8 +1,16 @@
+import { computed } from 'vue'
 import { cullEntities, hitAllEntities, hitEntities, store } from '../../history/store'
+import { settings } from '../../settings'
 import type { Entity, EntityType } from '../../state/entities'
 import { beatToKey } from '../../state/store/grid'
 import type { Modifiers } from '../controls/gestures/pointer'
 import { view, xToLane, yToTime, type Selection } from '../view'
+
+export const getSettingsRef = <K extends keyof typeof settings>(key: K) =>
+    computed({
+        get: () => settings[key],
+        set: (value) => (settings[key] = value),
+    })
 
 export const hitEntitiesAtPoint = <T extends EntityType>(type: T, x: number, y: number) =>
     hitEntities(type, xToLane(x + 10), xToLane(x - 10), yToTime(y + 10), yToTime(y - 10)).filter(

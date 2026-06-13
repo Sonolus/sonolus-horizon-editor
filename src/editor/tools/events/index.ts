@@ -1,10 +1,11 @@
 import type { Component, Ref } from 'vue'
 import type { Tool } from '..'
-import type { Ease, EventObject } from '../../../chart'
+import type { EventObject } from '../../../chart'
 import { pushState, replaceState, state } from '../../../history'
 import { selectedEntities } from '../../../history/selectedEntities'
 import { store } from '../../../history/store'
 import { i18n } from '../../../i18n'
+import type { DefaultEventProperties } from '../../../settings'
 import type { Entity, EntityOfType } from '../../../state/entities'
 import type { EventJointEntityType } from '../../../state/entities/events/joints'
 import type { AddMutation, RemoveMutation } from '../../../state/mutations'
@@ -15,12 +16,6 @@ import { notify } from '../../notification'
 import { isSidebarVisible } from '../../sidebars'
 import { focusViewAtBeat, setViewHover, snapYToBeat, view, yToValidBeat } from '../../view'
 import { hitEntitiesAtPoint } from '../utils'
-
-export type DefaultEventProperties = {
-    ease?: Ease
-    ignoreTimeScale?: boolean
-    copyProperties: boolean
-}
 
 export const createEventTool = <T extends EventJointEntityType>(
     title: () => string,
