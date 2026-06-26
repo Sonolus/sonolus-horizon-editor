@@ -1,4 +1,4 @@
-import { Type } from '@sinclair/typebox'
+import Type from 'typebox'
 import { parseChartEventObjects } from '.'
 import type { ParseChart } from '..'
 

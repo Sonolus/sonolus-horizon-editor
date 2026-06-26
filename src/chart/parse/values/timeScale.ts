@@ -1,5 +1,5 @@
-import { Type } from '@sinclair/typebox'
 import { EngineArchetypeDataName, EngineArchetypeName } from '@sonolus/core'
+import Type from 'typebox'
 import { parseChartValueObjects } from '.'
 import { type ParseChart } from '..'
 

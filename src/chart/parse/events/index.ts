@@ -1,5 +1,5 @@
-import { Type, type TNumber } from '@sinclair/typebox'
 import { EngineArchetypeDataName, type LevelDataEntity } from '@sonolus/core'
+import Type from 'typebox'
 import { getOptionalValue, getValue } from '..'
 import type { EventObject } from '../..'
 import { beatSchema } from '../schemas'
@@ -26,7 +26,7 @@ export const parseChartEventObjects = (
     objects: EventObject[],
     entities: LevelDataEntity[],
     archetype: string,
-    schema: TNumber,
+    schema: Type.TNumber,
 ) => {
     for (const entity of entities) {
         if (entity.archetype !== archetype) continue
