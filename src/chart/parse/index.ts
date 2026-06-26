@@ -1,6 +1,6 @@
-import { type Static, type TSchema } from '@sinclair/typebox'
-import { Value } from '@sinclair/typebox/value'
 import { type LevelDataEntity } from '@sonolus/core'
+import Type from 'typebox'
+import Value from 'typebox/value'
 import type { Chart } from '..'
 import { parseChartRotateEvents } from './events/rotate'
 import { parseChartShiftEvents } from './events/shift'
@@ -40,11 +40,11 @@ export const parseChart = (entities: LevelDataEntity[]): Chart => {
     return chart
 }
 
-export const getValue = <T extends TSchema>(
+export const getValue = <T extends Type.TSchema>(
     entity: LevelDataEntity,
     name: string,
     schema: T,
-): Static<T> => {
+) => {
     const data = entity.data.find((data) => data.name === name)
     if (!data) throw new Error(`Invalid level: ${name} not found`)
     if (!('value' in data)) throw new Error(`Invalid level: ${name} has no value`)
@@ -53,11 +53,11 @@ export const getValue = <T extends TSchema>(
     return data.value
 }
 
-export const getOptionalValue = <T extends TSchema>(
+export const getOptionalValue = <T extends Type.TSchema>(
     entity: LevelDataEntity,
     name: string,
     schema: T,
-): Static<T> | undefined => {
+) => {
     const data = entity.data.find((data) => data.name === name)
     if (!data) return
     if (!('value' in data)) return
