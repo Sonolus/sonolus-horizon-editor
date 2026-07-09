@@ -13,12 +13,10 @@ export const calculateTimeScales = (bpms: BpmIntegral[], timeScales: TimeScaleIn
     integrate(
         timeScales
             .sort((a, b) => a.beat - b.beat)
-            .map(
-                (timeScale): TimeScaleIntegral => ({
-                    ...timeScale,
-                    x: beatToTime(bpms, timeScale.beat),
-                }),
-            ),
+            .map((timeScale): TimeScaleIntegral => ({
+                ...timeScale,
+                x: beatToTime(bpms, timeScale.beat),
+            })),
     )
 
 export const toTimeScaleIntegral = (object: ValueObject): TimeScaleIntegral => ({
