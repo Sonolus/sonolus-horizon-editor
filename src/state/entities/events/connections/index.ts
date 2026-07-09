@@ -6,9 +6,7 @@ import type { ShiftEventConnectionEntity } from './shift'
 import type { ZoomEventConnectionEntity } from './zoom'
 
 export type EventConnectionEntity =
-    | RotateEventConnectionEntity
-    | ShiftEventConnectionEntity
-    | ZoomEventConnectionEntity
+    RotateEventConnectionEntity | ShiftEventConnectionEntity | ZoomEventConnectionEntity
 
 export type EventConnectionEntityType = EventConnectionEntity['type']
 

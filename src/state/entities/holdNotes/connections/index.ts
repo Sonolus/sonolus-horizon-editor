@@ -5,8 +5,7 @@ import type { DoubleHoldNoteConnectionEntity } from './double'
 import type { SingleHoldNoteConnectionEntity } from './single'
 
 export type HoldNoteConnectionEntity =
-    | SingleHoldNoteConnectionEntity
-    | DoubleHoldNoteConnectionEntity
+    SingleHoldNoteConnectionEntity | DoubleHoldNoteConnectionEntity
 
 export type HoldNoteConnectionEntityType = HoldNoteConnectionEntity['type']
 
