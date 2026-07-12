@@ -1,5 +1,5 @@
 import type { Command } from '..'
-import type { ClipboardData } from '../../../clipboardData/schema'
+import { setClipboardData } from '../../../clipboard/index.ts'
 import { selectedEntities } from '../../../history/selectedEntities'
 import { i18n } from '../../../i18n'
 import { serializeLevelDataEntities } from '../../../levelDataEntities/serialize'
@@ -21,7 +21,7 @@ export const copy: Command = {
         is: CopyIcon,
     },
 
-    async execute() {
+    execute() {
         const entities = selectedEntities.value
 
         if (!entities.length) {
@@ -29,7 +29,7 @@ export const copy: Command = {
             return
         }
 
-        const data: ClipboardData = {
+        setClipboardData({
             ...getAnchor(entities, view.pointer.x, view.pointer.y),
             entities: serializeLevelDataEntities(
                 getEntities(entities, 'bpm'),
@@ -55,10 +55,7 @@ export const copy: Command = {
                     toDoubleHoldNoteConnectionEntity,
                 ),
             ),
-        }
-        const text = JSON.stringify(data)
-
-        await navigator.clipboard.writeText(text)
+        })
 
         notify(interpolate(() => i18n.value.commands.copy.copied, `${entities.length}`))
     },
