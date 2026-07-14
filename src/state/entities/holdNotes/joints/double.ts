@@ -18,7 +18,7 @@ export const toDoubleHoldNoteJointEntity = (
         lane: (object.laneL + object.laneR) / 2,
         beat: object.beat,
         w: (Math.abs(object.laneL - object.laneR) + 1) / 2,
-        t: 0.25,
+        t: 0.3,
         b: 0,
     },
 

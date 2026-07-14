@@ -19,7 +19,7 @@ export const toSingleHoldNoteJointEntity = (
         lane: object.lane,
         beat: object.beat,
         w: 0.5,
-        t: 0.25,
+        t: 0.3,
         b: 0,
     },
 

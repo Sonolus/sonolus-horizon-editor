@@ -13,8 +13,8 @@ export const toTapNoteEntity = (object: TapNoteObject): TapNoteEntity => ({
         lane: object.lane,
         beat: object.beat,
         w: 0.5,
-        t: 0.25,
-        b: 0.25,
+        t: 0.15,
+        b: 0.15,
     },
 
     beat: object.beat,
