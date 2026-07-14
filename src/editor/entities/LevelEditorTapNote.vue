@@ -14,9 +14,9 @@ const time = computed(() => beatToTime(bpms.value, props.beat))
 <template>
     <rect
         :x="3 - lane"
-        :y="time * ups - 0.25"
+        :y="time * ups - 0.15"
         width="1"
-        height="0.5"
+        height="0.3"
         class="scale-stroke"
         stroke-width="0.05"
         stroke="#fff"

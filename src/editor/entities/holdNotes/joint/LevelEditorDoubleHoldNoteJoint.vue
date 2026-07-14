@@ -15,7 +15,7 @@ const points = computed(() => {
     const x2 = 4 - Math.min(props.laneL, props.laneR)
 
     const y2 = time.value * ups.value
-    const y1 = y2 - 0.25
+    const y1 = y2 - 0.3
 
     return `${x1} ${y2} ${x1 + 0.5} ${y1} ${x2 - 0.5} ${y1} ${x2} ${y2}`
 })
