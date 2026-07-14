@@ -5,6 +5,7 @@ import { showModal } from '../modals'
 import ConfirmModal from '../modals/ConfirmModal.vue'
 import { createState, type State } from '../state'
 import { cleanupWaveform } from '../waveform'
+import { resetAutoSave } from './autoSave/index.ts'
 
 const defaultChart: Chart = {
     bpms: [
@@ -108,6 +109,7 @@ export const resetState = (
     })
     setLevelDataHandle(handle)
 
+    resetAutoSave()
     cleanupWaveform()
 }
 
