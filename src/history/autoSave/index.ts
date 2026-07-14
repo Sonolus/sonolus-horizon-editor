@@ -5,6 +5,7 @@ import { validateChart } from '../../chart/validate'
 import { i18n } from '../../i18n'
 import { serializeLevelData } from '../../levelData/serialize'
 import { showModal } from '../../modals'
+import InfoModal from '../../modals/InfoModal.vue'
 import LoadingModal from '../../modals/LoadingModal.vue'
 import { settings } from '../../settings'
 import { storageGet, storageRemove, storageSet } from '../../storage'
@@ -12,6 +13,8 @@ import { timeout } from '../../utils/promise'
 import { filename } from '../filename'
 import { parseAutoSave } from './parse'
 import { serializeAutoSave } from './serialize'
+
+let enabled = true
 
 export const useAutoSave = () => {
     let id: number | undefined
@@ -29,13 +32,20 @@ export const useAutoSave = () => {
             if (!isDirty.value) return
 
             id = setTimeout(() => {
-                storageSet(
-                    'autoSave.levelData',
-                    serializeAutoSave(
-                        serializeLevelData(state.bgm.offset, state.store),
-                        filename.value,
-                    ),
-                )
+                if (!enabled) return
+
+                const levelData = serializeLevelData(state.bgm.offset, state.store)
+                if (levelData.entities.length > 10000) {
+                    enabled = false
+
+                    void showModal(InfoModal, {
+                        title: () => i18n.value.history.autoSave.title,
+                        message: () => i18n.value.history.autoSave.disabled,
+                    })
+                    return
+                }
+
+                storageSet('autoSave.levelData', serializeAutoSave(levelData, filename.value))
             }, settings.autoSaveDelay * 1000)
         },
     )
@@ -57,4 +67,8 @@ export const useAutoSave = () => {
             },
         })
     }
+}
+
+export const resetAutoSave = () => {
+    enabled = true
 }
