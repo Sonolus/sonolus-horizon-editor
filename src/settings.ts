@@ -130,7 +130,7 @@ const settingsProperties = {
                     ],
                     ['flip', 'paste', 'cut', 'copy', 'redo', 'undo'],
                     ['brush', 'eraser', 'deselect', 'select'],
-                    ['doubleHoldNote', 'singleHoldNote', 'tapNote'],
+                    ['generateHoldNotes', 'doubleHoldNote', 'singleHoldNote', 'tapNote'],
                     ['zoomEvent', 'shiftEvent', 'rotateEvent'],
                     ['timeScale', 'bpm'],
                     [
@@ -217,6 +217,7 @@ const settingsProperties = {
                 tapNote: 'a',
                 singleHoldNote: 's',
                 doubleHoldNote: 'd',
+                generateHoldNotes: 'j',
                 rotateEvent: 'e',
                 shiftEvent: 'r',
                 zoomEvent: 't',
