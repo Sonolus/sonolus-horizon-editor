@@ -90,6 +90,12 @@ import HelpSection from './HelpSection.vue'
             <li>{{ i18n.help.modal.doubleHoldNoteTool.properties }}</li>
         </HelpSection>
 
+        <HelpSection :title="i18n.help.modal.generateHoldNotesTool.title">
+            <li>{{ i18n.help.modal.generateHoldNotesTool.generate }}</li>
+            <li>{{ i18n.help.modal.generateHoldNotesTool.generateMultiple }}</li>
+            <li>{{ i18n.help.modal.generateHoldNotesTool.deselect }}</li>
+        </HelpSection>
+
         <HelpSection :title="i18n.help.modal.rotateEventTool.title">
             <li>{{ i18n.help.modal.rotateEventTool.select }}</li>
             <li>{{ i18n.help.modal.rotateEventTool.edit }}</li>

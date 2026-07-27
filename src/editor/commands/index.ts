@@ -12,6 +12,7 @@ import { shiftEvent } from './events/shift'
 import { zoomEvent } from './events/zoom'
 import { flip } from './flip'
 import { fullscreen } from './fullscreen'
+import { generateHoldNotes } from './generateHoldNotes'
 import { help } from './help'
 import { doubleHoldNote } from './holdNotes/double'
 import { singleHoldNote } from './holdNotes/single'
@@ -94,6 +95,7 @@ export const commands = {
     tapNote,
     singleHoldNote,
     doubleHoldNote,
+    generateHoldNotes,
 
     rotateEvent,
     shiftEvent,

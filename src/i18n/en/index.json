@@ -79,6 +79,10 @@
             "toggled": "Toggled fullscreen",
             "unsupported": "Fullscreen is not supported on your device"
         },
+        "generateHoldNotes": {
+            "title": "Switch to Generate Hold Notes tool",
+            "switched": "Switched to Generate Hold Notes tool"
+        },
         "help": {
             "title": "Help"
         },
@@ -321,6 +325,12 @@
                 "shift": "Use Shift key to operate on all related hold note objects.",
                 "properties": "Switch to Double Hold Note Tool again to change default properties."
             },
+            "generateHoldNotesTool": {
+                "title": "Generate Hold Notes Tool",
+                "generate": "Tap or drag to select 1 Single Hold Note or Double Hold Note object to generate hold notes for the entire hold.",
+                "generateMultiple": "Tap or drag select 2 Single Hold Note or Double Hold Note objects to generate hold notes between them.",
+                "deselect": "Tap empty space to deselect all objects."
+            },
             "rotateEventTool": {
                 "title": "Rotate Event Tool",
                 "select": "Tap Rotate Event objects to select.",
@@ -502,6 +512,12 @@
                     "title": "Default Zoom Event Properties"
                 }
             }
+        },
+        "generateHoldNotes": {
+            "title": "Generate Hold Notes",
+            "deselected": "Deselected all objects",
+            "selecting": "Selecting {0} objects",
+            "generated": "Generated {0} objects"
         },
         "holdNotes": {
             "titles": {

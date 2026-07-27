@@ -6,6 +6,7 @@ import { eraser } from './eraser'
 import { rotateEvent } from './events/rotate'
 import { shiftEvent } from './events/shift'
 import { zoomEvent } from './events/zoom'
+import { generateHoldNotes } from './generateHoldNotes'
 import { doubleHoldNote } from './holdNotes/double'
 import { singleHoldNote } from './holdNotes/single'
 import { offset } from './offset'
@@ -37,6 +38,7 @@ export const tools = {
     tapNote,
     singleHoldNote,
     doubleHoldNote,
+    generateHoldNotes,
 
     rotateEvent,
     shiftEvent,
